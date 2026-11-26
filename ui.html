@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TIBA Language Academy — Transportation System</title>
+<title>TIBA Language Academy — Transportation Management</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap');
 
   :root {
     --bg-body: #eef2f6;
-    --bg-surface: rgba(255, 255, 255, 0.94);
-    --bg-subtle: rgba(248, 250, 252, 0.92);
+    --bg-surface: rgba(255, 255, 255, 0.95);
+    --bg-subtle: rgba(248, 250, 252, 0.94);
     --text-main: #0f172a;
     --text-muted: #475569;
     --border-color: #cbd5e1;
     --primary: #0b2240;
     --primary-hover: #163a6b;
     --accent: #c8102e;
-    --header-bg: linear-gradient(135deg, #07172c 0%, #0b2240 65%, #163a6b 100%);
+    --header-bg: linear-gradient(135deg, #061326 0%, #0b2240 60%, #153663 100%);
     --stu-color: #1d4ed8;
     --stu-bg: #eff6ff;
     --sup-color: #c8102e;
@@ -33,21 +33,21 @@
     --seat-tch-bg: #d1fae5;
     --seat-tch-border: #059669;
     --seat-tch-text: #065f46;
-    --watermark-opacity: 0.07;
-    --shadow: 0 3px 10px rgba(11, 34, 64, 0.08);
+    --wm-opacity: 0.08;
+    --shadow: 0 3px 12px rgba(11, 34, 64, 0.09);
   }
 
   body.dark-mode {
-    --bg-body: #09111e;
-    --bg-surface: rgba(22, 33, 54, 0.94);
-    --bg-subtle: rgba(15, 23, 42, 0.92);
+    --bg-body: #080f1c;
+    --bg-surface: rgba(20, 30, 48, 0.95);
+    --bg-subtle: rgba(13, 21, 36, 0.94);
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --border-color: #334155;
     --primary: #2563eb;
     --primary-hover: #3b82f6;
     --accent: #e11d48;
-    --header-bg: linear-gradient(135deg, #030811 0%, #0b2240 100%);
+    --header-bg: linear-gradient(135deg, #02060d 0%, #0b2240 100%);
     --stu-bg: rgba(37, 99, 235, 0.18);
     --sup-bg: rgba(200, 16, 46, 0.18);
     --tch-bg: rgba(5, 150, 105, 0.18);
@@ -60,8 +60,8 @@
     --seat-tch-bg: rgba(5, 150, 105, 0.30);
     --seat-tch-border: #34d399;
     --seat-tch-text: #a7f3d0;
-    --watermark-opacity: 0.045;
-    --shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    --wm-opacity: 0.05;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -76,26 +76,97 @@
     min-height: 100vh;
   }
 
-  body::before {
-    content: "";
+  /* Custom Uploadable Watermark Layer */
+  #customWatermark {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('{{BUILDING_DATA}}');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    opacity: var(--watermark-opacity);
+    opacity: var(--wm-opacity);
     pointer-events: none;
     z-index: -1;
   }
 
-  .container { max-width: 1440px; margin: 0 auto; position: relative; z-index: 1; }
+  .container { max-width: 1450px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* LOGIN PORTAL */
+  .login-wrapper {
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .login-box {
+    width: 100%;
+    max-width: 440px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-top: 5px solid var(--accent);
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(11, 34, 64, 0.16);
+    overflow: hidden;
+  }
+
+  .login-head {
+    background: var(--header-bg);
+    padding: 26px 22px;
+    text-align: center;
+    color: #ffffff;
+    border-bottom: 3px solid var(--accent);
+  }
+
+  .login-body { padding: 24px; }
+
+  /* T.L.A Official Brand Badge & Red Title */
+  .brand-wrapper { display: flex; align-items: center; gap: 14px; }
+
+  .school-logo-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid var(--accent);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .school-logo-circle img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+
+  .brand-title-box {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 6px 16px;
+    border-radius: 10px;
+    border-inline-start: 5px solid #c8102e;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .brand-title-box h1 {
+    font-size: 21px;
+    font-weight: 900;
+    color: #c8102e;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+  }
+
+  .brand-title-box p {
+    font-size: 12px;
+    font-weight: 800;
+    color: #0b2240;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+  }
 
   /* Header */
   .app-header {
     background: var(--header-bg);
     color: #ffffff;
-    padding: 12px 22px;
+    padding: 12px 20px;
     border-radius: 12px;
     border-bottom: 4px solid var(--accent);
     display: flex;
@@ -107,28 +178,18 @@
     margin-bottom: 14px;
   }
 
-  .brand-wrapper { display: flex; align-items: center; gap: 14px; }
-
-  .school-logo-box {
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    background: #ffffff;
-    padding: 2px;
-    border: 2px solid var(--accent);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-  .school-logo-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-
-  .brand-area h1 { font-size: 19px; font-weight: 800; letter-spacing: 0.3px; }
-  .brand-area p { font-size: 12px; color: #cbd5e1; }
-
   .header-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+  .user-pill {
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
   .shift-pills {
     display: flex;
     background: rgba(255, 255, 255, 0.12);
@@ -137,7 +198,7 @@
     border: 1px solid rgba(255, 255, 255, 0.22);
   }
   .shift-pill {
-    padding: 5px 16px;
+    padding: 5px 15px;
     border: none;
     background: transparent;
     color: #e2e8f0;
@@ -153,10 +214,10 @@
     background: rgba(255, 255, 255, 0.12);
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 6px 13px;
+    padding: 6px 12px;
     border-radius: 6px;
     font-family: inherit;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
   }
@@ -165,7 +226,7 @@
   /* Navigation Bar */
   .nav-bar {
     display: flex;
-    gap: 6px;
+    gap: 5px;
     background: var(--bg-surface);
     padding: 7px;
     border-radius: 10px;
@@ -177,13 +238,13 @@
   }
   .nav-tab {
     flex: 1;
-    min-width: 115px;
-    padding: 9px 10px;
+    min-width: 108px;
+    padding: 9px 9px;
     border: 1px solid transparent;
     background: transparent;
     color: var(--text-muted);
     font-family: inherit;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
     border-radius: 7px;
     cursor: pointer;
@@ -249,7 +310,7 @@
     border: 1px solid var(--border-color);
     padding: 7px 10px;
     border-radius: 6px;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 700;
     cursor: grab;
     display: flex;
@@ -279,7 +340,7 @@
   .role-avatar.tch { background: var(--tch-color); }
 
   .tag-pill {
-    font-size: 10.5px;
+    font-size: 10px;
     padding: 2px 6px;
     border-radius: 4px;
     background: var(--bg-surface);
@@ -377,7 +438,6 @@
     border: 1px solid #1e293b;
   }
 
-  /* Full Seat Styles: Empty (Blue), Student (Red), Full Teacher (Green) */
   .seat-slot {
     border-radius: 6px;
     padding: 5px 5px;
@@ -407,14 +467,14 @@
     color: var(--seat-tch-text);
   }
 
-  /* Split Half-Distance Seat Container (Top/Bottom Halves) */
+  /* Split Half-Distance Seat (Supports both Students & Teachers) */
   .seat-split-box {
     border-radius: 6px;
     min-height: 38px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border: 1.5px solid var(--seat-tch-border);
+    border: 1.5px solid var(--border-color);
   }
   .seat-half {
     flex: 1;
@@ -427,13 +487,9 @@
     gap: 2px;
     min-height: 18px;
   }
-  .seat-half:first-child {
-    border-bottom: 1px dashed rgba(15, 23, 42, 0.25);
-  }
-  .seat-half.filled {
-    background: var(--seat-tch-bg);
-    color: var(--seat-tch-text);
-  }
+  .seat-half:first-child { border-bottom: 1px dashed rgba(15, 23, 42, 0.25); }
+  .seat-half.filled-tch { background: var(--seat-tch-bg); color: var(--seat-tch-text); }
+  .seat-half.filled-stu { background: var(--seat-stu-bg); color: var(--seat-stu-text); }
   .seat-half.open {
     background: var(--seat-empty-bg);
     color: var(--seat-empty-text);
@@ -486,7 +542,7 @@
 
   .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
     gap: 12px;
     margin-bottom: 12px;
   }
@@ -608,13 +664,25 @@
     gap: 10px;
   }
 
+  .viewer-notice {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
   .hidden { display: none !important; }
 
   @media print {
     @page { size: A4 portrait; margin: 10mm; }
     body { background: #ffffff !important; color: #000000 !important; padding: 0; font-size: 11px; }
-    body::before { display: none !important; }
-    .app-header, .nav-bar, .sub-tabs, .no-print { display: none !important; }
+    #customWatermark { display: none !important; }
+    .app-header, .nav-bar, .sub-tabs, .no-print, .viewer-notice { display: none !important; }
     .panel { box-shadow: none !important; border: none !important; padding: 0 !important; background: #ffffff !important; }
     .route-print-block { page-break-inside: avoid; border: 1.5px solid #0b2240 !important; margin-bottom: 14px !important; }
     th { background: #0b2240 !important; color: #ffffff !important; padding: 6px 8px !important; font-size: 11px !important; -webkit-print-color-adjust: exact; }
@@ -624,47 +692,80 @@
 </head>
 <body>
 
-<div class="container">
-  <!-- Top Header with Official Logo -->
-  <header class="app-header">
-    <div class="brand-wrapper">
-      <div class="school-logo-box">
-        <img src="{{LOGO_DATA}}" alt="TIBA Language Academy Logo" onerror="this.style.display='none'">
-      </div>
-      <div class="brand-area">
-        <h1 data-ar="TIBA LANGUAGE ACADEMY — نظام إدارة النقل المدرسي" data-en="TIBA LANGUAGE ACADEMY — Transportation System">TIBA LANGUAGE ACADEMY — نظام إدارة النقل المدرسي</h1>
-        <p data-ar="A SCHOOL... TO RELY ON | لوحة التحكم التفاعلية والتقارير الشاملة" data-en="A SCHOOL... TO RELY ON | Interactive Bus Board & Reports">A SCHOOL... TO RELY ON | لوحة التحكم التفاعلية والتقارير الشاملة</p>
+<div id="customWatermark"></div>
+
+<!-- ==================== LOGIN SCREEN ==================== -->
+<div id="loginScreen" class="login-wrapper">
+  <div class="login-box">
+    <div class="login-head">
+      <div class="school-logo-circle" style="width:76px; height:76px; margin:0 auto 12px auto;" id="loginLogoHolder"></div>
+      <div class="brand-title-box" style="display:inline-block; text-align:center;">
+        <h1>TIBA LANGUAGE ACADEMY</h1>
+        <p>A SCHOOL... TO RELY ON</p>
       </div>
     </div>
+    <div class="login-body">
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>اسم المستخدم (Username)</label>
+        <input type="text" id="loginUser" class="form-control" placeholder="admin">
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>كلمة المرور (Password)</label>
+        <input type="password" id="loginPass" class="form-control" placeholder="••••" onkeydown="if(event.key==='Enter') doLogin()">
+      </div>
+      <div id="loginError" style="color:#c8102e; font-size:12.5px; font-weight:800; margin-bottom:10px;" class="hidden">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+      <button class="btn-primary" style="width:100%; padding:10px; font-size:14px;" onclick="doLogin()">تسجيل الدخول للنظام</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MAIN APPLICATION ==================== -->
+<div id="mainApp" class="container hidden">
+  <header class="app-header">
+    <div class="brand-wrapper">
+      <div class="school-logo-circle" id="headerLogoHolder"></div>
+      <div class="brand-title-box">
+        <h1>TIBA LANGUAGE ACADEMY</h1>
+        <p>A SCHOOL... TO RELY ON</p>
+      </div>
+    </div>
+
     <div class="header-controls">
+      <span class="user-pill" id="activeUserBadge">المستخدم: -</span>
       <div class="shift-pills">
         <button class="shift-pill active" id="pill-Junior" onclick="setShift('Junior')">Junior</button>
         <button class="shift-pill" id="pill-KG" onclick="setShift('KG')">KG</button>
       </div>
       <button class="ctrl-btn" onclick="toggleLang()" id="langBtn">English</button>
-      <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn" data-ar="الوضع الليلي" data-en="Dark Mode">الوضع الليلي</button>
+      <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn">الوضع الليلي</button>
+      <button class="ctrl-btn" style="background:rgba(200,16,46,0.35); border-color:#f87171;" onclick="doLogout()">خروج</button>
     </div>
   </header>
 
+  <div id="viewerBanner" class="viewer-notice hidden">
+    وضع المشاهدة فقط (Viewer Mode): يمكنك استعراض لوحة الباصات والتقارير والطباعة فقط دون صلاحية التعديل أو السحب.
+  </div>
+
   <!-- Navigation Tabs -->
   <nav class="nav-bar">
-    <button class="nav-tab active" onclick="switchTab('dashboard', this)" data-ar="لوحة التوزيع (Bus Board)" data-en="Interactive Bus Board">لوحة التوزيع (Bus Board)</button>
-    <button class="nav-tab" onclick="switchTab('buses', this)" data-ar="1. الباصات والسائقين" data-en="1. Buses & Drivers">1. الباصات والسائقين</button>
-    <button class="nav-tab" onclick="switchTab('students', this)" data-ar="2. الطلبة" data-en="2. Students">2. الطلبة</button>
-    <button class="nav-tab" onclick="switchTab('supervisors', this)" data-ar="3. المشرفات" data-en="3. Supervisors">3. المشرفات</button>
-    <button class="nav-tab" onclick="switchTab('teachers', this)" data-ar="4. المدرسين والإداريين" data-en="4. Teachers & Staff">4. المدرسين والإداريين</button>
-    <button class="nav-tab" onclick="switchTab('archive', this)" data-ar="الأرشيف (Archive)" data-en="Archive">الأرشيف (Archive)</button>
-    <button class="nav-tab" onclick="switchTab('logs', this)" data-ar="سجل الحركات" data-en="Audit Log">سجل الحركات</button>
-    <button class="nav-tab roster-tab" onclick="switchTab('reports', this)" data-ar="التقارير والطباعة (A4 / Excel)" data-en="Reports & Print (A4 / Excel)">التقارير والطباعة (A4 / Excel)</button>
+    <button class="nav-tab active" onclick="switchTab('dashboard', this)">لوحة التوزيع (Bus Board)</button>
+    <button class="nav-tab" onclick="switchTab('buses', this)">1. الباصات والسائقين</button>
+    <button class="nav-tab" onclick="switchTab('students', this)">2. الطلبة</button>
+    <button class="nav-tab" onclick="switchTab('supervisors', this)">3. المشرفات</button>
+    <button class="nav-tab" onclick="switchTab('teachers', this)">4. المدرسين والإداريين</button>
+    <button class="nav-tab" onclick="switchTab('archive', this)">الأرشيف (Archive)</button>
+    <button class="nav-tab" onclick="switchTab('logs', this)">سجل الحركات</button>
+    <button class="nav-tab admin-only" id="nav-settings" onclick="switchTab('settings', this)">المستخدمين والثيم (Admin)</button>
+    <button class="nav-tab roster-tab" onclick="switchTab('reports', this)">التقارير والطباعة (A4 / Excel)</button>
   </nav>
 
   <!-- TAB 0: INTERACTIVE BUS BOARD -->
   <div id="tab-dashboard" class="tab-content">
     <div class="board-layout">
-      <aside class="unassigned-sidebar">
+      <aside class="unassigned-sidebar" id="unassignedSidebar">
         <div class="pool-section">
           <div class="pool-header stu-hdr">
-            <span data-ar="الطلبة غير المسكنين" data-en="Unassigned Students">الطلبة غير المسكنين</span>
+            <span>الطلبة غير المسكنين</span>
             <span class="tag-pill" id="cnt-stu">0</span>
           </div>
           <div class="pool-rows" id="pool-students"></div>
@@ -672,7 +773,7 @@
 
         <div class="pool-section">
           <div class="pool-header sup-hdr">
-            <span data-ar="المشرفات غير المسكنات" data-en="Unassigned Supervisors">المشرفات غير المسكنات</span>
+            <span>المشرفات غير المسكنات</span>
             <span class="tag-pill" id="cnt-sup">0</span>
           </div>
           <div class="pool-rows" id="pool-supervisors"></div>
@@ -680,7 +781,7 @@
 
         <div class="pool-section">
           <div class="pool-header tch-hdr">
-            <span data-ar="المدرسين غير المسكنين" data-en="Unassigned Staff">المدرسين غير المسكنين</span>
+            <span>المدرسين غير المسكنين</span>
             <span class="tag-pill" id="cnt-tch">0</span>
           </div>
           <div class="pool-rows" id="pool-teachers"></div>
@@ -693,7 +794,7 @@
 
   <!-- TAB 1: BUSES & DRIVERS -->
   <div id="tab-buses" class="tab-content hidden">
-    <div class="panel">
+    <div class="panel edit-only">
       <div class="panel-header">
         <div class="panel-title">إضافة / تعديل بيانات الباص والسائق</div>
       </div>
@@ -743,7 +844,7 @@
               <th>السعة</th>
               <th>اسم السائق</th>
               <th>تليفون السائق</th>
-              <th>إجراءات</th>
+              <th class="edit-only">إجراءات</th>
             </tr>
           </thead>
           <tbody id="busesTableBody"></tbody>
@@ -752,9 +853,9 @@
     </div>
   </div>
 
-  <!-- TAB 2: STUDENTS -->
+  <!-- TAB 2: STUDENTS (WITH TRIP TYPE + TERM DURATION) -->
   <div id="tab-students" class="tab-content hidden">
-    <div class="panel">
+    <div class="panel edit-only">
       <div class="panel-header">
         <div class="panel-title">تسجيل / تعديل بيانات الطالب (التسكين من لوحة الباصات)</div>
       </div>
@@ -795,6 +896,21 @@
         <div class="form-group">
           <label>3. العنوان بالتفصيل *</label>
           <input type="text" id="stuAddr" class="form-control" placeholder="المنطقة - الشارع - رقم العقار">
+        </div>
+        <div class="form-group">
+          <label>4. نوع الاشتراك (ذهاب / عودة) *</label>
+          <select id="stuTripType" class="form-control">
+            <option value="both">ذهاب وعودة (مسافة كاملة)</option>
+            <option value="go">ذهاب فقط (نصف مسافة)</option>
+            <option value="return">عودة فقط (نصف مسافة)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>5. مدة الاشتراك (ترم / ترمين) *</label>
+          <select id="stuTermDuration" class="form-control">
+            <option value="two_terms">ترمين (Two Terms)</option>
+            <option value="one_term">ترم واحد (One Term)</option>
+          </select>
         </div>
       </div>
 
@@ -842,12 +958,13 @@
               <th>#</th>
               <th>اسم الطالب بالكامل</th>
               <th>Grade</th>
+              <th>الاشتراك والمدة</th>
               <th>العنوان بالتفصيل</th>
               <th>تليفون الأب</th>
               <th>تليفون الأم</th>
               <th>رقم إضافي</th>
               <th>الباص الحالي</th>
-              <th>إجراءات</th>
+              <th class="edit-only">إجراءات</th>
             </tr>
           </thead>
           <tbody id="studentsTableBody"></tbody>
@@ -858,7 +975,7 @@
 
   <!-- TAB 3: SUPERVISORS -->
   <div id="tab-supervisors" class="tab-content hidden">
-    <div class="panel">
+    <div class="panel edit-only">
       <div class="panel-header">
         <div class="panel-title">إضافة / تعديل بيانات المشرفة (التسكين من لوحة الباصات)</div>
       </div>
@@ -885,7 +1002,7 @@
               <th>اسم المشرفة</th>
               <th>رقم التليفون</th>
               <th>الباص الحالي</th>
-              <th>إجراءات</th>
+              <th class="edit-only">إجراءات</th>
             </tr>
           </thead>
           <tbody id="supervisorsTableBody"></tbody>
@@ -894,9 +1011,9 @@
     </div>
   </div>
 
-  <!-- TAB 4: TEACHERS & STAFF (WITH FULL / HALF DISTANCE: ذهاب وعودة / ذهاب فقط / عودة فقط) -->
+  <!-- TAB 4: TEACHERS & STAFF -->
   <div id="tab-teachers" class="tab-content hidden">
-    <div class="panel">
+    <div class="panel edit-only">
       <div class="panel-header">
         <div class="panel-title">إضافة / تعديل المدرسين والإداريين (التسكين من لوحة الباصات)</div>
       </div>
@@ -969,7 +1086,7 @@
               <th>نوع الاشتراك (المسافة)</th>
               <th>رقم التليفون</th>
               <th>الباص الحالي</th>
-              <th>إجراءات</th>
+              <th class="edit-only">إجراءات</th>
             </tr>
           </thead>
           <tbody id="teachersTableBody"></tbody>
@@ -1005,6 +1122,7 @@
           <thead>
             <tr>
               <th>التوقيت</th>
+              <th>المستخدم</th>
               <th>المرحلة</th>
               <th>العملية</th>
               <th>التفاصيل</th>
@@ -1016,7 +1134,82 @@
     </div>
   </div>
 
-  <!-- TAB 7: REPORTS -->
+  <!-- TAB 7: SUPER ADMIN SETTINGS (USER MANAGEMENT & THEME STUDIO) -->
+  <div id="tab-settings" class="tab-content hidden">
+    <!-- User & Permissions Manager -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">إدارة الحسابات والصلاحيات (Super Admin / Admin / Viewer)</div>
+      </div>
+      <input type="hidden" id="editUserId">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>الاسم بالكامل *</label>
+          <input type="text" id="usrFull" class="form-control" placeholder="أ. محمود صلاح">
+        </div>
+        <div class="form-group">
+          <label>اسم المستخدم (Username) *</label>
+          <input type="text" id="usrName" class="form-control" placeholder="mahmoud">
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور (Password) *</label>
+          <input type="text" id="usrPass" class="form-control" placeholder="1234">
+        </div>
+        <div class="form-group">
+          <label>الصلاحية (Role) *</label>
+          <select id="usrRole" class="form-control">
+            <option value="super_admin">Super Admin (تحكم كامل + إدارة المستخدمين والثيم)</option>
+            <option value="admin">Admin (إضافة وتعديل وتسكين وطباعة)</option>
+            <option value="viewer">Viewer (مشاهدة وطباعة فقط بدون تعديل)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="saveUser()">حفظ الحساب والصلاحية</button>
+      <button class="btn-secondary hidden" id="cancelUsrEditBtn" onclick="resetUserForm()">إلغاء التعديل</button>
+
+      <div class="table-wrap" style="margin-top:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>الاسم</th>
+              <th>اسم المستخدم</th>
+              <th>كلمة المرور الحالية</th>
+              <th>الصلاحية</th>
+              <th>تحكم (تعديل / Reset Password / حذف)</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Custom Theme & Brand Studio -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">تخصيص الثيم ورفع الشعار وصورة الخلفية (Theme Studio)</div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>رفع شعار المدرسة (Logo)</label>
+          <input type="file" accept="image/*" class="form-control" onchange="uploadBrandImage(event, 'logo')">
+        </div>
+        <div class="form-group">
+          <label>رفع صورة مبنى المدرسة للخلفية (Watermark)</label>
+          <input type="file" accept="image/*" class="form-control" onchange="uploadBrandImage(event, 'building')">
+        </div>
+        <div class="form-group">
+          <label>شفافية صورة الخلفية (من 0% إلى 25%)</label>
+          <input type="range" min="0" max="25" value="8" class="form-control" oninput="updateWatermarkOpacity(this.value)">
+        </div>
+        <div class="form-group">
+          <label>إعادة ضبط الهوية الافتراضية لمدارس طيبة</label>
+          <button class="btn-secondary" style="width:100%;" onclick="resetBrandTheme()">استعادة الشعار والثيم الافتراضي</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 8: REPORTS -->
   <div id="tab-reports" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header no-print">
@@ -1041,22 +1234,81 @@
 </div>
 
 <script>
+  // Embedded High-Resolution T.L.A SVG Logo (Works offline & online immediately)
+  const DEFAULT_TLA_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="96" fill="#d1d5db" stroke="#0b2240" stroke-width="8"/>
+      <circle cx="100" cy="100" r="64" fill="#ffffff" stroke="#0b2240" stroke-width="5"/>
+      <circle cx="24" cy="100" r="9" fill="#c8102e"/>
+      <circle cx="176" cy="100" r="9" fill="#c8102e"/>
+      <circle cx="84" cy="64" r="10" fill="#c8102e"/>
+      <path d="M52 78 H116 V86 H90 V132 H78 V86 H52 Z" fill="#c8102e"/>
+      <text x="95" y="132" font-family="Arial, sans-serif" font-weight="900" font-size="26" fill="#c8102e">.L.A</text>
+      <text x="100" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="13" fill="#0b2240">TIBA LANGUAGE ACADEMY</text>
+      <text x="100" y="184" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="11.5" fill="#0b2240">A SCHOOL... TO RELY ON</text>
+    </svg>
+  `);
+
+  // Subtle Architectural Glass Facade SVG Watermark (Can be replaced by uploading IMG_0166.JPG in Settings)
+  const DEFAULT_BUILDING_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+      <defs>
+        <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#1d4ed8"/>
+          <stop offset="50%" stop-color="#0ea5e9"/>
+          <stop offset="100%" stop-color="#0b2240"/>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="600" fill="#e2e8f0"/>
+      <rect x="180" y="90" width="840" height="450" rx="12" fill="#cbd5e1" stroke="#64748b" stroke-width="4"/>
+      <path d="M330 70 Q600 20 870 70 L870 540 L330 540 Z" fill="url(#glass)"/>
+      <g stroke="#ffffff" stroke-opacity="0.35" stroke-width="2">
+        <line x1="330" y1="150" x2="870" y2="150"/>
+        <line x1="330" y1="230" x2="870" y2="230"/>
+        <line x1="330" y1="310" x2="870" y2="310"/>
+        <line x1="330" y1="390" x2="870" y2="390"/>
+        <line x1="440" y1="55" x2="440" y2="540"/>
+        <line x1="550" y1="45" x2="550" y2="540"/>
+        <line x1="650" y1="45" x2="650" y2="540"/>
+        <line x1="760" y1="55" x2="760" y2="540"/>
+      </g>
+    </svg>
+  `);
+
+  let currentUser = null;
   let currentShift = 'Junior';
   let lang = 'ar';
   let archiveSubTab = 'students';
   let currentReport = 'master';
   let draggedItem = null;
 
-  const svgIcons = {
-    student: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>`,
-    supervisor: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`,
-    teacher: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>`
+  let users = JSON.parse(localStorage.getItem('tiba_users') || 'null') || [
+    { id: 1, full: 'Mahmoud Salah (Super Admin)', username: 'admin', pass: '1234', role: 'super_admin' },
+    { id: 2, full: 'Transportation Coordinator', username: 'staff', pass: '1234', role: 'admin' },
+    { id: 3, full: 'School Viewer', username: 'view', pass: '1234', role: 'viewer' }
+  ];
+
+  const roleLabels = {
+    super_admin: 'Super Admin (تحكم كامل)',
+    admin: 'Admin (تعديل وتسكين)',
+    viewer: 'Viewer (مشاهدة فقط)'
   };
 
   const tripLabels = {
     both: 'ذهاب وعودة',
     go: 'ذهاب فقط',
     return: 'عودة فقط'
+  };
+
+  const termLabels = {
+    two_terms: 'ترمين',
+    one_term: 'ترم واحد'
+  };
+
+  const svgIcons = {
+    student: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>`,
+    supervisor: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`,
+    teacher: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>`
   };
 
   let buses = [
@@ -1067,10 +1319,10 @@
   ];
 
   let students = [
-    { id: 101, shift: 'Junior', name: 'عمر خالد إبراهيم محمد', grade: 'Junior 2', addr: 'سيدي بشر - شارع خالد بن الوليد', fPhone1: '01011223344', fPhone2: '', mPhone1: '01122334455', mPhone2: '', extraRel: 'الجدة', extraPhone: '01299887766', busId: 1, seatIdx: 0, archived: false },
-    { id: 102, shift: 'Junior', name: 'ليلى طارق حسن محمود', grade: 'Junior 1', addr: 'ميامي - شارع إسكندر إبراهيم', fPhone1: '01055443322', fPhone2: '', mPhone1: '01166554433', mPhone2: '', extraRel: '', extraPhone: '', busId: null, seatIdx: null, archived: false },
-    { id: 103, shift: 'Junior', name: 'ياسين محمود صلاح توفيق', grade: 'Middle 1', addr: 'فلمنج - شارع مصطفى كامل', fPhone1: '01233445566', fPhone2: '', mPhone1: '01544556677', mPhone2: '', extraRel: '', extraPhone: '', busId: null, seatIdx: null, archived: false },
-    { id: 104, shift: 'KG', name: 'آدم كريم محمد علي', grade: 'Play School', addr: 'زيزينيا - شارع أبو قير', fPhone1: '01099887766', fPhone2: '', mPhone1: '', mPhone2: '', extraRel: '', extraPhone: '', busId: 4, seatIdx: 0, archived: false }
+    { id: 101, shift: 'Junior', name: 'عمر خالد إبراهيم محمد', grade: 'Junior 2', tripType: 'both', termDuration: 'two_terms', addr: 'سيدي بشر - شارع خالد بن الوليد', fPhone1: '01011223344', fPhone2: '', mPhone1: '01122334455', mPhone2: '', extraRel: 'الجدة', extraPhone: '01299887766', busId: 1, seatIdx: 0, archived: false },
+    { id: 102, shift: 'Junior', name: 'ليلى طارق حسن محمود', grade: 'Junior 1', tripType: 'go', termDuration: 'one_term', addr: 'ميامي - شارع إسكندر إبراهيم', fPhone1: '01055443322', fPhone2: '', mPhone1: '01166554433', mPhone2: '', extraRel: '', extraPhone: '', busId: null, seatIdx: null, archived: false },
+    { id: 103, shift: 'Junior', name: 'ياسين محمود صلاح توفيق', grade: 'Middle 1', tripType: 'both', termDuration: 'two_terms', addr: 'فلمنج - شارع مصطفى كامل', fPhone1: '01233445566', fPhone2: '', mPhone1: '01544556677', mPhone2: '', extraRel: '', extraPhone: '', busId: null, seatIdx: null, archived: false },
+    { id: 104, shift: 'KG', name: 'آدم كريم محمد علي', grade: 'Play School', tripType: 'both', termDuration: 'two_terms', addr: 'زيزينيا - شارع أبو قير', fPhone1: '01099887766', fPhone2: '', mPhone1: '', mPhone2: '', extraRel: '', extraPhone: '', busId: 4, seatIdx: 0, archived: false }
   ];
 
   let supervisors = [
@@ -1086,14 +1338,89 @@
   ];
 
   let logs = [
-    { time: '2026-11-26 08:40:00', shift: 'Junior', action: 'تسكين مقعد', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1' }
+    { time: '2026-11-26 09:00:00', user: 'Mahmoud Salah', shift: 'Junior', action: 'تسكين مقعد', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1' }
   ];
+
+  /* Brand & Theme Management */
+  function applyBrandAssets() {
+    const savedLogo = localStorage.getItem('tiba_custom_logo') || DEFAULT_TLA_LOGO;
+    const savedBuilding = localStorage.getItem('tiba_custom_building') || DEFAULT_BUILDING_SVG;
+    const savedOpacity = localStorage.getItem('tiba_wm_opacity') || '8';
+
+    document.getElementById('loginLogoHolder').innerHTML = `<img src="${savedLogo}" alt="TLA Logo">`;
+    document.getElementById('headerLogoHolder').innerHTML = `<img src="${savedLogo}" alt="TLA Logo">`;
+    document.getElementById('customWatermark').style.backgroundImage = `url('${savedBuilding}')`;
+    document.documentElement.style.setProperty('--wm-opacity', (parseInt(savedOpacity) / 100).toString());
+  }
+
+  function uploadBrandImage(e, target) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      if (target === 'logo') localStorage.setItem('tiba_custom_logo', evt.target.result);
+      if (target === 'building') localStorage.setItem('tiba_custom_building', evt.target.result);
+      applyBrandAssets();
+      recordLog('تحديث الثيم', target === 'logo' ? 'رفع شعار جديد للمدرسة' : 'تحديث صورة خلفية المبنى');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function updateWatermarkOpacity(val) {
+    localStorage.setItem('tiba_wm_opacity', val);
+    document.documentElement.style.setProperty('--wm-opacity', (parseInt(val) / 100).toString());
+  }
+
+  function resetBrandTheme() {
+    localStorage.removeItem('tiba_custom_logo');
+    localStorage.removeItem('tiba_custom_building');
+    localStorage.removeItem('tiba_wm_opacity');
+    applyBrandAssets();
+    recordLog('إعادة ضبط الثيم', 'استعادة شعار وواجهة مدارس طيبة الافتراضية');
+  }
+
+  /* Authentication & Role Permissions */
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value.trim();
+    const found = users.find(x => x.username.toLowerCase() === u.toLowerCase() && x.pass === p);
+    if (!found) {
+      document.getElementById('loginError').classList.remove('hidden');
+      return;
+    }
+    document.getElementById('loginError').classList.add('hidden');
+    currentUser = found;
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainApp').classList.remove('hidden');
+    document.getElementById('activeUserBadge').textContent = `${found.full} (${found.role === 'super_admin' ? 'Super Admin' : found.role === 'admin' ? 'Admin' : 'Viewer'})`;
+
+    const isViewer = found.role === 'viewer';
+    const isSuper = found.role === 'super_admin';
+
+    document.getElementById('viewerBanner').classList.toggle('hidden', !isViewer);
+    document.getElementById('unassignedSidebar').classList.toggle('hidden', isViewer);
+    document.getElementById('nav-settings').classList.toggle('hidden', !isSuper);
+
+    document.querySelectorAll('.edit-only').forEach(el => {
+      el.classList.toggle('hidden', isViewer);
+    });
+
+    recordLog('تسجيل دخول', `دخول المستخدم ${found.full}`);
+    renderAll();
+  }
+
+  function doLogout() {
+    currentUser = null;
+    document.getElementById('mainApp').classList.add('hidden');
+    document.getElementById('loginScreen').classList.remove('hidden');
+    document.getElementById('loginPass').value = '';
+  }
 
   function recordLog(action, details) {
     const now = new Date();
     const ts = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
                String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
-    logs.unshift({ time: ts, shift: currentShift, action, details });
+    logs.unshift({ time: ts, user: currentUser ? currentUser.full : 'System', shift: currentShift, action, details });
   }
 
   function setShift(sh) {
@@ -1128,10 +1455,7 @@
   function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     const isDark = document.body.classList.contains('dark-mode');
-    const btn = document.getElementById('themeBtn');
-    btn.setAttribute('data-ar', isDark ? 'الوضع النهاري' : 'الوضع الليلي');
-    btn.setAttribute('data-en', isDark ? 'Light Mode' : 'Dark Mode');
-    btn.textContent = lang === 'ar' ? btn.getAttribute('data-ar') : btn.getAttribute('data-en');
+    document.getElementById('themeBtn').textContent = isDark ? 'الوضع النهاري' : 'الوضع الليلي';
   }
 
   function toggleLang() {
@@ -1139,9 +1463,6 @@
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.getElementById('langBtn').textContent = lang === 'ar' ? 'English' : 'عربي';
-    document.querySelectorAll('[data-ar]').forEach(el => {
-      el.textContent = el.getAttribute('data-' + lang);
-    });
     renderAll();
   }
 
@@ -1149,7 +1470,7 @@
     document.getElementById(elId).classList.toggle('hidden');
   }
 
-  /* Build 14-Seat Slot Model supporting Student (Red), Full Teacher (Green), and Split Half-Distance Teacher (Go / Return) */
+  /* Build 14-Seat Model Supporting Full & Half-Distance (Go / Return) for Both Students and Teachers */
   function buildBusSeats(busId) {
     const slots = Array.from({ length: 14 }, () => ({ kind: 'empty' }));
     const overflow = [];
@@ -1171,59 +1492,60 @@
       return false;
     };
 
-    const placeHalfTeacher = (tch, preferredIdx) => {
-      const dir = tch.tripType; // 'go' or 'return'
-      // 1. Check preferred seat if it's a split seat with matching open half
+    const placeHalf = (item, kind, preferredIdx) => {
+      const dir = item.tripType; // 'go' or 'return'
+      const entry = { item, kind };
       if (preferredIdx !== null && preferredIdx >= 0 && preferredIdx < 14) {
         const target = slots[preferredIdx];
         if (target.kind === 'split' && !target[dir]) {
-          target[dir] = tch;
+          target[dir] = entry;
           return true;
         }
         if (target.kind === 'empty') {
-          slots[preferredIdx] = { kind: 'split', go: dir === 'go' ? tch : null, return: dir === 'return' ? tch : null };
+          slots[preferredIdx] = { kind: 'split', go: dir === 'go' ? entry : null, return: dir === 'return' ? entry : null };
           return true;
         }
       }
-      // 2. Try pairing with another half-distance teacher in an existing split seat
       const compatibleIdx = slots.findIndex(s => s.kind === 'split' && !s[dir]);
       if (compatibleIdx > -1) {
-        slots[compatibleIdx][dir] = tch;
+        slots[compatibleIdx][dir] = entry;
         return true;
       }
-      // 3. Otherwise take a new empty seat as a split seat
       const emptyIdx = slots.findIndex(s => s.kind === 'empty');
       if (emptyIdx > -1) {
-        slots[emptyIdx] = { kind: 'split', go: dir === 'go' ? tch : null, return: dir === 'return' ? tch : null };
+        slots[emptyIdx] = { kind: 'split', go: dir === 'go' ? entry : null, return: dir === 'return' ? entry : null };
         return true;
       }
-      overflow.push({ kind: 'teacher', item: tch });
+      overflow.push({ kind, item });
       return false;
     };
 
-    bStus.forEach(s => placeFull(s, 'student', s.seatIdx));
-    bTchs.forEach(t => {
-      if (t.tripType === 'go' || t.tripType === 'return') {
-        placeHalfTeacher(t, t.seatIdx);
-      } else {
-        placeFull(t, 'teacher', t.seatIdx);
-      }
+    bStus.forEach(s => {
+      if (s.tripType === 'go' || s.tripType === 'return') placeHalf(s, 'student', s.seatIdx);
+      else placeFull(s, 'student', s.seatIdx);
     });
 
-    // Calculate effective occupied seats (Student=1, Full Teacher=1, Half Teacher=0.5)
-    const effectiveSeats = bStus.length + bTchs.reduce((acc, t) => acc + ((t.tripType === 'go' || t.tripType === 'return') ? 0.5 : 1), 0);
-    return { slots, overflow, effectiveSeats, totalPeople: bStus.length + bTchs.length };
+    bTchs.forEach(t => {
+      if (t.tripType === 'go' || t.tripType === 'return') placeHalf(t, 'teacher', t.seatIdx);
+      else placeFull(t, 'teacher', t.seatIdx);
+    });
+
+    const stuSeats = bStus.reduce((acc, s) => acc + ((s.tripType === 'go' || s.tripType === 'return') ? 0.5 : 1), 0);
+    const tchSeats = bTchs.reduce((acc, t) => acc + ((t.tripType === 'go' || t.tripType === 'return') ? 0.5 : 1), 0);
+    return { slots, overflow, effectiveSeats: stuSeats + tchSeats };
   }
 
-  function handleDragStart(type, id) { draggedItem = { type, id }; }
-  function handleDragOver(e, busId) { e.preventDefault(); document.getElementById('bus-card-' + busId).classList.add('drag-over'); }
+  function canEdit() { return currentUser && currentUser.role !== 'viewer'; }
+
+  function handleDragStart(type, id) { if (canEdit()) draggedItem = { type, id }; }
+  function handleDragOver(e, busId) { if (!canEdit()) return; e.preventDefault(); document.getElementById('bus-card-' + busId).classList.add('drag-over'); }
   function handleDragLeave(busId) { document.getElementById('bus-card-' + busId).classList.remove('drag-over'); }
 
   function handleDropOnSeat(e, busId, seatIdx) {
     e.preventDefault();
     e.stopPropagation();
     document.getElementById('bus-card-' + busId).classList.remove('drag-over');
-    if (!draggedItem) return;
+    if (!canEdit() || !draggedItem) return;
 
     const bus = buses.find(b => b.id === busId);
     if (!bus) return;
@@ -1236,14 +1558,14 @@
       if (s) {
         s.busId = busId;
         s.seatIdx = (seatIdx !== null && seatIdx !== undefined) ? seatIdx : null;
-        recordLog('تسكين طالب', `تسكين الطالب ${s.name} في ${bus.num}`);
+        recordLog('تسكين طالب', `تسكين الطالب ${s.name} (${tripLabels[s.tripType || 'both']}) في ${bus.num}`);
       }
     } else if (draggedItem.type === 'teacher') {
       const t = teachers.find(x => x.id === draggedItem.id);
       if (t) {
         t.busId = busId;
         t.seatIdx = (seatIdx !== null && seatIdx !== undefined) ? seatIdx : null;
-        recordLog('تسكين مدرس', `تسكين ${t.name} (${tripLabels[t.tripType]}) في ${bus.num}`);
+        recordLog('تسكين مدرس', `تسكين ${t.name} (${tripLabels[t.tripType || 'both']}) في ${bus.num}`);
       }
     }
     draggedItem = null;
@@ -1251,6 +1573,7 @@
   }
 
   function ejectSeat(type, id) {
+    if (!canEdit()) return;
     if (type === 'student') {
       const s = students.find(x => x.id === id);
       if (s) { recordLog('إخلاء مقعد', `إخراج الطالب ${s.name}`); s.busId = null; s.seatIdx = null; }
@@ -1264,6 +1587,85 @@
     renderAll();
   }
 
+  /* User Management (Super Admin) */
+  function saveUser() {
+    const editId = document.getElementById('editUserId').value;
+    const full = document.getElementById('usrFull').value.trim();
+    const username = document.getElementById('usrName').value.trim();
+    const pass = document.getElementById('usrPass').value.trim();
+    const role = document.getElementById('usrRole').value;
+    if (!full || !username || !pass) return;
+
+    if (editId) {
+      const idx = users.findIndex(u => u.id === parseInt(editId));
+      if (idx > -1) users[idx] = { ...users[idx], full, username, pass, role };
+      recordLog('تعديل مستخدم', `تعديل بيانات وصلاحيات ${full}`);
+    } else {
+      users.push({ id: Date.now(), full, username, pass, role });
+      recordLog('إنشاء مستخدم', `إضافة حساب جديد: ${full} (${role})`);
+    }
+    localStorage.setItem('tiba_users', JSON.stringify(users));
+    resetUserForm();
+    renderUsers();
+  }
+
+  function editUser(id) {
+    const u = users.find(x => x.id === id);
+    if (!u) return;
+    document.getElementById('editUserId').value = u.id;
+    document.getElementById('usrFull').value = u.full;
+    document.getElementById('usrName').value = u.username;
+    document.getElementById('usrPass').value = u.pass;
+    document.getElementById('usrRole').value = u.role;
+    document.getElementById('cancelUsrEditBtn').classList.remove('hidden');
+  }
+
+  function resetUserPassword(id) {
+    const u = users.find(x => x.id === id);
+    if (!u) return;
+    const newPass = prompt(`أدخل كلمة المرور الجديدة للمستخدم (${u.full}):`, '1234');
+    if (newPass && newPass.trim()) {
+      u.pass = newPass.trim();
+      localStorage.setItem('tiba_users', JSON.stringify(users));
+      recordLog('تغيير كلمة مرور', `إعادة تعيين كلمة مرور ${u.full}`);
+      renderUsers();
+    }
+  }
+
+  function deleteUser(id) {
+    if (id === 1) return;
+    users = users.filter(u => u.id !== id);
+    localStorage.setItem('tiba_users', JSON.stringify(users));
+    recordLog('حذف مستخدم', `حذف حساب مستخدم`);
+    renderUsers();
+  }
+
+  function resetUserForm() {
+    document.getElementById('editUserId').value = '';
+    document.getElementById('usrFull').value = '';
+    document.getElementById('usrName').value = '';
+    document.getElementById('usrPass').value = '';
+    document.getElementById('usrRole').value = 'admin';
+    document.getElementById('cancelUsrEditBtn').classList.add('hidden');
+  }
+
+  function renderUsers() {
+    document.getElementById('usersTableBody').innerHTML = users.map(u => `
+      <tr>
+        <td>${u.full}</td>
+        <td>${u.username}</td>
+        <td><code>${u.pass}</code></td>
+        <td>${roleLabels[u.role]}</td>
+        <td>
+          <button class="action-btn edit-btn" onclick="editUser(${u.id})">تعديل الصلاحية</button>
+          <button class="action-btn rest-btn" onclick="resetUserPassword(${u.id})">Reset Password</button>
+          ${u.id !== 1 ? `<button class="action-btn arch-btn" onclick="deleteUser(${u.id})">حذف</button>` : ''}
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  /* CRUD Buses, Students, Supervisors, Teachers */
   function saveBus() {
     const editId = document.getElementById('editBusId').value;
     const num = document.getElementById('busNum').value.trim();
@@ -1319,6 +1721,8 @@
     const data = {
       shift: currentShift, name,
       grade: document.getElementById('stuGrade').value,
+      tripType: document.getElementById('stuTripType').value,
+      termDuration: document.getElementById('stuTermDuration').value,
       addr: document.getElementById('stuAddr').value.trim() || '-',
       fPhone1: document.getElementById('fatherPhone1').value.trim() || '-',
       fPhone2: document.getElementById('fatherPhone2').value.trim() || '',
@@ -1334,7 +1738,7 @@
       recordLog('تعديل طالب', `تعديل بيانات الطالب ${name}`);
     } else {
       students.push({ id: Date.now(), ...data, busId: null, seatIdx: null });
-      recordLog('إضافة طالب', `تسجيل الطالب ${name}`);
+      recordLog('إضافة طالب', `تسجيل الطالب ${name} (${tripLabels[data.tripType]} — ${termLabels[data.termDuration]})`);
     }
     resetStuForm();
     renderAll();
@@ -1346,6 +1750,8 @@
     document.getElementById('editStuId').value = s.id;
     document.getElementById('stuName').value = s.name;
     document.getElementById('stuGrade').value = s.grade;
+    document.getElementById('stuTripType').value = s.tripType || 'both';
+    document.getElementById('stuTermDuration').value = s.termDuration || 'two_terms';
     document.getElementById('stuAddr').value = s.addr;
     document.getElementById('fatherPhone1').value = s.fPhone1 || '';
     document.getElementById('fatherPhone2').value = s.fPhone2 || '';
@@ -1362,6 +1768,8 @@
     document.getElementById('editStuId').value = '';
     document.getElementById('stuName').value = '';
     document.getElementById('stuAddr').value = '';
+    document.getElementById('stuTripType').value = 'both';
+    document.getElementById('stuTermDuration').value = 'two_terms';
     document.getElementById('fatherPhone1').value = '';
     document.getElementById('fatherPhone2').value = '';
     document.getElementById('motherPhone1').value = '';
@@ -1427,7 +1835,7 @@
       recordLog('تعديل موظف', `تعديل بيانات ${name}`);
     } else {
       teachers.push({ id: Date.now(), ...data, busId: null, seatIdx: null });
-      recordLog('إضافة موظف', `تسجيل ${name} (${data.dept} — ${tripLabels[data.tripType]})`);
+      recordLog('إضافة موظف', `تسجيل ${name} (${data.dept})`);
     }
     resetTchForm();
     renderAll();
@@ -1453,6 +1861,7 @@
   }
 
   function archiveItem(type, id) {
+    if (!canEdit()) return;
     if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) { b.archived = true; recordLog('أرشفة باص', b.num); } }
     if (type === 'student') { const s = students.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; s.seatIdx = null; recordLog('أرشفة طالب', s.name); } }
     if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; recordLog('أرشفة مشرفة', s.name); } }
@@ -1461,6 +1870,7 @@
   }
 
   function restoreItem(type, id) {
+    if (!canEdit()) return;
     if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) b.archived = false; }
     if (type === 'student') { const s = students.find(x => x.id === id); if (s) s.archived = false; }
     if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) s.archived = false; }
@@ -1470,6 +1880,7 @@
   }
 
   function renderAll() {
+    const editable = canEdit();
     const shBuses = buses.filter(b => !b.archived && b.shift === currentShift);
     const shStudents = students.filter(s => !s.archived && s.shift === currentShift);
     const shSups = supervisors.filter(s => !s.archived && s.shift === currentShift);
@@ -1484,17 +1895,17 @@
     document.getElementById('cnt-tch').textContent = unTchs.length;
 
     document.getElementById('pool-students').innerHTML = unStus.map(s => `
-      <div class="single-row-item stu" draggable="true" ondragstart="handleDragStart('student', ${s.id})">
+      <div class="single-row-item stu" draggable="${editable}" ondragstart="handleDragStart('student', ${s.id})">
         <div class="person-info">
           <span class="role-avatar stu">${svgIcons.student}</span>
           <span class="person-name">${s.name}</span>
         </div>
-        <span class="tag-pill">${s.grade}</span>
+        <span class="tag-pill">${s.grade} | ${tripLabels[s.tripType || 'both']}</span>
       </div>
     `).join('') || `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px;">لا يوجد</div>`;
 
     document.getElementById('pool-supervisors').innerHTML = unSups.map(s => `
-      <div class="single-row-item sup" draggable="true" ondragstart="handleDragStart('supervisor', ${s.id})">
+      <div class="single-row-item sup" draggable="${editable}" ondragstart="handleDragStart('supervisor', ${s.id})">
         <div class="person-info">
           <span class="role-avatar sup">${svgIcons.supervisor}</span>
           <span class="person-name">${s.name}</span>
@@ -1504,7 +1915,7 @@
     `).join('') || `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px;">لا يوجد</div>`;
 
     document.getElementById('pool-teachers').innerHTML = unTchs.map(t => `
-      <div class="single-row-item tch" draggable="true" ondragstart="handleDragStart('teacher', ${t.id})">
+      <div class="single-row-item tch" draggable="${editable}" ondragstart="handleDragStart('teacher', ${t.id})">
         <div class="person-info">
           <span class="role-avatar tch">${svgIcons.teacher}</span>
           <span class="person-name">${t.name}</span>
@@ -1523,9 +1934,9 @@
         const slot = slots[idx];
         if (slot.kind === 'student') {
           return `
-            <div class="seat-slot student-occ" title="طالب: ${slot.item.name}">
+            <div class="seat-slot student-occ" title="طالب (${tripLabels[slot.item.tripType || 'both']}): ${slot.item.name}">
               <span class="seat-name">${slot.item.name.split(' ')[0]}</span>
-              <button class="seat-eject" onclick="ejectSeat('student', ${slot.item.id})">✕</button>
+              ${editable ? `<button class="seat-eject" onclick="ejectSeat('student', ${slot.item.id})">✕</button>` : ''}
             </div>
           `;
         }
@@ -1533,22 +1944,22 @@
           return `
             <div class="seat-slot teacher-occ" title="مدرس (ذهاب وعودة): ${slot.item.name}">
               <span class="seat-name">${slot.item.name.replace('أ. ', '').split(' ')[0]}</span>
-              <button class="seat-eject" onclick="ejectSeat('teacher', ${slot.item.id})">✕</button>
+              ${editable ? `<button class="seat-eject" onclick="ejectSeat('teacher', ${slot.item.id})">✕</button>` : ''}
             </div>
           `;
         }
         if (slot.kind === 'split') {
           const goHtml = slot.go
-            ? `<div class="seat-half filled" title="${slot.go.name} (ذهاب فقط)">
-                 <span class="seat-name">${slot.go.name.replace('أ. ', '').split(' ')[0]} (ذهاب)</span>
-                 <button class="seat-eject" onclick="ejectSeat('teacher', ${slot.go.id})">✕</button>
+            ? `<div class="seat-half ${slot.go.kind === 'teacher' ? 'filled-tch' : 'filled-stu'}" title="${slot.go.item.name} (ذهاب فقط)">
+                 <span class="seat-name">${slot.go.item.name.replace('أ. ', '').split(' ')[0]} (ذهاب)</span>
+                 ${editable ? `<button class="seat-eject" onclick="ejectSeat('${slot.go.kind}', ${slot.go.item.id})">✕</button>` : ''}
                </div>`
             : `<div class="seat-half open" ondragover="event.preventDefault()" ondrop="handleDropOnSeat(event, ${b.id}, ${idx})">ذهاب متاح</div>`;
 
           const retHtml = slot.return
-            ? `<div class="seat-half filled" title="${slot.return.name} (عودة فقط)">
-                 <span class="seat-name">${slot.return.name.replace('أ. ', '').split(' ')[0]} (عودة)</span>
-                 <button class="seat-eject" onclick="ejectSeat('teacher', ${slot.return.id})">✕</button>
+            ? `<div class="seat-half ${slot.return.kind === 'teacher' ? 'filled-tch' : 'filled-stu'}" title="${slot.return.item.name} (عودة فقط)">
+                 <span class="seat-name">${slot.return.item.name.replace('أ. ', '').split(' ')[0]} (عودة)</span>
+                 ${editable ? `<button class="seat-eject" onclick="ejectSeat('${slot.return.kind}', ${slot.return.item.id})">✕</button>` : ''}
                </div>`
             : `<div class="seat-half open" ondragover="event.preventDefault()" ondrop="handleDropOnSeat(event, ${b.id}, ${idx})">عودة متاحة</div>`;
 
@@ -1563,7 +1974,7 @@
 
       const supBadges = bSups.map(s => `
         <span style="background:#fef2f2; color:#991b1b; border:1px solid #fecaca; padding:1px 6px; border-radius:4px;">
-          ${s.name} <button onclick="ejectSeat('supervisor', ${s.id})" style="border:none; background:none; color:#c8102e; font-weight:900; cursor:pointer;">✕</button>
+          ${s.name} ${editable ? `<button onclick="ejectSeat('supervisor', ${s.id})" style="border:none; background:none; color:#c8102e; font-weight:900; cursor:pointer;">✕</button>` : ''}
         </span>
       `).join(' ') || 'بدون مشرفة';
 
@@ -1572,7 +1983,7 @@
           ${overflow.map(o => `
             <div class="seat-slot ${o.kind === 'teacher' ? 'teacher-occ' : 'student-occ'}">
               <span class="seat-name">+ ${o.item.name}</span>
-              <button class="seat-eject" onclick="ejectSeat('${o.kind}', ${o.item.id})">✕</button>
+              ${editable ? `<button class="seat-eject" onclick="ejectSeat('${o.kind}', ${o.item.id})">✕</button>` : ''}
             </div>
           `).join('')}
         </div>
@@ -1617,10 +2028,10 @@
     document.getElementById('busesTableBody').innerHTML = shBuses.map(b => `
       <tr>
         <td>${b.num}</td><td>${b.route}</td><td>${b.plate}</td><td>${b.cap} راكب</td><td>${b.driver}</td><td>${b.phone}</td>
-        <td>
+        ${editable ? `<td>
           <button class="action-btn edit-btn" onclick="editBus(${b.id})">تعديل</button>
           <button class="action-btn arch-btn" onclick="archiveItem('bus', ${b.id})">أرشفة</button>
-        </td>
+        </td>` : ''}
       </tr>
     `).join('');
 
@@ -1629,15 +2040,16 @@
       const fPhones = s.fPhone2 ? `${s.fPhone1} / ${s.fPhone2}` : s.fPhone1;
       const mPhones = s.mPhone2 ? `${s.mPhone1} / ${s.mPhone2}` : s.mPhone1;
       const extraTxt = s.extraPhone ? `${s.extraRel ? s.extraRel + ': ' : ''}${s.extraPhone}` : '-';
+      const subInfo = `${tripLabels[s.tripType || 'both']} (${termLabels[s.termDuration || 'two_terms']})`;
       return `
         <tr>
-          <td>${i + 1}</td><td>${s.name}</td><td>${s.grade}</td><td>${s.addr}</td>
+          <td>${i + 1}</td><td>${s.name}</td><td>${s.grade}</td><td>${subInfo}</td><td>${s.addr}</td>
           <td>${fPhones}</td><td>${mPhones}</td><td>${extraTxt}</td>
           <td>${b ? b.num : 'غير مسكن'}</td>
-          <td>
+          ${editable ? `<td>
             <button class="action-btn edit-btn" onclick="editStudent(${s.id})">تعديل</button>
             <button class="action-btn arch-btn" onclick="archiveItem('student', ${s.id})">أرشفة</button>
-          </td>
+          </td>` : ''}
         </tr>
       `;
     }).join('');
@@ -1647,10 +2059,10 @@
       return `
         <tr>
           <td>${s.name}</td><td>${s.phone}</td><td>${b ? b.num : 'غير مسكنة'}</td>
-          <td>
+          ${editable ? `<td>
             <button class="action-btn edit-btn" onclick="editSupervisor(${s.id})">تعديل</button>
             <button class="action-btn arch-btn" onclick="archiveItem('supervisor', ${s.id})">أرشفة</button>
-          </td>
+          </td>` : ''}
         </tr>
       `;
     }).join('');
@@ -1664,41 +2076,43 @@
           <td>${tripLabels[t.tripType || 'both']}</td>
           <td>${t.phone}</td>
           <td>${b ? b.num : 'غير مسكن'}</td>
-          <td>
+          ${editable ? `<td>
             <button class="action-btn edit-btn" onclick="editTeacher(${t.id})">تعديل</button>
             <button class="action-btn arch-btn" onclick="archiveItem('teacher', ${t.id})">أرشفة</button>
-          </td>
+          </td>` : ''}
         </tr>
       `;
     }).join('');
 
     renderArchive();
+    renderUsers();
 
     document.getElementById('logsTableBody').innerHTML = logs.map(l => `
-      <tr><td dir="ltr">${l.time}</td><td>${l.shift}</td><td>${l.action}</td><td>${l.details}</td></tr>
+      <tr><td dir="ltr">${l.time}</td><td>${l.user || '-'}</td><td>${l.shift}</td><td>${l.action}</td><td>${l.details}</td></tr>
     `).join('');
 
     renderReports();
   }
 
   function renderArchive() {
+    const editable = canEdit();
     const container = document.getElementById('archiveTableContainer');
     if (archiveSubTab === 'students') {
       const list = students.filter(s => s.archived);
-      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>Grade</th><th>المرحلة</th><th>العنوان</th><th>استعادة</th></tr></thead><tbody>` +
-        (list.map(s => `<tr><td>${s.name}</td><td>${s.grade}</td><td>${s.shift}</td><td>${s.addr}</td><td><button class="action-btn rest-btn" onclick="restoreItem('student', ${s.id})">استعادة</button></td></tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
+      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>Grade</th><th>المرحلة</th><th>العنوان</th>${editable ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
+        (list.map(s => `<tr><td>${s.name}</td><td>${s.grade}</td><td>${s.shift}</td><td>${s.addr}</td>${editable ? `<td><button class="action-btn rest-btn" onclick="restoreItem('student', ${s.id})">استعادة</button></td>` : ''}</tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
     } else if (archiveSubTab === 'supervisors') {
       const list = supervisors.filter(s => s.archived);
-      container.innerHTML = `<table><thead><tr><th>اسم المشرفة</th><th>الهاتف</th><th>المرحلة</th><th>استعادة</th></tr></thead><tbody>` +
-        (list.map(s => `<tr><td>${s.name}</td><td>${s.phone}</td><td>${s.shift}</td><td><button class="action-btn rest-btn" onclick="restoreItem('supervisor', ${s.id})">استعادة</button></td></tr>`).join('') || `<tr><td colspan="4" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
+      container.innerHTML = `<table><thead><tr><th>اسم المشرفة</th><th>الهاتف</th><th>المرحلة</th>${editable ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
+        (list.map(s => `<tr><td>${s.name}</td><td>${s.phone}</td><td>${s.shift}</td>${editable ? `<td><button class="action-btn rest-btn" onclick="restoreItem('supervisor', ${s.id})">استعادة</button></td>` : ''}</tr>`).join('') || `<tr><td colspan="4" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
     } else if (archiveSubTab === 'teachers') {
       const list = teachers.filter(t => t.archived);
-      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>التخصص</th><th>المسافة</th><th>الهاتف</th><th>استعادة</th></tr></thead><tbody>` +
-        (list.map(t => `<tr><td>${t.name}</td><td>${t.dept}</td><td>${tripLabels[t.tripType || 'both']}</td><td>${t.phone}</td><td><button class="action-btn rest-btn" onclick="restoreItem('teacher', ${t.id})">استعادة</button></td></tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
+      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>التخصص</th><th>المسافة</th><th>الهاتف</th>${editable ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
+        (list.map(t => `<tr><td>${t.name}</td><td>${t.dept}</td><td>${tripLabels[t.tripType || 'both']}</td><td>${t.phone}</td>${editable ? `<td><button class="action-btn rest-btn" onclick="restoreItem('teacher', ${t.id})">استعادة</button></td>` : ''}</tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
     } else if (archiveSubTab === 'buses') {
       const list = buses.filter(b => b.archived);
-      container.innerHTML = `<table><thead><tr><th>الباص</th><th>الخط</th><th>السائق</th><th>المرحلة</th><th>استعادة</th></tr></thead><tbody>` +
-        (list.map(b => `<tr><td>${b.num}</td><td>${b.route}</td><td>${b.driver}</td><td>${b.shift}</td><td><button class="action-btn rest-btn" onclick="restoreItem('bus', ${b.id})">استعادة</button></td></tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
+      container.innerHTML = `<table><thead><tr><th>الباص</th><th>الخط</th><th>السائق</th><th>المرحلة</th>${editable ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
+        (list.map(b => `<tr><td>${b.num}</td><td>${b.route}</td><td>${b.driver}</td><td>${b.shift}</td>${editable ? `<td><button class="action-btn rest-btn" onclick="restoreItem('bus', ${b.id})">استعادة</button></td>` : ''}</tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
     }
   }
 
@@ -1720,6 +2134,7 @@
             <td>${idx + 1}</td>
             <td>${s.name}</td>
             <td>${s.grade}</td>
+            <td>${tripLabels[s.tripType || 'both']} (${termLabels[s.termDuration || 'two_terms']})</td>
             <td>${s.addr}</td>
             <td>${s.fPhone1}${s.fPhone2 ? ' / ' + s.fPhone2 : ''}</td>
             <td>${s.mPhone1}${s.mPhone2 ? ' / ' + s.mPhone2 : ''}</td>
@@ -1736,16 +2151,17 @@
                   <th>خط السير: ${b.route}</th>
                   <th>السائق: ${b.driver} (${b.phone})</th>
                   <th>المشرفة: ${bSup}</th>
-                  <th>المقاعد المشغولة: ${effectiveSeats} / ${b.cap} (طلاب: ${bStus.length})</th>
+                  <th>المقاعد: ${effectiveSeats} / ${b.cap} (طلاب: ${bStus.length})</th>
                 </tr>
               </thead>
             </table>
             <table>
               <thead>
                 <tr style="background:#1e293b;">
-                  <th style="width:40px;">#</th>
+                  <th style="width:35px;">#</th>
                   <th>اسم الطالب بالكامل</th>
                   <th>Grade</th>
+                  <th>الاشتراك والمدة</th>
                   <th>العنوان بالتفصيل</th>
                   <th>تليفون الأب</th>
                   <th>تليفون الأم</th>
@@ -1753,7 +2169,7 @@
                 </tr>
               </thead>
               <tbody>
-                ${stuRows || `<tr><td colspan="7" style="text-align:center;">لا يوجد طلبة مسكنين على هذا الخط</td></tr>`}
+                ${stuRows || `<tr><td colspan="8" style="text-align:center;">لا يوجد طلبة مسكنين على هذا الخط</td></tr>`}
               </tbody>
             </table>
           </div>
@@ -1814,6 +2230,7 @@
             <td>${s.name}</td>
             <td>${s.shift}</td>
             <td>${s.grade}</td>
+            <td>${tripLabels[s.tripType || 'both']} (${termLabels[s.termDuration || 'two_terms']})</td>
             <td>${s.addr}</td>
             <td>${s.fPhone1}${s.fPhone2 ? ' / ' + s.fPhone2 : ''}</td>
             <td>${s.mPhone1}${s.mPhone2 ? ' / ' + s.mPhone2 : ''}</td>
@@ -1836,6 +2253,7 @@
                 <th>اسم الطالب بالكامل</th>
                 <th>المرحلة</th>
                 <th>Grade</th>
+                <th>نوع ومدة الاشتراك</th>
                 <th>العنوان بالتفصيل</th>
                 <th>تليفون الأب</th>
                 <th>تليفون الأم</th>
@@ -1946,7 +2364,7 @@
     URL.revokeObjectURL(url);
   }
 
-  renderAll();
+  applyBrandAssets();
 </script>
 </body>
 </html>
