@@ -99,7 +99,6 @@
     z-index: -1;
   }
 
-  .container, .tab-content, .panel { overflow: visible !important; }
   .container { max-width: 1460px; margin: 0 auto; position: relative; z-index: 1; }
 
   /* LOGIN PORTAL */
@@ -112,7 +111,7 @@
   }
   .login-box {
     width: 100%;
-    max-width: 500px;
+    max-width: 470px;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-top: 5px solid var(--accent);
@@ -121,20 +120,17 @@
     overflow: hidden;
   }
   .login-head {
-    background-image: linear-gradient(135deg, rgba(7, 23, 44, 0.68), rgba(25, 63, 115, 0.62)), url('{{BUILDING_SRC}}'), linear-gradient(135deg, #07172c, #193f73);
+    background-image: linear-gradient(135deg, rgba(7, 23, 44, 0.65), rgba(25, 63, 115, 0.60)), url('{{BUILDING_SRC}}'), linear-gradient(135deg, #07172c, #193f73);
     background-size: cover;
     background-position: center;
-    padding: 28px 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: 28px 22px;
+    text-align: center;
     color: #ffffff;
     border-bottom: 3px solid var(--accent);
   }
   .login-body { padding: 24px; }
 
-  /* Header */
+  /* Header with Transparent Photo Layer + Subtle Glass Rectangles */
   .app-header {
     background-image: var(--header-overlay), var(--header-bg-image), linear-gradient(135deg, #07172c, #193f73);
     background-size: cover;
@@ -151,11 +147,10 @@
     box-shadow: var(--shadow);
     margin-bottom: 14px;
     position: relative;
-    overflow: visible !important;
-    z-index: 5000;
-    transition: background-image 0.6s ease;
+    overflow: visible;
   }
 
+  /* Very Light Subtle Glass Rectangle for User & Menu Controls */
   .user-control-stack {
     display: flex;
     flex-direction: column;
@@ -166,12 +161,9 @@
     border: 1px solid rgba(255, 255, 255, 0.14);
     padding: 9px 12px;
     border-radius: 12px;
-    position: relative;
-    overflow: visible !important;
-    z-index: 6000;
   }
   .user-top-row { display: flex; align-items: center; gap: 8px; }
-  .user-bottom-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; position: relative; overflow: visible !important; }
+  .user-bottom-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
   .profile-chip {
     display: flex;
@@ -189,7 +181,7 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.92);
     color: var(--primary);
     border: 2px solid var(--accent);
     overflow: hidden;
@@ -200,7 +192,7 @@
     position: relative;
     flex-shrink: 0;
   }
-  .profile-avatar-btn img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .profile-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
 
   .shutdown-btn {
     width: 36px;
@@ -236,10 +228,9 @@
   }
   .shift-pill.active { background: var(--accent); color: #ffffff; }
 
-  /* Always-on-top Dropdown Menu opening inward safely */
-  .quick-dropdown { position: relative; display: inline-block; z-index: 999999; overflow: visible !important; }
+  .quick-dropdown { position: relative; display: inline-block; }
   .dropdown-trigger {
-    background: rgba(255, 255, 255, 0.96);
+    background: rgba(255, 255, 255, 0.94);
     color: #0b2240;
     border: 2px solid var(--accent);
     padding: 5px 16px;
@@ -252,26 +243,24 @@
     align-items: center;
     gap: 6px;
   }
-  .nav-bar { position: relative; z-index: 1; }
-
+  .app-header { z-index: 2000; }
+  .nav-bar { position: relative; z-index: 10; }
   .dropdown-panel {
     position: absolute;
     top: calc(100% + 6px);
-    left: 0;
-    right: auto;
-    min-width: 268px;
-    max-width: calc(100vw - 24px);
+    inset-inline-start: 0;
+    min-width: 255px;
     background: var(--bg-surface);
-    border: 2px solid var(--accent);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.35);
     padding: 6px;
-    z-index: 999999;
+    z-index: 99999;
     display: none;
     flex-direction: column;
     gap: 3px;
   }
-  .dropdown-panel.open { display: flex !important; }
+  .dropdown-panel.open { display: flex; }
   .drop-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
   .drop-item {
     width: 100%;
@@ -291,12 +280,12 @@
   }
   .drop-item:hover { background: var(--bg-subtle); color: var(--accent); }
 
-  /* Brand Section */
+  /* Brand Section with Very Light Subtle Rectangle */
   .brand-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 20px;
     min-width: 340px;
     background: rgba(7, 16, 30, 0.14);
@@ -304,21 +293,17 @@
     border: 1px solid rgba(255, 255, 255, 0.12);
     padding: 10px 24px;
     border-radius: 14px;
-    position: relative;
-    z-index: 1;
   }
 
   .clean-logo-img {
-    width: 92px;
-    height: 92px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
     object-fit: cover;
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    filter: none !important;
-    mix-blend-mode: normal !important;
+    background: transparent;
+    border: none;
+    filter: none;
+    mix-blend-mode: normal;
     flex-shrink: 0;
   }
 
@@ -336,46 +321,49 @@
   }
 
   .main-academy-title {
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 900;
     background: linear-gradient(110deg, #e11d48 0%, #ff4d6d 35%, #ffc2d1 50%, #ff4d6d 65%, #be123c 100%);
     background-size: 220% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gentleCrimsonShine 5s ease-in-out infinite;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.5px;
     line-height: 1.08;
     filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.65));
     white-space: nowrap;
   }
 
-  .second-line-row {
-    width: 100%;
+  /* Exact width of 'Academy' (approx 38.5% of 'TIBA Language Academy'), no border line */
+  .academy-sub-row {
+    width: 38.5%;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-    margin-top: 3px;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 1px;
   }
 
-  .slogan-under-tiba {
-    font-size: 10.5px;
+  .slogan-aligned {
+    font-size: 11px;
     font-weight: 800;
     color: #f8fafc;
-    letter-spacing: normal;
-    text-align: left;
+    letter-spacing: 0.5px;
+    text-align: justify;
+    text-align-last: justify;
+    border: none;
+    padding-top: 0;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
     white-space: nowrap;
   }
 
-  .transport-under-academy {
-    font-size: 13px;
-    font-weight: 700;
+  .project-name-tag {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 800;
     color: #fde68a;
-    letter-spacing: normal;
-    text-align: right;
+    letter-spacing: 1.2px;
+    align-self: flex-start;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
-    white-space: nowrap;
   }
 
   /* Navigation Bar */
@@ -522,6 +510,7 @@
   }
   .bus-card.drag-over { border-color: var(--accent); }
 
+  /* Route on its own line + Bus badge inside a circle below */
   .bus-card-head {
     background: linear-gradient(135deg, #07172c 0%, #0f2c52 55%, #193f73 100%);
     color: #ffffff;
@@ -733,6 +722,7 @@
     font-weight: 600;
   }
 
+  /* Header Gallery Grid inside Theme Studio */
   .header-gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -908,7 +898,7 @@
   }
 </style>
 </head>
-<body>
+<body onclick="closeQuickMenu()">
 
 <div id="customWatermark"></div>
 <input type="file" id="avatarFileInput" accept="image/*" class="hidden" onchange="uploadUserAvatar(event)">
@@ -917,13 +907,11 @@
 <div id="loginScreen" class="login-wrapper">
   <div class="login-box">
     <div class="login-head">
-      <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin-bottom:12px;" onerror="this.style.display='none'">
-      <div class="brand-title-stack">
-        <h1 class="main-academy-title" style="font-size:28px;">TIBA Language Academy</h1>
-        <div class="second-line-row" style="gap:8px; margin-top:3px;">
-          <span class="slogan-under-tiba" style="font-size:8px;">A SCHOOL... TO RELY ON</span>
-          <span class="transport-under-academy" style="font-size:10.5px;">Transportation System</span>
-        </div>
+      <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin:0 auto 10px auto; display:block;" onerror="this.style.display='none'">
+      <div class="brand-title-stack" style="align-items:center;">
+        <h1 class="main-academy-title" style="font-size:23px;">TIBA Language Academy</h1>
+        <span style="font-size:11px; color:#f8fafc; letter-spacing:1.2px; margin-top:2px;">A SCHOOL... TO RELY ON</span>
+        <span class="project-name-tag">Transportation System</span>
       </div>
     </div>
     <div class="login-body">
@@ -944,21 +932,11 @@
 <!-- ==================== MAIN APPLICATION ==================== -->
 <div id="mainApp" class="container hidden">
   <header class="app-header">
-    <div class="brand-wrapper">
-      <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
-      <div class="brand-title-stack">
-        <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <div class="second-line-row">
-          <span class="slogan-under-tiba">A SCHOOL... TO RELY ON</span>
-          <span class="transport-under-academy">Transportation System</span>
-        </div>
-      </div>
-    </div>
-
+    <!-- Subtle Glass Rectangle 1: Mahmoud Salah + Shutdown + Shifts + Menu -->
     <div class="user-control-stack">
       <div class="user-top-row">
         <div class="profile-chip">
-          <div class="profile-avatar-btn" onclick="triggerAvatarUpload()" title="تغيير الصورة الشخصية (للسوبر أدمن فقط)" id="userAvatarCircle">
+          <div class="profile-avatar-btn" onclick="triggerAvatarUpload()" title="اضغط لرفع صورتك الشخصية" id="userAvatarCircle">
             <span>MS</span>
           </div>
           <span id="activeUserName">Mahmoud Salah</span>
@@ -978,47 +956,59 @@
           <button class="shift-pill" id="pill-Teachers" onclick="setShift('Teachers')">Teachers</button>
         </div>
 
-        <div class="quick-dropdown">
-          <button type="button" class="dropdown-trigger" id="menuBtnTrigger" onclick="toggleQuickMenu(event)">
+        <div class="quick-dropdown" onclick="event.stopPropagation()">
+          <button class="dropdown-trigger" onclick="toggleQuickMenu()">
             <span>Menu</span>
             <span>▾</span>
           </button>
           <div class="dropdown-panel" id="quickMenuPanel">
-            <button type="button" class="drop-item" id="menu-reports" onclick="openSectionFromMenu('reports')">
+            <button class="drop-item" id="menu-reports" onclick="openSectionFromMenu('reports')">
               <span>التقارير والطباعة (A4 / Excel / PDF)</span>
               <strong>📊</strong>
             </button>
-            <button type="button" class="drop-item" id="menu-archive" onclick="openSectionFromMenu('archive')">
+            <button class="drop-item" id="menu-archive" onclick="openSectionFromMenu('archive')">
               <span>الأرشيف (Archive)</span>
               <strong>🗂️</strong>
             </button>
-            <button type="button" class="drop-item" id="menu-logs" onclick="openSectionFromMenu('logs')">
+            <button class="drop-item" id="menu-logs" onclick="openSectionFromMenu('logs')">
               <span>سجل الحركات (Audit Log)</span>
               <strong>📝</strong>
             </button>
-            <button type="button" class="drop-item" id="menu-users" onclick="openSectionFromMenu('users')">
+            <button class="drop-item" id="menu-users" onclick="openSectionFromMenu('users')">
               <span>إدارة المستخدمين والصلاحيات</span>
               <strong>👥</strong>
             </button>
-            <button type="button" class="drop-item" id="menu-theme" onclick="openSectionFromMenu('theme')">
+            <button class="drop-item" id="menu-theme" onclick="openSectionFromMenu('theme')">
               <span>إعدادات الثيم وخلفيات الهيدر (Super Admin)</span>
               <strong>🎨</strong>
             </button>
             <div class="drop-divider"></div>
-            <button type="button" class="drop-item" onclick="toggleLang()">
+            <button class="drop-item" onclick="toggleLang()">
               <span>اللغة (عربي / English)</span>
               <strong id="langIndicator">EN</strong>
             </button>
-            <button type="button" class="drop-item" onclick="toggleTheme()">
+            <button class="drop-item" onclick="toggleTheme()">
               <span>الوضع الليلي / النهاري</span>
               <strong id="modeIndicator">🌙</strong>
             </button>
-            <button type="button" class="drop-item" id="menu-quick-color" onclick="cycleQuickTheme()">
+            <button class="drop-item" id="menu-quick-color" onclick="cycleQuickTheme()">
               <span>تبديل لون الواجهة</span>
               <strong>🖌️</strong>
             </button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Subtle Glass Rectangle 2: Clean White-Removed Logo + TIBA Language Academy + Aligned Slogan + Project Name -->
+    <div class="brand-wrapper">
+      <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
+      <div class="brand-title-stack">
+        <h1 class="main-academy-title">TIBA Language Academy</h1>
+        <div class="academy-sub-row">
+          <span class="slogan-aligned">A SCHOOL... TO RELY ON</span>
+        </div>
+        <span class="project-name-tag">Transportation System</span>
       </div>
     </div>
   </header>
@@ -1526,11 +1516,11 @@
     </div>
   </div>
 
-  <!-- MENU SECTION: THEME STUDIO & HEADER GALLERY (SUPER ADMIN ONLY) -->
+  <!-- MENU SECTION: THEME STUDIO & ALEXANDRIA HEADER GALLERY (SUPER ADMIN ONLY) -->
   <div id="tab-theme" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">معرض خلفيات الهيدر وإعدادات الثيم (Super Admin Only — تتبدل تلقائياً كل 30 ثانية)</div>
+        <div class="panel-title">معرض خلفيات الهيدر وإعدادات الثيم (Super Admin Only)</div>
       </div>
 
       <div class="form-grid">
@@ -1556,7 +1546,7 @@
         </div>
       </div>
 
-      <div style="margin-top:14px; font-size:13.5px; font-weight:800;">خلفيات الهيدر المتاحة (تتبدل تلقائياً كل 30 ثانية ويمكنك اختيار أي صورة منها فوراً):</div>
+      <div style="margin-top:14px; font-size:13.5px; font-weight:800;">اختر خلفية الهيدر من الصور البانورامية المرفوعة (اضغط على الصورة لتطبيقها فوراً):</div>
       <div class="header-gallery-grid" id="headerGalleryGrid"></div>
 
       <div style="margin-top:14px;">
@@ -1590,18 +1580,18 @@
 </div>
 
 <script>
-  const FALLBACK_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><text x="60" y="68" text-anchor="middle" font-family="Arial" font-weight="900" font-size="22" fill="#ffffff">T.L.A</text></svg>`);
+  const FALLBACK_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="#ff4d6d" stroke-width="5"/><text x="60" y="68" text-anchor="middle" font-family="Arial" font-weight="900" font-size="22" fill="#ffffff">T.L.A</text></svg>`);
 
   const PRESET_HEADERS = [
-    { id: 'h9', label: 'صورة 9', src: '{{HEADER_9}}' },
-    { id: 'h8', label: 'صورة 8', src: '{{HEADER_8}}' },
-    { id: 'h7', label: 'صورة 7', src: '{{HEADER_7}}' },
-    { id: 'h6', label: 'صورة 6', src: '{{HEADER_6}}' },
-    { id: 'h5', label: 'صورة 5', src: '{{HEADER_5}}' },
-    { id: 'h4', label: 'صورة 4', src: '{{HEADER_4}}' },
-    { id: 'h3', label: 'صورة 3', src: '{{HEADER_3}}' },
-    { id: 'h2', label: 'صورة 2', src: '{{HEADER_2}}' },
-    { id: 'h1', label: 'صورة 1', src: '{{HEADER_1}}' }
+    { id: 'h9', label: 'كوبري ستانلي والبحر (9)', src: '{{HEADER_9}}' },
+    { id: 'h8', label: 'قصر المنتزه والبحر (8)', src: '{{HEADER_8}}' },
+    { id: 'h5', label: 'مكتبة الإسكندرية (5)', src: '{{HEADER_5}}' },
+    { id: 'h4', label: 'كورنيش الإسكندرية والأمواج (4)', src: '{{HEADER_4}}' },
+    { id: 'h2', label: 'قلعة قايتباي والميناء (2)', src: '{{HEADER_2}}' },
+    { id: 'h7', label: 'شاطئ الإسكندرية (7)', src: '{{HEADER_7}}' },
+    { id: 'h6', label: 'أمواج البحر والكورنيش (6)', src: '{{HEADER_6}}' },
+    { id: 'h3', label: 'إطلالة بانورامية على الخليج (3)', src: '{{HEADER_3}}' },
+    { id: 'h1', label: 'مياه البحر والصخور (1)', src: '{{HEADER_1}}' }
   ];
 
   const ALL_PERMS_TRUE = {
@@ -1664,12 +1654,246 @@
   let currentReport = 'master';
   let draggedItem = null;
   let users = loadMergedUsers();
-  let headerSlideIndex = 0;
 
+  // Clean Empty Arrays Ready for Your Live Data Entry
   let buses = [];
   let students = [];
-  let supervisors = [];
-  let teachers = [];
+  let supervisors = [
+    { id: 2242, shift: currentShift, name: 'فائقة رمضان', phone: '-', busId: null, archived: false },
+    { id: 2243, shift: currentShift, name: 'نجوى السيد', phone: '-', busId: null, archived: false },
+    { id: 2244, shift: currentShift, name: 'اميرة رمضان', phone: '-', busId: null, archived: false },
+    { id: 2245, shift: currentShift, name: 'ايمان الطحان', phone: '-', busId: null, archived: false },
+    { id: 2246, shift: currentShift, name: 'صباح عبد الكريم', phone: '-', busId: null, archived: false },
+    { id: 2247, shift: currentShift, name: 'عزة محمد', phone: '-', busId: null, archived: false },
+    { id: 2248, shift: currentShift, name: 'نادية محمد', phone: '-', busId: null, archived: false },
+    { id: 2249, shift: currentShift, name: 'نوال عبد المعطي', phone: '-', busId: null, archived: false },
+    { id: 2250, shift: currentShift, name: 'هبه فتحي', phone: '-', busId: null, archived: false },
+    { id: 2251, shift: currentShift, name: 'دعاء سامي', phone: '-', busId: null, archived: false },
+    { id: 2252, shift: currentShift, name: 'دعاء محمد عبدالله', phone: '-', busId: null, archived: false },
+    { id: 2253, shift: currentShift, name: 'هبة محمد على', phone: '-', busId: null, archived: false },
+    { id: 2254, shift: currentShift, name: 'رشا عوض احمد', phone: '-', busId: null, archived: false },
+    { id: 2255, shift: currentShift, name: 'نسمة سعيد', phone: '-', busId: null, archived: false },
+    { id: 2256, shift: currentShift, name: 'لمياء أحمد', phone: '-', busId: null, archived: false },
+    { id: 2257, shift: currentShift, name: 'أية محمود محمد', phone: '-', busId: null, archived: false },
+    { id: 2258, shift: currentShift, name: 'بسنت محمد فوزي', phone: '-', busId: null, archived: false },
+    { id: 2259, shift: currentShift, name: 'فاطمة مصطفى المغربي', phone: '-', busId: null, archived: false },
+    { id: 2260, shift: currentShift, name: 'حبيبة هيثم محمد', phone: '-', busId: null, archived: false },
+    { id: 2261, shift: currentShift, name: 'إيمان أشرف', phone: '-', busId: null, archived: false },
+    { id: 2262, shift: currentShift, name: 'احسان محمد محمد', phone: '-', busId: null, archived: false },
+    { id: 2263, shift: currentShift, name: 'أسماء الديب السيد محمود', phone: '-', busId: null, archived: false },
+    { id: 2264, shift: currentShift, name: 'سلمى السيد فتحي', phone: '-', busId: null, archived: false },
+    { id: 2265, shift: currentShift, name: 'داليا السيد اسماعيل', phone: '-', busId: null, archived: false },
+    { id: 2266, shift: currentShift, name: 'شيماء سعيد', phone: '-', busId: null, archived: false },
+    { id: 2267, shift: currentShift, name: 'إيمان حسن', phone: '-', busId: null, archived: false },
+    { id: 2268, shift: currentShift, name: 'جنى مصطفى صلاح', phone: '-', busId: null, archived: false },
+    { id: 2269, shift: currentShift, name: 'ناهد محمد حسن', phone: '-', busId: null, archived: false },
+  ];
+  let teachers = [
+    { id: 3001, shift: currentShift, name: 'إيمان محمود رفاعي', dept: 'Administrators', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3002, shift: currentShift, name: 'سلمي سعيد', dept: 'Administrators', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3003, shift: currentShift, name: 'نورة حسن', dept: 'Administrators', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3004, shift: currentShift, name: 'نور عباس بدوى', dept: 'Administrators', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3005, shift: currentShift, name: 'نورين أحمد زكريا', dept: 'Administrators', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3006, shift: currentShift, name: 'ريهام محمد جابر', dept: 'Administrators', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3007, shift: currentShift, name: 'أمل عبد العظيم', dept: 'Administrators', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3010, shift: currentShift, name: 'بروفان طلعت', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3011, shift: currentShift, name: 'رنا محمد أمين', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3012, shift: currentShift, name: 'بسمة محمد منصور', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3013, shift: currentShift, name: 'زينب عبد الحميد', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3014, shift: currentShift, name: 'مني منير محمد', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3015, shift: currentShift, name: 'ميرنا عصام الدين', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3016, shift: currentShift, name: 'رانيا طه', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3017, shift: currentShift, name: 'ساندى محمد أبو بكر', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3018, shift: currentShift, name: 'الاء احمد', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3019, shift: currentShift, name: 'هدير محمد ابراهيم', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3020, shift: currentShift, name: 'نسمة سامي محمد', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3021, shift: currentShift, name: 'هاجر حسن اسماعيل', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3022, shift: currentShift, name: 'ميار محمد ابراهيم', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3023, shift: currentShift, name: 'ندى حسن مختار ابراهيم', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3024, shift: currentShift, name: 'ميار خالد محمود', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3025, shift: currentShift, name: 'نيهال سمير عبدالمنعم', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3026, shift: currentShift, name: 'يمنى عاطف عبدالرحيم', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3027, shift: currentShift, name: 'علياء محمد الضبع عامر', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3028, shift: currentShift, name: 'ندى علي صدقي علي', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3029, shift: currentShift, name: 'شدا خالد محمد درويش', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3030, shift: currentShift, name: 'مي حامد عطا', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3031, shift: currentShift, name: 'نهى محمود محمد', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3032, shift: currentShift, name: 'سلسبيل محمود', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3035, shift: currentShift, name: 'هبه احمد فتحي', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3036, shift: currentShift, name: 'رضوي محمد المشد', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3037, shift: currentShift, name: 'ولاء جمال', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3038, shift: currentShift, name: 'بسمة رأفت شكري', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3039, shift: currentShift, name: 'نيره حسن', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3040, shift: currentShift, name: 'نهى حسن ابوزيد', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3041, shift: currentShift, name: 'نهلة جمال علي', dept: 'KG', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3044, shift: currentShift, name: 'ندى زهران', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3045, shift: currentShift, name: 'هبه زكريا', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3046, shift: currentShift, name: 'أيات سيد', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3047, shift: currentShift, name: 'أسماء أحمد محمد', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3048, shift: currentShift, name: 'سهام تاج الدين', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3049, shift: currentShift, name: 'مروة محمد عبد الباسط', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3050, shift: currentShift, name: 'ايمان إبراهيم مصطفى', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3051, shift: currentShift, name: 'هدير ممدوح محمد صبحى', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3052, shift: currentShift, name: 'نورا أحمد البخش', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3053, shift: currentShift, name: 'ربي ممدوح احمد', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3054, shift: currentShift, name: 'رنا محمد عبد الجواد', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3055, shift: currentShift, name: 'منال اسماعيل', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3056, shift: currentShift, name: 'شيرين يوسف', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3057, shift: currentShift, name: 'اسماء عباس نصر', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3058, shift: currentShift, name: 'فاطمة طارق السيد', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3059, shift: currentShift, name: 'سمر سمير بدر', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3060, shift: currentShift, name: 'الاء رزق يوسف', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3061, shift: currentShift, name: 'اميرة ماهر محمد', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3062, shift: currentShift, name: 'روضة احمد محمود', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3063, shift: currentShift, name: 'راندا رضا عبد الله', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3064, shift: currentShift, name: 'سمر علي عبدالرحيم', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3065, shift: currentShift, name: 'ميرنا محفوظ صالح', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3066, shift: currentShift, name: 'عمر متولي أبو العينين إمبابي', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3067, shift: currentShift, name: 'مايفين طلعت جمال', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3068, shift: currentShift, name: 'مريم حربي مرعي عبدالمولى', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3069, shift: currentShift, name: 'شهد علي محمد', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3070, shift: currentShift, name: 'علا سعيد محمد', dept: 'English', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3073, shift: currentShift, name: 'رامي فتحي محمد قاسم', dept: 'French', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3074, shift: currentShift, name: 'الهام حسين', dept: 'French', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3075, shift: currentShift, name: 'دينا محمد مختار', dept: 'French', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3076, shift: currentShift, name: 'مريم سامي راغب', dept: 'French', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3077, shift: currentShift, name: 'روان السباعي', dept: 'French', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3078, shift: currentShift, name: 'مورين مينا شفيق', dept: 'French', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3079, shift: currentShift, name: 'نادين أيمن بسيوني', dept: 'French', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3080, shift: currentShift, name: 'غدير محمود سامي القباني', dept: 'French', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3083, shift: currentShift, name: 'صبري محمود', dept: 'Administrators', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3084, shift: currentShift, name: 'اميمة عبد الحكيم', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3085, shift: currentShift, name: 'محمد إبراهيم', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3086, shift: currentShift, name: 'علي محمد العمراوي', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3087, shift: currentShift, name: 'سارة مرسي', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3088, shift: currentShift, name: 'نسمة مصطفي محمد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3089, shift: currentShift, name: 'هيام السيد محمد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3090, shift: currentShift, name: 'دعاء محمود عبد الظاهر', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3091, shift: currentShift, name: 'اماني جمعة الصافي', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3092, shift: currentShift, name: 'وفاء محمد أبو المجد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3093, shift: currentShift, name: 'احمد عبد السميع', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3094, shift: currentShift, name: 'محمد مصطفي', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3095, shift: currentShift, name: 'سلمى حامد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3096, shift: currentShift, name: 'سارة سعيد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3097, shift: currentShift, name: 'مروة احمد يحي ابوزيد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3098, shift: currentShift, name: 'ياسمين محمود حسن محمود', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3099, shift: currentShift, name: 'ولاء علي محمد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3100, shift: currentShift, name: 'سماح عبدالناصر عبد المعطى', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3101, shift: currentShift, name: 'منال ابراهيم حامد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3102, shift: currentShift, name: 'رانيا ممدوح', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3103, shift: currentShift, name: 'عماد عبدالحليم', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3104, shift: currentShift, name: 'مروة السيد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3105, shift: currentShift, name: 'وحيد يوسف عبدالحميد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3106, shift: currentShift, name: 'شيماء السيد محمد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3107, shift: currentShift, name: 'حسام حسن محمد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3108, shift: currentShift, name: 'هاجر عبدالناصر الجالس', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3109, shift: currentShift, name: 'أسماء إبراهيم محمد', dept: 'Arabic', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3112, shift: currentShift, name: 'منال محمود بكير', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3113, shift: currentShift, name: 'مروة محمد البنا', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3114, shift: currentShift, name: 'مصطفي محمد نجم', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3115, shift: currentShift, name: 'دعاء احمد نصر', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3116, shift: currentShift, name: 'اسراء خميس', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3117, shift: currentShift, name: 'محمد زكى عبد الجواد', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3118, shift: currentShift, name: 'ميرنا عماد منير', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3119, shift: currentShift, name: 'هناء محمود محمد', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3120, shift: currentShift, name: 'أحمد محمد الحسيني محمد', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3121, shift: currentShift, name: 'كيرلس أميل وهيب القمص', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3122, shift: currentShift, name: 'هدير أشرف محمد', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3123, shift: currentShift, name: 'سعاد عبدالحكيم', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3124, shift: currentShift, name: 'محمود عاطف خضر', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3125, shift: currentShift, name: 'هادى قطب عبدالعزيز', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3126, shift: currentShift, name: 'رنا علي محمود الشناوي', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3127, shift: currentShift, name: 'ناهد يوسف فتحي', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3128, shift: currentShift, name: 'مي محمد الجبالي', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3129, shift: currentShift, name: 'الاء مجدي', dept: 'Maths', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3132, shift: currentShift, name: 'غادة عبد النبي', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3133, shift: currentShift, name: 'تريزا حشمت', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3134, shift: currentShift, name: 'مني صبري', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3135, shift: currentShift, name: 'فاطمة الزهراء احمد', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3136, shift: currentShift, name: 'نهلة سراج الدين', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3137, shift: currentShift, name: 'سارة مجدى', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3138, shift: currentShift, name: 'هبه مصطفي', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3139, shift: currentShift, name: 'إسلام محمد عبدالعزيز', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3140, shift: currentShift, name: 'يارا محمد احمد', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3141, shift: currentShift, name: 'بسنت محمود فوزي', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3142, shift: currentShift, name: 'ريم رجب قناوي', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3143, shift: currentShift, name: 'أية محمد أمين', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3144, shift: currentShift, name: 'نيرين احمد عزت', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3145, shift: currentShift, name: 'محمد سامي', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3146, shift: currentShift, name: 'الشيماء إبراهيم فؤاد', dept: 'Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3149, shift: currentShift, name: 'شيماء محمد السيد', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3150, shift: currentShift, name: 'أحمد محمود خلف', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3151, shift: currentShift, name: 'هند احمد عبد العزيز', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3152, shift: currentShift, name: 'نهي عبد الفتاح', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3153, shift: currentShift, name: 'مى عبد المنعم ابراهيم', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3154, shift: currentShift, name: 'محروس سلامة محروس', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3155, shift: currentShift, name: 'عمرو ابراهيم عوض', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3156, shift: currentShift, name: 'شيماء محمد عادل محمد', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3157, shift: currentShift, name: 'أسماء عيد عبدالقادر', dept: 'Social Studies', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3160, shift: currentShift, name: 'محمود صلاح', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3161, shift: currentShift, name: 'شيماء أحمد صالح', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3162, shift: currentShift, name: 'عبد الفتاح محمد عبد الفتاح', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3163, shift: currentShift, name: 'محمد وحيد حامد', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3164, shift: currentShift, name: 'مى مجدى عبد النبي', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3165, shift: currentShift, name: 'فاطمة علي السيد', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3166, shift: currentShift, name: 'مروة سمير صالح', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3167, shift: currentShift, name: 'يارا عبدالناصر محمد', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3168, shift: currentShift, name: 'أحمد جابر أحمد', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3169, shift: currentShift, name: 'ياسمين الجزيرى', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3170, shift: currentShift, name: 'مصطفى علي مصطفى', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3171, shift: currentShift, name: 'أيات عطيه البدري عطيه', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3172, shift: currentShift, name: 'مهند محمد محمد عبداللطيف', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3173, shift: currentShift, name: 'إسلام أشرف حسن', dept: 'ICT', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3176, shift: currentShift, name: 'آلاء السيد الضوي', dept: 'Library', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3177, shift: currentShift, name: 'أمنية عادل فهمي', dept: 'Library', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3178, shift: currentShift, name: 'أميرة محمد عبدالقادر محمد', dept: 'Library', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3179, shift: currentShift, name: 'شهد حسن محمود', dept: 'Library', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3182, shift: currentShift, name: 'محمد السيد عبد الفتاح', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3183, shift: currentShift, name: 'بلال هشام', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3184, shift: currentShift, name: 'منار مجدى', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3185, shift: currentShift, name: 'منة الله أشرف', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3186, shift: currentShift, name: 'منة الله السيد التوني', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3187, shift: currentShift, name: 'هدى السيد فؤاد', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3188, shift: currentShift, name: 'نور الدين جمال سلامة', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3189, shift: currentShift, name: 'محمد ياسر محمد أبو الفضل', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3190, shift: currentShift, name: 'شهد السيد محمد', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3191, shift: currentShift, name: 'ايمان مجدي خير الدين', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3192, shift: currentShift, name: 'محمد عادل محمد محمد', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3193, shift: currentShift, name: 'عمر محمود السيد رمضان', dept: 'PE', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3196, shift: currentShift, name: 'رحاب جابر', dept: 'Art', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3197, shift: currentShift, name: 'فاطمة فتحي', dept: 'Art', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3198, shift: currentShift, name: 'سارة محمد فرج', dept: 'Art', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3199, shift: currentShift, name: 'أية ناصر عطية', dept: 'Art', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3200, shift: currentShift, name: 'ياسمين شريف سيد', dept: 'Art', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3203, shift: currentShift, name: 'ميادة ضيف الله', dept: 'German', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3204, shift: currentShift, name: 'أميرة علي الديب', dept: 'German', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3205, shift: currentShift, name: 'الاء السيد محمد', dept: 'German', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3206, shift: currentShift, name: 'سارة سعد محمود', dept: 'German', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3207, shift: currentShift, name: 'مصطفى محمد رضا', dept: 'German', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3210, shift: currentShift, name: 'امينة رجب', dept: 'Quran', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3211, shift: currentShift, name: 'غادة رمضان السيد', dept: 'Quran', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3212, shift: currentShift, name: 'إيمان عبدالمطلب محمد', dept: 'Quran', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3215, shift: currentShift, name: 'سارة محمد فتحي', dept: 'Domestic Science', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3216, shift: currentShift, name: 'حبيبة أحمد عبدالعاطي', dept: 'Music', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3217, shift: currentShift, name: 'رضوى عبدالرحيم فخري', dept: 'Music', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3220, shift: currentShift, name: 'شريف محمد حسني', dept: 'Others', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3221, shift: currentShift, name: 'مريانة شحاته', dept: 'Others', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3222, shift: currentShift, name: 'نسمة محمد فتحي', dept: 'Social Worker', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3223, shift: currentShift, name: 'هند السيد قاسم', dept: 'Social Worker', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3224, shift: currentShift, name: 'سمر احمد السمان احمد', dept: 'Social Worker', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3226, shift: currentShift, name: 'سارة طارق', dept: 'Control', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3227, shift: currentShift, name: 'مريم كامل فهمي', dept: 'Control', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3230, shift: currentShift, name: 'مارسيل عبد مريم', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3231, shift: currentShift, name: 'اسماء اسماعيل محمد', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3232, shift: currentShift, name: 'ابتسام السيد', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3233, shift: currentShift, name: 'نرمين جابر', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3234, shift: currentShift, name: 'رحمة محمد احمد', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3235, shift: currentShift, name: 'أمنية عادل', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3236, shift: currentShift, name: 'مي عادل جمال احمد', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3237, shift: currentShift, name: 'منة الله أحمد حسين', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3238, shift: currentShift, name: 'هبة خميس بدران', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+    { id: 3239, shift: currentShift, name: 'إيمان جمال محمد', dept: 'Floor Supervisor', tripType: 'both', phone: '-', busId: null, seatIdx: null, archived: false },
+  ];
   let logs = [];
 
   const tripLabels = { both: 'ذهاب وعودة', go: 'ذهاب فقط', return: 'عودة فقط' };
@@ -1681,86 +1905,10 @@
     teacher: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>`
   };
 
-  function isSuperAdmin() {
-    return !!(currentUser && currentUser.isSuper);
-  }
-
-  function getAllHeaderSlides() {
-    const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
-    const validPresets = PRESET_HEADERS.filter(h => h.src && h.src.startsWith('data:'));
-    return [...validPresets, ...customUploads];
-  }
-
-  function applyHeaderImageSrc(src) {
-    if (src && src.startsWith('data:')) {
-      document.documentElement.style.setProperty('--header-bg-image', `url('${src}')`);
-    }
-  }
-
-  setInterval(() => {
-    const slides = getAllHeaderSlides();
-    if (slides.length > 1) {
-      headerSlideIndex = (headerSlideIndex + 1) % slides.length;
-      const chosen = slides[headerSlideIndex];
-      localStorage.setItem('tiba_selected_header_src', chosen.src);
-      applyHeaderImageSrc(chosen.src);
-      renderHeaderGallery();
-    }
-  }, 30000);
-
-  function positionDropdownInward() {
-    const panel = document.getElementById('quickMenuPanel');
-    const btn = document.getElementById('menuBtnTrigger');
-    if (!panel || !btn) return;
-    panel.style.left = '';
-    panel.style.right = '';
-    const btnRect = btn.getBoundingClientRect();
-    const panelWidth = Math.min(268, window.innerWidth - 24);
-    const spaceOnRight = window.innerWidth - btnRect.left;
-    const spaceOnLeft = btnRect.right;
-
-    if (spaceOnRight >= panelWidth + 8) {
-      panel.style.left = '0px';
-      panel.style.right = 'auto';
-    } else if (spaceOnLeft >= panelWidth + 8) {
-      panel.style.right = '0px';
-      panel.style.left = 'auto';
-    } else {
-      const offsetToKeepInBounds = Math.max(12 - btnRect.left, Math.min(0, (window.innerWidth - 12) - (btnRect.left + panelWidth)));
-      panel.style.left = offsetToKeepInBounds + 'px';
-      panel.style.right = 'auto';
-    }
-  }
-
-  function toggleQuickMenu(e) {
-    if (e) { e.preventDefault(); e.stopPropagation(); }
-    const panel = document.getElementById('quickMenuPanel');
-    if (!panel) return;
-    const nextState = !panel.classList.contains('open');
-    panel.classList.toggle('open', nextState);
-    if (nextState) positionDropdownInward();
-  }
-
-  window.addEventListener('resize', () => {
-    const panel = document.getElementById('quickMenuPanel');
-    if (panel && panel.classList.contains('open')) positionDropdownInward();
-  });
-
-  document.addEventListener('mousedown', function(e) {
-    const dd = document.querySelector('.quick-dropdown');
-    const panel = document.getElementById('quickMenuPanel');
-    if (panel && dd && !dd.contains(e.target)) {
-      panel.classList.remove('open');
-    }
-  });
-
-  function closeQuickMenu() {
-    const p = document.getElementById('quickMenuPanel');
-    if (p) p.classList.remove('open');
-  }
+  function toggleQuickMenu() { document.getElementById('quickMenuPanel').classList.toggle('open'); }
+  function closeQuickMenu() { const p = document.getElementById('quickMenuPanel'); if (p) p.classList.remove('open'); }
 
   function openSectionFromMenu(sectionId) {
-    if ((sectionId === 'users' || sectionId === 'theme') && !isSuperAdmin()) return;
     closeQuickMenu();
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('#mainNavBar .nav-tab').forEach(el => el.classList.remove('active'));
@@ -1769,7 +1917,7 @@
   }
 
   function cycleQuickTheme() {
-    if (!isSuperAdmin()) return;
+    if (!currentUser || !currentUser.isSuper) return;
     const themes = ['default', 'emerald', 'royal'];
     const cur = localStorage.getItem('tiba_theme_variant') || 'default';
     setBrandTheme(themes[(themes.indexOf(cur) + 1) % themes.length]);
@@ -1778,14 +1926,14 @@
   function applyBrandAssets() {
     const savedLogo = localStorage.getItem('tiba_custom_logo') || '{{LOGO_SRC}}' || FALLBACK_LOGO;
     const savedBuilding = localStorage.getItem('tiba_custom_building') || '{{BUILDING_SRC}}';
-    const slides = getAllHeaderSlides();
-    const savedHeaderBg = localStorage.getItem('tiba_selected_header_src') || (slides[0] ? slides[0].src : '{{HEADER_9}}');
+    const savedHeaderBg = localStorage.getItem('tiba_selected_header_src') || '{{HEADER_9}}';
     const savedOpacity = localStorage.getItem('tiba_wm_opacity') || '7';
     const savedTheme = localStorage.getItem('tiba_theme_variant') || 'default';
 
     document.querySelectorAll('.clean-logo-img').forEach(img => { img.src = savedLogo; });
-    applyHeaderImageSrc(savedHeaderBg);
-
+    if (savedHeaderBg && savedHeaderBg.startsWith('data:')) {
+      document.documentElement.style.setProperty('--header-bg-image', `url('${savedHeaderBg}')`);
+    }
     if (savedBuilding && savedBuilding.startsWith('data:')) {
       document.getElementById('customWatermark').style.backgroundImage = `url('${savedBuilding}')`;
     }
@@ -1803,10 +1951,11 @@
   function renderHeaderGallery() {
     const grid = document.getElementById('headerGalleryGrid');
     if (!grid) return;
-    const slides = getAllHeaderSlides();
-    const activeSrc = localStorage.getItem('tiba_selected_header_src') || (slides[0] ? slides[0].src : '');
+    const activeSrc = localStorage.getItem('tiba_selected_header_src') || '{{HEADER_9}}';
+    const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
+    const allItems = [...PRESET_HEADERS.filter(h => h.src && h.src.startsWith('data:')), ...customUploads];
 
-    grid.innerHTML = slides.map(item => `
+    grid.innerHTML = allItems.map(item => `
       <div class="header-thumb-card ${activeSrc === item.src ? 'selected' : ''}" onclick="selectHeaderBg('${item.id}')">
         <img src="${item.src}" alt="${item.label}">
         <div class="header-thumb-label">
@@ -1818,18 +1967,18 @@
   }
 
   function selectHeaderBg(id) {
-    if (!isSuperAdmin()) return;
-    const slides = getAllHeaderSlides();
-    const found = slides.find(x => x.id === id);
+    if (!currentUser || !currentUser.isSuper) return;
+    const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
+    const allItems = [...PRESET_HEADERS, ...customUploads];
+    const found = allItems.find(x => x.id === id);
     if (found && found.src) {
       localStorage.setItem('tiba_selected_header_src', found.src);
-      applyHeaderImageSrc(found.src);
-      renderHeaderGallery();
+      applyBrandAssets();
     }
   }
 
   function uploadCustomHeaderBg(e) {
-    if (!isSuperAdmin()) return;
+    if (!currentUser || !currentUser.isSuper) return;
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
@@ -1845,13 +1994,13 @@
   }
 
   function setBrandTheme(val) {
-    if (!isSuperAdmin()) return;
+    if (!currentUser || !currentUser.isSuper) return;
     localStorage.setItem('tiba_theme_variant', val);
     applyBrandAssets();
   }
 
   function uploadBrandImage(e, target) {
-    if (!isSuperAdmin()) return;
+    if (!currentUser || !currentUser.isSuper) return;
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
@@ -1864,13 +2013,13 @@
   }
 
   function updateWatermarkOpacity(val) {
-    if (!isSuperAdmin()) return;
+    if (!currentUser || !currentUser.isSuper) return;
     localStorage.setItem('tiba_wm_opacity', val);
     document.documentElement.style.setProperty('--wm-opacity', (parseInt(val) / 100).toString());
   }
 
   function resetBrandTheme() {
-    if (!isSuperAdmin()) return;
+    if (!currentUser || !currentUser.isSuper) return;
     localStorage.removeItem('tiba_custom_logo');
     localStorage.removeItem('tiba_custom_building');
     localStorage.removeItem('tiba_selected_header_src');
@@ -1879,13 +2028,8 @@
     applyBrandAssets();
   }
 
-  function triggerAvatarUpload() {
-    if (!isSuperAdmin()) return;
-    document.getElementById('avatarFileInput').click();
-  }
-
+  function triggerAvatarUpload() { document.getElementById('avatarFileInput').click(); }
   function uploadUserAvatar(e) {
-    if (!isSuperAdmin()) return;
     const file = e.target.files[0];
     if (!file || !currentUser) return;
     const reader = new FileReader();
@@ -1900,7 +2044,6 @@
     if (!currentUser) return;
     const savedAv = localStorage.getItem('tiba_avatar_' + currentUser.id);
     const holder = document.getElementById('userAvatarCircle');
-    holder.style.cursor = isSuperAdmin() ? 'pointer' : 'default';
     if (savedAv) {
       holder.innerHTML = `<img src="${savedAv}" alt="User">`;
     } else {
@@ -1981,7 +2124,6 @@
   }
 
   function doLogout() {
-    closeQuickMenu();
     currentUser = null;
     document.getElementById('mainApp').classList.add('hidden');
     document.getElementById('loginScreen').classList.remove('hidden');
@@ -1989,7 +2131,7 @@
   }
 
   function recordLog(action, details) {
-    if (isSuperAdmin()) return;
+    if (currentUser && currentUser.isSuper) return;
     const now = new Date();
     const ts = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
                String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
@@ -1998,6 +2140,8 @@
 
   function setShift(sh) {
     currentShift = sh;
+    teachers.forEach(t => { if (!t.busId) t.shift = sh; });
+    supervisors.forEach(s => { if (!s.busId) s.shift = sh; });
     document.getElementById('pill-KG').classList.toggle('active', sh === 'KG');
     document.getElementById('pill-Junior').classList.toggle('active', sh === 'Junior');
     document.getElementById('pill-Teachers').classList.toggle('active', sh === 'Teachers');
@@ -2006,7 +2150,6 @@
   }
 
   function switchTab(tabId, btn) {
-    closeQuickMenu();
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('#mainNavBar .nav-tab').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + tabId).classList.remove('hidden');
@@ -2149,7 +2292,6 @@
   }
 
   function saveUser() {
-    if (!isSuperAdmin()) return;
     const editId = document.getElementById('editUserId').value;
     const full = document.getElementById('usrFull').value.trim();
     const username = document.getElementById('usrName').value.trim();
@@ -2171,7 +2313,6 @@
   }
 
   function editUser(id) {
-    if (!isSuperAdmin()) return;
     const u = users.find(x => x.id === id);
     if (!u) return;
     document.getElementById('editUserId').value = u.id;
@@ -2184,7 +2325,6 @@
   }
 
   function resetUserPassword(id) {
-    if (!isSuperAdmin()) return;
     const u = users.find(x => x.id === id);
     if (!u) return;
     const newPass = prompt(`أدخل كلمة المرور الجديدة للمستخدم (${u.full}):`, '1234');
@@ -2196,7 +2336,7 @@
   }
 
   function deleteUser(id) {
-    if (!isSuperAdmin() || id === 1) return;
+    if (id === 1) return;
     users = users.filter(u => u.id !== id);
     localStorage.setItem('tiba_users_v4', JSON.stringify(users));
     renderUsers();
@@ -2234,7 +2374,6 @@
   }
 
   function saveBus() {
-    if (!hasPerm('buses_edit')) return;
     const editId = document.getElementById('editBusId').value;
     const num = document.getElementById('busNum').value.trim();
     const route = document.getElementById('busRoute').value.trim();
@@ -2260,7 +2399,6 @@
   }
 
   function editBus(id) {
-    if (!hasPerm('buses_edit')) return;
     const b = buses.find(x => x.id === id);
     if (!b) return;
     document.getElementById('editBusId').value = b.id;
@@ -2284,7 +2422,6 @@
   }
 
   function saveStudent() {
-    if (!hasPerm('stu_edit')) return;
     const editId = document.getElementById('editStuId').value;
     const name = document.getElementById('stuName').value.trim();
     if (!name) return;
@@ -2315,7 +2452,6 @@
   }
 
   function editStudent(id) {
-    if (!hasPerm('stu_edit')) return;
     const s = students.find(x => x.id === id);
     if (!s) return;
     document.getElementById('editStuId').value = s.id;
@@ -2353,7 +2489,6 @@
   }
 
   function saveSupervisor() {
-    if (!hasPerm('sup_edit')) return;
     const editId = document.getElementById('editSupId').value;
     const name = document.getElementById('supName').value.trim();
     if (!name) return;
@@ -2371,7 +2506,6 @@
   }
 
   function editSupervisor(id) {
-    if (!hasPerm('sup_edit')) return;
     const s = supervisors.find(x => x.id === id);
     if (!s) return;
     document.getElementById('editSupId').value = s.id;
@@ -2388,7 +2522,6 @@
   }
 
   function saveTeacher() {
-    if (!hasPerm('tch_edit')) return;
     const editId = document.getElementById('editTchId').value;
     const name = document.getElementById('tchName').value.trim();
     if (!name) return;
@@ -2412,7 +2545,6 @@
   }
 
   function editTeacher(id) {
-    if (!hasPerm('tch_edit')) return;
     const t = teachers.find(x => x.id === id);
     if (!t) return;
     document.getElementById('editTchId').value = t.id;
@@ -2432,15 +2564,14 @@
   }
 
   function archiveItem(type, id) {
-    if (type === 'bus') { if (!hasPerm('buses_arch')) return; const b = buses.find(x => x.id === id); if (b) { b.archived = true; recordLog('أرشفة باص', b.num); } }
-    if (type === 'student') { if (!hasPerm('stu_arch')) return; const s = students.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; s.seatIdx = null; recordLog('أرشفة طالب', s.name); } }
-    if (type === 'supervisor') { if (!hasPerm('sup_arch')) return; const s = supervisors.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; recordLog('أرشفة مشرفة', s.name); } }
-    if (type === 'teacher') { if (!hasPerm('tch_arch')) return; const t = teachers.find(x => x.id === id); if (t) { t.archived = true; t.busId = null; t.seatIdx = null; recordLog('أرشفة موظف', t.name); } }
+    if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) { b.archived = true; recordLog('أرشفة باص', b.num); } }
+    if (type === 'student') { const s = students.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; s.seatIdx = null; recordLog('أرشفة طالب', s.name); } }
+    if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; recordLog('أرشفة مشرفة', s.name); } }
+    if (type === 'teacher') { const t = teachers.find(x => x.id === id); if (t) { t.archived = true; t.busId = null; t.seatIdx = null; recordLog('أرشفة موظف', t.name); } }
     renderAll();
   }
 
   function restoreItem(type, id) {
-    if (!hasPerm('arch_rest')) return;
     if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) b.archived = false; }
     if (type === 'student') { const s = students.find(x => x.id === id); if (s) s.archived = false; }
     if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) s.archived = false; }
@@ -2878,7 +3009,6 @@
   }
 
   function exportCurrentReportExcel() {
-    if (!hasPerm('rep_export')) return;
     const area = document.getElementById('reportOutputArea');
     const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"></head><body dir="rtl">' + area.innerHTML + '</body></html>';
     const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
