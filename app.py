@@ -262,4 +262,132 @@ elif menu == "2. تسكين ونقل الطلبة":
         sel_bus_key = st.selectbox("اختر الباص الجديد", list(bus_map.keys()))
         if st.button("تأكيد وحفظ التسكين", type="primary"):
             supabase.table("students").update({"bus_id": bus_map[sel_bus_key]}).eq("id", sel_stu["id"]).execute()
-            log_action("تسكين طالب", f"نقل الطالب {sel_stu['name']} إلى {sel_bus_key} ({shift
+            log_action("تسكين طالب", f"نقل الطالب {sel_stu['name']} إلى {sel_bus_key} ({shift})")
+            st.success("تم تحديث تسكين الطالب بنجاح.")
+            st.rerun()
+
+# ------------------------------------------
+# 3. إدارة الباصات والسائقين
+# ------------------------------------------
+elif menu == "3. إدارة الباصات والسائقين":
+    st.subheader(f"إضافة باص جديد — مرحلة {shift}")
+    with st.form("bus_form"):
+        col1, col2 = st.columns(2)
+        num = col1.text_input("رقم الباص *")
+        route = col2.text_input("خط السير *")
+        b_type = col1.selectbox("نوع المركبة", ["ميكروباص", "ميني باص", "أتوبيس", "هاي إيس"])
+        cap = col2.number_input("السعة الاستيعابية", min_value=1, max_value=60, value=14)
+        d_name = col1.text_input("اسم السائق")
+        d_phone = col2.text_input("هاتف السائق")
+        plate = col1.text_input("رقم اللوحة (اختياري)")
+        
+        if st.form_submit_button("حفظ بيانات الباص", type="primary") and num:
+            supabase.table("buses").insert({
+                "number": num, "route": route, "type": b_type, "capacity": cap,
+                "driver_name": d_name, "driver_phone": d_phone, "plate": plate, "shift": shift
+            }).execute()
+            log_action("إضافة باص", f"إضافة باص رقم {num} خط {route} ({shift})")
+            st.success("تم إضافة الباص بنجاح.")
+            st.rerun()
+
+# ------------------------------------------
+# 4. قاعدة بيانات الطلبة
+# ------------------------------------------
+elif menu == "4. قاعدة بيانات الطلبة":
+    st.subheader(f"تسجيل طالب جديد — مرحلة {shift}")
+    buses = get_buses(shift)
+    bus_opts = {"بدون باص حالياً": None}
+    bus_opts.update({f"باص {b['number']} ({b.get('route', '')})": b["id"] for b in buses})
+    
+    with st.form("student_form"):
+        col1, col2 = st.columns(2)
+        s_name = col1.text_input("اسم الطالب بالكامل *")
+        s_grade = col2.text_input("الصف / الفصل")
+        s_addr = col1.text_input("العنوان التفصيلي")
+        s_bus = col2.selectbox("الباص المخصص", list(bus_opts.keys()))
+        f_phone = col1.text_input("هاتف الأب")
+        m_phone = col2.text_input("هاتف الأم")
+        notes = st.text_input("ملاحظات إضافية")
+        
+        if st.form_submit_button("حفظ بيانات الطالب", type="primary") and s_name:
+            supabase.table("students").insert({
+                "name": s_name, "grade": s_grade, "detailed_address": s_addr,
+                "father_phone": f_phone, "mother_phone": m_phone,
+                "bus_id": bus_opts[s_bus], "notes": notes, "shift": shift
+            }).execute()
+            log_action("إضافة طالب", f"تسجيل الطالب {s_name} ({shift})")
+            st.success("تم تسجيل الطالب بنجاح.")
+            st.rerun()
+
+# ------------------------------------------
+# 5. دليل المشرفات والمدرسين
+# ------------------------------------------
+elif menu == "5. دليل المشرفات والمدرسين":
+    t1, t2 = st.tabs(["المشرفات", "المدرسين"])
+    buses = get_buses(shift)
+    b_opts = {"بدون باص": None}
+    b_opts.update({f"باص {b['number']}": b["id"] for b in buses})
+    
+    with t1:
+        with st.form("sup_form"):
+            c1, c2, c3 = st.columns(3)
+            name = c1.text_input("اسم المشرفة *")
+            phone = c2.text_input("الهاتف")
+            bus = c3.selectbox("الباص", list(b_opts.keys()), key="sb")
+            if st.form_submit_button("إضافة مشرفة") and name:
+                supabase.table("supervisors").insert({"name": name, "phone": phone, "bus_id": b_opts[bus], "shift": shift}).execute()
+                log_action("إضافة مشرفة", f"إضافة المشرفة {name}")
+                st.rerun()
+        sups = supabase.table("supervisors").select("*").eq("shift", shift).eq("archived", False).execute().data
+        if sups:
+            st.table(pd.DataFrame(sups)[["name", "phone"]])
+
+    with t2:
+        with st.form("tch_form"):
+            c1, c2 = st.columns(2)
+            name = c1.text_input("اسم المدرس *")
+            phone = c2.text_input("الهاتف")
+            addr = c1.text_input("العنوان (اختياري)")
+            bus = c2.selectbox("الباص", list(b_opts.keys()), key="tb")
+            if st.form_submit_button("إضافة مدرس") and name:
+                supabase.table("teachers").insert({"name": name, "phone": phone, "address": addr, "bus_id": b_opts[bus], "shift": shift}).execute()
+                log_action("إضافة مدرس", f"إضافة المدرس {name}")
+                st.rerun()
+        tchs = supabase.table("teachers").select("*").eq("shift", shift).eq("archived", False).execute().data
+        if tchs:
+            st.table(pd.DataFrame(tchs)[["name", "phone", "address"]])
+
+# ------------------------------------------
+# 6. سجل المتابعة (Audit Log)
+# ------------------------------------------
+elif menu == "6. سجل المتابعة (Audit Log)":
+    st.subheader("سجل العمليات والتعديلات الزمني")
+    logs = supabase.table("action_logs").select("*").order("id", desc=True).limit(100).execute().data
+    if logs:
+        df_logs = pd.DataFrame(logs)[["created_at", "action", "details"]]
+        df_logs.columns = ["التوقيت", "العملية والمستخدم", "التفاصيل"]
+        st.table(df_logs)
+    else:
+        st.info("لا توجد حركات مسجلة بعد.")
+
+# ------------------------------------------
+# 7. إدارة حسابات المستخدمين (للمدير فقط)
+# ------------------------------------------
+elif menu == "7. إدارة حسابات المستخدمين" and user.get("role") == "admin":
+    st.subheader("إدارة حسابات فريق العمل (3 - 5 مستخدمين)")
+    with st.form("new_user_form"):
+        c1, c2, c3, c4 = st.columns(4)
+        u_full = c1.text_input("الاسم بالكامل *")
+        u_name = c2.text_input("اسم المستخدم (Username) *")
+        u_pass = c3.text_input("كلمة المرور *")
+        u_role = c4.selectbox("الصلاحية", ["staff", "admin"])
+        if st.form_submit_button("إنشاء حساب") and u_full and u_name and u_pass:
+            supabase.table("app_users").insert({
+                "full_name": u_full, "username": u_name.strip(), "password": u_pass.strip(), "role": u_role
+            }).execute()
+            st.success(f"تم إنشاء حساب {u_full} بنجاح!")
+            st.rerun()
+            
+    users_list = supabase.table("app_users").select("id, full_name, username, role").execute().data
+    if users_list:
+        st.table(pd.DataFrame(users_list))
