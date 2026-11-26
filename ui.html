@@ -236,7 +236,7 @@
   }
   .shift-pill.active { background: var(--accent); color: #ffffff; }
 
-  /* Always-on-top Dropdown Menu */
+  /* Always-on-top Dropdown Menu opening inward safely */
   .quick-dropdown { position: relative; display: inline-block; z-index: 999999; overflow: visible !important; }
   .dropdown-trigger {
     background: rgba(255, 255, 255, 0.96);
@@ -257,8 +257,10 @@
   .dropdown-panel {
     position: absolute;
     top: calc(100% + 6px);
-    inset-inline-start: 0;
+    left: 0;
+    right: auto;
     min-width: 268px;
+    max-width: calc(100vw - 24px);
     background: var(--bg-surface);
     border: 2px solid var(--accent);
     border-radius: 10px;
@@ -306,7 +308,6 @@
     z-index: 1;
   }
 
-  /* Pure Logo: outer edge is the logo's own navy circle, NO white circle/square/background */
   .clean-logo-img {
     width: 92px;
     height: 92px;
@@ -348,8 +349,26 @@
     white-space: nowrap;
   }
 
-  .transport-right-aligned {
+  .second-line-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
     margin-top: 3px;
+  }
+
+  .slogan-under-tiba {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: normal;
+    text-align: left;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
+    white-space: nowrap;
+  }
+
+  .transport-under-academy {
     font-size: 13px;
     font-weight: 700;
     color: #fde68a;
@@ -901,7 +920,10 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin-bottom:12px;" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title" style="font-size:28px;">TIBA Language Academy</h1>
-        <span class="transport-right-aligned" style="font-size:11px;">Transportation System</span>
+        <div class="second-line-row" style="gap:8px; margin-top:3px;">
+          <span class="slogan-under-tiba" style="font-size:8px;">A SCHOOL... TO RELY ON</span>
+          <span class="transport-under-academy" style="font-size:10.5px;">Transportation System</span>
+        </div>
       </div>
     </div>
     <div class="login-body">
@@ -926,7 +948,10 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <span class="transport-right-aligned">Transportation System</span>
+        <div class="second-line-row">
+          <span class="slogan-under-tiba">A SCHOOL... TO RELY ON</span>
+          <span class="transport-under-academy">Transportation System</span>
+        </div>
       </div>
     </div>
 
@@ -1683,11 +1708,43 @@
     }
   }, 30000);
 
+  function positionDropdownInward() {
+    const panel = document.getElementById('quickMenuPanel');
+    const btn = document.getElementById('menuBtnTrigger');
+    if (!panel || !btn) return;
+    panel.style.left = '';
+    panel.style.right = '';
+    const btnRect = btn.getBoundingClientRect();
+    const panelWidth = Math.min(268, window.innerWidth - 24);
+    const spaceOnRight = window.innerWidth - btnRect.left;
+    const spaceOnLeft = btnRect.right;
+
+    if (spaceOnRight >= panelWidth + 8) {
+      panel.style.left = '0px';
+      panel.style.right = 'auto';
+    } else if (spaceOnLeft >= panelWidth + 8) {
+      panel.style.right = '0px';
+      panel.style.left = 'auto';
+    } else {
+      const offsetToKeepInBounds = Math.max(12 - btnRect.left, Math.min(0, (window.innerWidth - 12) - (btnRect.left + panelWidth)));
+      panel.style.left = offsetToKeepInBounds + 'px';
+      panel.style.right = 'auto';
+    }
+  }
+
   function toggleQuickMenu(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     const panel = document.getElementById('quickMenuPanel');
-    if (panel) panel.classList.toggle('open');
+    if (!panel) return;
+    const nextState = !panel.classList.contains('open');
+    panel.classList.toggle('open', nextState);
+    if (nextState) positionDropdownInward();
   }
+
+  window.addEventListener('resize', () => {
+    const panel = document.getElementById('quickMenuPanel');
+    if (panel && panel.classList.contains('open')) positionDropdownInward();
+  });
 
   document.addEventListener('mousedown', function(e) {
     const dd = document.querySelector('.quick-dropdown');
