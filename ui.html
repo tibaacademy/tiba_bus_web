@@ -47,7 +47,7 @@
     padding: 16px;
   }
 
-  .container { max-width: 1360px; margin: 0 auto; }
+  .container { max-width: 1400px; margin: 0 auto; }
 
   /* Header */
   .app-header {
@@ -90,11 +90,7 @@
     cursor: pointer;
     transition: all 0.2s;
   }
-
-  .shift-pill.active {
-    background: var(--accent);
-    color: #ffffff;
-  }
+  .shift-pill.active { background: var(--accent); color: #ffffff; }
 
   .ctrl-btn {
     background: rgba(255, 255, 255, 0.12);
@@ -124,7 +120,7 @@
 
   .nav-tab {
     flex: 1;
-    min-width: 125px;
+    min-width: 120px;
     padding: 10px 12px;
     border: 1px solid transparent;
     background: transparent;
@@ -138,104 +134,237 @@
     text-align: center;
     white-space: nowrap;
   }
-
   .nav-tab:hover { background: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color); }
   .nav-tab.active { background: var(--primary); color: #ffffff; }
   .nav-tab.roster-tab.active { background: #0f766e; color: #ffffff; }
 
-  /* Interactive Bus Grid */
-  .bus-grid {
+  /* DRAG & DROP INTERACTIVE WORKSPACE */
+  .workspace-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    grid-template-columns: 310px 1fr;
     gap: 18px;
+    align-items: start;
   }
 
-  .bus-unit {
+  @media (max-width: 900px) {
+    .workspace-layout { grid-template-columns: 1fr; }
+  }
+
+  /* Unassigned Sidebar Pool */
+  .unassigned-sidebar {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    overflow: hidden;
+    padding: 14px;
     box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
+    position: sticky;
+    top: 14px;
   }
 
-  .bus-unit-top {
+  .sidebar-header {
+    font-size: 15px;
+    font-weight: 800;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid var(--accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pool-group { margin-bottom: 14px; }
+  .pool-group-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .pool-list {
+    min-height: 44px;
+    background: var(--bg-subtle);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .drag-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-inline-start: 4px solid var(--primary);
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: grab;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .drag-card:active { cursor: grabbing; transform: scale(0.98); }
+  .drag-card.sup-card { border-inline-start-color: #d97706; }
+  .drag-card.tch-card { border-inline-start-color: #0f766e; }
+
+  .drag-hint { font-size: 11px; color: var(--text-muted); }
+
+  /* Bus Boxes Grid */
+  .buses-board-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 16px;
+  }
+
+  .bus-box {
+    background: var(--bg-surface);
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s, transform 0.2s, background-color 0.2s;
+    position: relative;
+  }
+
+  .bus-box.drag-over {
+    border-color: var(--accent);
+    background: var(--row-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Bus Visual Top Roof & Windshield */
+  .bus-roof {
     background: var(--header-bg);
     color: #ffffff;
-    padding: 14px 18px;
+    padding: 12px 14px;
     border-bottom: 3px solid var(--accent);
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .bus-unit-top h3 { font-size: 17px; font-weight: 800; }
-  .bus-unit-top span { font-size: 12px; background: rgba(255,255,255,0.16); padding: 4px 10px; border-radius: 12px; font-weight: 700; }
+  .bus-name-wrap { display: flex; align-items: center; gap: 8px; }
+  .bus-icon-badge {
+    background: var(--accent);
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+  }
 
-  .bus-driver-bar {
+  .bus-capacity-pill {
+    background: rgba(255, 255, 255, 0.16);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .bus-exterior-info {
     background: var(--bg-subtle);
-    padding: 10px 18px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--border-color);
-    font-size: 12.5px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .info-line { display: flex; justify-content: space-between; color: var(--text-muted); }
+  .info-line strong { color: var(--text-main); }
+
+  .seats-bar-bg {
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .seats-bar-fill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  /* Drop Zone inside Bus */
+  .bus-interior {
+    padding: 12px 14px;
+    min-height: 110px;
+  }
+
+  .drop-placeholder {
+    border: 1.5px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
     font-weight: 700;
     color: var(--text-muted);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .bus-body { padding: 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
-
-  .assign-row { display: flex; gap: 8px; }
-  .assign-row select { flex: 1; }
-
-  .section-box {
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px 12px;
-    background: var(--bg-subtle);
-  }
-
-  .section-box-title {
-    font-size: 12.5px;
-    font-weight: 800;
-    color: var(--primary);
     margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
   }
 
-  body.dark-mode .section-box-title { color: #60a5fa; }
+  .occupants-list { display: flex; flex-direction: column; gap: 5px; }
 
-  .chip-list { display: flex; flex-direction: column; gap: 6px; }
-
-  .member-item {
+  .occupant-chip {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--bg-surface);
+    background: var(--bg-subtle);
     border: 1px solid var(--border-color);
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 13px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 12px;
     font-weight: 700;
   }
 
-  .remove-btn {
-    background: #fee2e2;
-    color: #b91c1c;
-    border: none;
-    padding: 2px 8px;
+  .role-tag {
+    font-size: 10.5px;
+    padding: 1px 6px;
     border-radius: 4px;
-    font-size: 11.5px;
+    margin-inline-end: 5px;
+    background: rgba(30, 58, 138, 0.12);
+    color: var(--primary);
+  }
+  .role-tag.sup { background: rgba(217, 119, 6, 0.16); color: #b45309; }
+  .role-tag.tch { background: rgba(15, 118, 110, 0.16); color: #0f766e; }
+
+  body.dark-mode .role-tag { color: #93c5fd; }
+  body.dark-mode .role-tag.sup { color: #fbbf24; }
+  body.dark-mode .role-tag.tch { color: #5eead4; }
+
+  .eject-btn {
+    background: transparent;
+    color: #ef4444;
+    border: none;
     font-weight: 800;
     cursor: pointer;
+    padding: 0 4px;
+    font-size: 13px;
   }
-  .remove-btn:hover { background: #fecaca; }
 
-  /* Panels & Forms */
+  /* Bus Wheels Decoration */
+  .bus-wheels {
+    display: flex;
+    justify-content: space-around;
+    padding: 4px 0 8px 0;
+    background: var(--bg-subtle);
+    border-top: 1px solid var(--border-color);
+  }
+  .wheel {
+    width: 24px;
+    height: 10px;
+    background: #334155;
+    border-radius: 0 0 8px 8px;
+  }
+
+  /* Panels, Forms & Tables */
   .panel {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -244,7 +373,6 @@
     box-shadow: var(--shadow);
     margin-bottom: 18px;
   }
-
   .panel-header {
     display: flex;
     justify-content: space-between;
@@ -255,7 +383,6 @@
     flex-wrap: wrap;
     gap: 10px;
   }
-
   .panel-title { font-size: 17px; font-weight: 800; }
 
   .form-grid {
@@ -264,9 +391,7 @@
     gap: 12px;
     margin-bottom: 14px;
   }
-
   .form-group label { display: block; font-size: 12.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; }
-
   .form-control {
     width: 100%;
     padding: 8px 12px;
@@ -283,7 +408,7 @@
     background: var(--primary);
     color: #ffffff;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 18px;
     border-radius: 6px;
     font-family: inherit;
     font-size: 13px;
@@ -304,7 +429,6 @@
     cursor: pointer;
   }
 
-  /* Tables */
   .table-wrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   th { background: var(--primary); color: #ffffff; padding: 11px 12px; text-align: start; font-weight: 700; }
@@ -340,10 +464,9 @@
   <header class="app-header">
     <div class="brand-area">
       <h1 data-ar="TIBA LANGUAGE ACADEMY — نظام إدارة الحافلات" data-en="TIBA LANGUAGE ACADEMY — Bus Management">TIBA LANGUAGE ACADEMY — نظام إدارة الحافلات</h1>
-      <p data-ar="لوحة التحكم التفاعلية لتسكين الطلبة والمدرسين والمشرفات" data-en="Interactive Dashboard for Students, Teachers & Supervisors Assignment">لوحة التحكم التفاعلية لتسكين الطلبة والمدرسين والمشرفات</p>
+      <p data-ar="اسحب الطلبة والمشرفات والمدرسين وأفلتهم داخل الباصات مباشرة" data-en="Drag & Drop Students, Supervisors & Teachers directly onto Buses">اسحب الطلبة والمشرفات والمدرسين وأفلتهم داخل الباصات مباشرة</p>
     </div>
     <div class="header-controls">
-      <!-- Two Shifts Only: Junior & KG -->
       <div class="shift-pills">
         <button class="shift-pill active" id="pill-Junior" onclick="setShift('Junior')">Junior</button>
         <button class="shift-pill" id="pill-KG" onclick="setShift('KG')">KG</button>
@@ -353,9 +476,9 @@
     </div>
   </header>
 
-  <!-- Navigation Tabs (Interactive Dashboard -> 3 Core Tabs -> Log -> Roster & Print at the End) -->
+  <!-- Navigation Tabs -->
   <nav class="nav-bar">
-    <button class="nav-tab active" onclick="switchTab('dashboard', this)" data-ar="لوحة الباصات التفاعلية" data-en="Interactive Bus Board">لوحة الباصات التفاعلية</button>
+    <button class="nav-tab active" onclick="switchTab('dashboard', this)" data-ar="لوحة التسكين بالسحب (Drag & Drop)" data-en="Interactive Drag & Drop Board">لوحة التسكين بالسحب (Drag & Drop)</button>
     <button class="nav-tab" onclick="switchTab('buses', this)" data-ar="1. الباصات والسائقين" data-en="1. Buses & Drivers">1. الباصات والسائقين</button>
     <button class="nav-tab" onclick="switchTab('students', this)" data-ar="2. الطلبة" data-en="2. Students">2. الطلبة</button>
     <button class="nav-tab" onclick="switchTab('supervisors', this)" data-ar="3. المشرفات" data-en="3. Supervisors">3. المشرفات</button>
@@ -364,9 +487,46 @@
     <button class="nav-tab roster-tab" onclick="switchTab('rosters', this)" data-ar="كشوف الباصات والطباعة" data-en="Bus Roster & Print">كشوف الباصات والطباعة</button>
   </nav>
 
-  <!-- TAB 0: INTERACTIVE BUS DASHBOARD -->
+  <!-- TAB 0: DRAG & DROP INTERACTIVE BOARD -->
   <div id="tab-dashboard" class="tab-content">
-    <div class="bus-grid" id="interactiveBusGrid"></div>
+    <div class="workspace-layout">
+      <!-- Side Column: Unassigned Pool -->
+      <aside class="unassigned-sidebar">
+        <div class="sidebar-header">
+          <span data-ar="غير المسكنين (اسحب للباص)" data-en="Unassigned (Drag to Bus)">غير المسكنين (اسحب للباص)</span>
+        </div>
+
+        <!-- Unassigned Students -->
+        <div class="pool-group">
+          <div class="pool-group-title">
+            <span data-ar="الطلبة غير المسكنين" data-en="Unassigned Students">الطلبة غير المسكنين</span>
+            <span id="count-un-stu">0</span>
+          </div>
+          <div class="pool-list" id="pool-students"></div>
+        </div>
+
+        <!-- Unassigned Supervisors -->
+        <div class="pool-group">
+          <div class="pool-group-title">
+            <span data-ar="المشرفات غير المسكنات" data-en="Unassigned Supervisors">المشرفات غير المسكنات</span>
+            <span id="count-un-sup">0</span>
+          </div>
+          <div class="pool-list" id="pool-supervisors"></div>
+        </div>
+
+        <!-- Unassigned Teachers -->
+        <div class="pool-group">
+          <div class="pool-group-title">
+            <span data-ar="المدرسين غير المسكنين" data-en="Unassigned Teachers">المدرسين غير المسكنين</span>
+            <span id="count-un-tch">0</span>
+          </div>
+          <div class="pool-list" id="pool-teachers"></div>
+        </div>
+      </aside>
+
+      <!-- Main Area: Bus Visual Boxes -->
+      <main class="buses-board-grid" id="busesBoardGrid"></main>
+    </div>
   </div>
 
   <!-- TAB 1: BUSES & DRIVERS -->
@@ -377,8 +537,8 @@
       </div>
       <div class="form-grid">
         <div class="form-group">
-          <label data-ar="رقم الباص" data-en="Bus Number">رقم الباص</label>
-          <input type="text" id="busNum" class="form-control" placeholder="Bus 1">
+          <label data-ar="اسم / رقم الباص" data-en="Bus Name / No.">اسم / رقم الباص</label>
+          <input type="text" id="busNum" class="form-control" placeholder="Bus 3">
         </div>
         <div class="form-group">
           <label data-ar="خط السير" data-en="Route">خط السير</label>
@@ -446,7 +606,7 @@
           <input type="text" id="stuPhone" class="form-control" placeholder="01000000000">
         </div>
         <div class="form-group">
-          <label data-ar="الباص" data-en="Bus">الباص</label>
+          <label data-ar="الباص (اختياري)" data-en="Bus (Optional)">الباص (اختياري)</label>
           <select id="stuBusSelect" class="form-control"></select>
         </div>
       </div>
@@ -471,7 +631,7 @@
     </div>
   </div>
 
-  <!-- TAB 3: SUPERVISORS (SEPARATE) -->
+  <!-- TAB 3: SUPERVISORS -->
   <div id="tab-supervisors" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
@@ -487,7 +647,7 @@
           <input type="text" id="supPhone" class="form-control" placeholder="01000000000">
         </div>
         <div class="form-group">
-          <label data-ar="الباص المسؤول عنه" data-en="Assigned Bus">الباص المسؤول عنه</label>
+          <label data-ar="الباص (اختياري)" data-en="Bus (Optional)">الباص (اختياري)</label>
           <select id="supBusSelect" class="form-control"></select>
         </div>
       </div>
@@ -509,7 +669,7 @@
     </div>
   </div>
 
-  <!-- TAB 4: TEACHERS (SEPARATE) -->
+  <!-- TAB 4: TEACHERS -->
   <div id="tab-teachers" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
@@ -529,7 +689,7 @@
           <input type="text" id="tchAddr" class="form-control" placeholder="سموحة">
         </div>
         <div class="form-group">
-          <label data-ar="الباص" data-en="Assigned Bus">الباص</label>
+          <label data-ar="الباص (اختياري)" data-en="Bus (Optional)">الباص (اختياري)</label>
           <select id="tchBusSelect" class="form-control"></select>
         </div>
       </div>
@@ -592,35 +752,37 @@
 <script>
   let currentShift = 'Junior';
   let lang = 'ar';
+  let draggedItem = null; // { type: 'student'|'supervisor'|'teacher', id: number }
 
   let buses = [
     { id: 1, shift: 'Junior', num: 'Bus 1', route: 'سيدي بشر بحري - العصافرة', driver: 'أ. محروس علي', phone: '01223456789', plate: 'س ن ر 8421', cap: 14 },
     { id: 2, shift: 'Junior', num: 'Bus 2', route: 'سموحة - كفر عبده - فلمنج', driver: 'أ. محمد سامي', phone: '01098765432', plate: 'س أ م 3190', cap: 16 },
-    { id: 3, shift: 'KG', num: 'Bus 1 (KG)', route: 'جليم - زيزينيا - سان ستيفانو', driver: 'أ. كيرو عادل', phone: '01211112222', plate: 'س ر ط 1120', cap: 12 }
+    { id: 3, shift: 'Junior', num: 'Bus 3', route: 'محرم بك - الإبراهيمية - سبورتنج', driver: 'أ. عمرو حسن', phone: '01144556677', plate: 'س و ق 7732', cap: 14 },
+    { id: 4, shift: 'KG', num: 'Bus 1 (KG)', route: 'جليم - زيزينيا - سان ستيفانو', driver: 'أ. كيرو عادل', phone: '01211112222', plate: 'س ر ط 1120', cap: 12 }
   ];
 
   let students = [
     { id: 101, shift: 'Junior', name: 'عمر خالد إبراهيم', grade: 'J2 - A', addr: 'سيدي بشر', phone: '01011223344', busId: 1 },
-    { id: 102, shift: 'Junior', name: 'ليلى طارق حسن', grade: 'J1 - B', addr: 'ميامي', phone: '01122334455', busId: 1 },
-    { id: 103, shift: 'Junior', name: 'ياسين محمود صلاح', grade: 'J3 - A', addr: 'فلمنج', phone: '01233445566', busId: 2 },
+    { id: 102, shift: 'Junior', name: 'ليلى طارق حسن', grade: 'J1 - B', addr: 'ميامي', phone: '01122334455', busId: null },
+    { id: 103, shift: 'Junior', name: 'ياسين محمود صلاح', grade: 'J3 - A', addr: 'فلمنج', phone: '01233445566', busId: null },
     { id: 104, shift: 'Junior', name: 'فريدة عمرو سعيد', grade: 'J2 - C', addr: 'سموحة', phone: '01544556677', busId: null },
-    { id: 105, shift: 'KG', name: 'آدم كريم محمد', grade: 'KG 1', addr: 'زيزينيا', phone: '01099887766', busId: 3 }
+    { id: 105, shift: 'KG', name: 'آدم كريم محمد', grade: 'KG 1', addr: 'زيزينيا', phone: '01099887766', busId: null }
   ];
 
   let supervisors = [
     { id: 201, shift: 'Junior', name: 'أ. رنا', phone: '01055667788', busId: 1 },
-    { id: 202, shift: 'Junior', name: 'أ. نسمة', phone: '01166778899', busId: 2 },
-    { id: 203, shift: 'KG', name: 'أ. هدير', phone: '01288990011', busId: 3 }
+    { id: 202, shift: 'Junior', name: 'أ. نسمة', phone: '01166778899', busId: null },
+    { id: 203, shift: 'KG', name: 'أ. هدير', phone: '01288990011', busId: null }
   ];
 
   let teachers = [
-    { id: 301, shift: 'Junior', name: 'أ. عمر', phone: '01277889900', addr: 'سموحة', busId: 2 },
+    { id: 301, shift: 'Junior', name: 'أ. عمر', phone: '01277889900', addr: 'سموحة', busId: null },
     { id: 302, shift: 'Junior', name: 'أ. شيماء', phone: '01044332211', addr: 'سيدي بشر', busId: null },
-    { id: 303, shift: 'KG', name: 'أ. مروة', phone: '01122334400', addr: 'جليم', busId: 3 }
+    { id: 303, shift: 'KG', name: 'أ. مروة', phone: '01122334400', addr: 'جليم', busId: null }
   ];
 
   let logs = [
-    { time: '2026-11-26 07:50:10', shift: 'Junior', action: 'تسكين', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1' }
+    { time: '2026-11-26 07:50:10', shift: 'Junior', action: 'تسكين بالسحب', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1' }
   ];
 
   function recordLog(action, details) {
@@ -665,54 +827,67 @@
     renderAll();
   }
 
-  // Interactive Board Actions
-  function assignStudentToBus(busId) {
-    const sel = document.getElementById('add-stu-bus-' + busId);
-    const stuId = parseInt(sel.value);
-    if (!stuId) return;
-    const s = students.find(x => x.id === stuId);
-    const b = buses.find(x => x.id === busId);
-    if (s && b) {
-      s.busId = busId;
-      recordLog('تسكين طالب', `إضافة الطالب ${s.name} إلى ${b.num}`);
-      renderAll();
-    }
+  /* Drag & Drop Handlers */
+  function handleDragStart(type, id) {
+    draggedItem = { type, id };
   }
 
-  function removeStudentFromBus(stuId) {
-    const s = students.find(x => x.id === stuId);
-    if (s) {
-      const b = buses.find(x => x.id === s.busId);
-      s.busId = null;
-      recordLog('إزالة طالب', `إخراج الطالب ${s.name} من ${b ? b.num : ''}`);
-      renderAll();
-    }
+  function handleDragOver(e, busId) {
+    e.preventDefault();
+    document.getElementById('bus-box-' + busId).classList.add('drag-over');
   }
 
-  function assignTeacherToBus(busId) {
-    const sel = document.getElementById('add-tch-bus-' + busId);
-    const tchId = parseInt(sel.value);
-    if (!tchId) return;
-    const t = teachers.find(x => x.id === tchId);
-    const b = buses.find(x => x.id === busId);
-    if (t && b) {
-      t.busId = busId;
-      recordLog('تسكين مدرس', `إضافة المدرس ${t.name} إلى ${b.num}`);
-      renderAll();
-    }
+  function handleDragLeave(busId) {
+    document.getElementById('bus-box-' + busId).classList.remove('drag-over');
   }
 
-  function removeTeacherFromBus(tchId) {
-    const t = teachers.find(x => x.id === tchId);
-    if (t) {
-      const b = buses.find(x => x.id === t.busId);
-      t.busId = null;
-      recordLog('إزالة مدرس', `إخراج المدرس ${t.name} من ${b ? b.num : ''}`);
-      renderAll();
+  function handleDrop(e, busId) {
+    e.preventDefault();
+    document.getElementById('bus-box-' + busId).classList.remove('drag-over');
+    if (!draggedItem) return;
+
+    const bus = buses.find(b => b.id === busId);
+    if (!bus) return;
+
+    if (draggedItem.type === 'student') {
+      const s = students.find(x => x.id === draggedItem.id);
+      if (s) {
+        s.busId = busId;
+        recordLog('سحب وإفلات طالب', `تسكين الطالب ${s.name} داخل ${bus.num}`);
+      }
+    } else if (draggedItem.type === 'supervisor') {
+      const sup = supervisors.find(x => x.id === draggedItem.id);
+      if (sup) {
+        sup.busId = busId;
+        recordLog('سحب وإفلات مشرفة', `تعيين المشرفة ${sup.name} على ${bus.num}`);
+      }
+    } else if (draggedItem.type === 'teacher') {
+      const tch = teachers.find(x => x.id === draggedItem.id);
+      if (tch) {
+        tch.busId = busId;
+        recordLog('سحب وإفلات مدرس', `تسكين المدرس ${tch.name} داخل ${bus.num}`);
+      }
     }
+
+    draggedItem = null;
+    renderAll();
   }
 
-  // Add Forms
+  function unassignMember(type, id) {
+    if (type === 'student') {
+      const s = students.find(x => x.id === id);
+      if (s) { recordLog('إخراج من الباص', `إعادة الطالب ${s.name} لقائمة غير المسكنين`); s.busId = null; }
+    } else if (type === 'supervisor') {
+      const sup = supervisors.find(x => x.id === id);
+      if (sup) { recordLog('إخراج من الباص', `إعادة المشرفة ${sup.name} لقائمة غير المسكنين`); sup.busId = null; }
+    } else if (type === 'teacher') {
+      const tch = teachers.find(x => x.id === id);
+      if (tch) { recordLog('إخراج من الباص', `إعادة المدرس ${tch.name} لقائمة غير المسكنين`); tch.busId = null; }
+    }
+    renderAll();
+  }
+
+  /* Add Forms */
   function addBus() {
     const num = document.getElementById('busNum').value.trim();
     const route = document.getElementById('busRoute').value.trim();
@@ -778,79 +953,114 @@
     const shSups = supervisors.filter(s => s.shift === currentShift);
     const shTeachers = teachers.filter(t => t.shift === currentShift);
 
-    // Dropdowns
-    const busOpts = `<option value="">${lang === 'ar' ? 'بدون باص' : 'Unassigned'}</option>` +
+    // Dropdowns in Add Forms
+    const busOpts = `<option value="">${lang === 'ar' ? 'بدون باص (يظهر في قائمة السحب)' : 'Unassigned (In Drag Pool)'}</option>` +
       shBuses.map(b => `<option value="${b.id}">${b.num} — ${b.route}</option>`).join('');
     document.getElementById('stuBusSelect').innerHTML = busOpts;
     document.getElementById('supBusSelect').innerHTML = busOpts;
     document.getElementById('tchBusSelect').innerHTML = busOpts;
 
-    // 0. Interactive Bus Dashboard
-    const unassignedStudents = shStudents.filter(s => !s.busId);
-    const unassignedTeachers = shTeachers.filter(t => !t.busId);
+    // 0A. Render Unassigned Pools (Sidebar)
+    const unStus = shStudents.filter(s => !s.busId);
+    const unSups = shSups.filter(s => !s.busId);
+    const unTchs = shTeachers.filter(t => !t.busId);
 
-    document.getElementById('interactiveBusGrid').innerHTML = shBuses.map(b => {
+    document.getElementById('count-un-stu').textContent = unStus.length;
+    document.getElementById('count-un-sup').textContent = unSups.length;
+    document.getElementById('count-un-tch').textContent = unTchs.length;
+
+    document.getElementById('pool-students').innerHTML = unStus.map(s => `
+      <div class="drag-card" draggable="true" ondragstart="handleDragStart('student', ${s.id})">
+        <span>${s.name}</span>
+        <span class="drag-hint">${s.grade} ⠿</span>
+      </div>
+    `).join('') || `<div class="drag-hint" style="text-align:center; padding:6px;">${lang === 'ar' ? 'كل الطلبة مسكنين' : 'All assigned'}</div>`;
+
+    document.getElementById('pool-supervisors').innerHTML = unSups.map(s => `
+      <div class="drag-card sup-card" draggable="true" ondragstart="handleDragStart('supervisor', ${s.id})">
+        <span>${s.name}</span>
+        <span class="drag-hint">⠿</span>
+      </div>
+    `).join('') || `<div class="drag-hint" style="text-align:center; padding:6px;">${lang === 'ar' ? 'لا يوجد' : 'None'}</div>`;
+
+    document.getElementById('pool-teachers').innerHTML = unTchs.map(t => `
+      <div class="drag-card tch-card" draggable="true" ondragstart="handleDragStart('teacher', ${t.id})">
+        <span>${t.name}</span>
+        <span class="drag-hint">⠿</span>
+      </div>
+    `).join('') || `<div class="drag-hint" style="text-align:center; padding:6px;">${lang === 'ar' ? 'لا يوجد' : 'None'}</div>`;
+
+    // 0B. Render Bus Visual Cards (Drop Targets)
+    document.getElementById('busesBoardGrid').innerHTML = shBuses.map(b => {
       const bStus = shStudents.filter(s => s.busId === b.id);
+      const bSups = shSups.filter(s => s.busId === b.id);
       const bTchs = shTeachers.filter(t => t.busId === b.id);
-      const bSup = shSups.filter(s => s.busId === b.id).map(s => s.name).join(' ، ') || (lang === 'ar' ? 'غير معينة' : 'None');
 
-      const stuOptions = `<option value="">${lang === 'ar' ? '+ اختر طالب لإضافته...' : '+ Select student to add...'}</option>` +
-        unassignedStudents.map(s => `<option value="${s.id}">${s.name} (${s.grade})</option>`).join('');
+      const totalOccupied = bStus.length + bTchs.length;
+      const remaining = Math.max(0, b.cap - totalOccupied);
+      const pct = Math.min(100, Math.round((totalOccupied / b.cap) * 100));
+      const supNames = bSups.map(s => s.name).join(' ، ') || (lang === 'ar' ? 'لم تُحدد بعد' : 'Not assigned');
 
-      const tchOptions = `<option value="">${lang === 'ar' ? '+ اختر مدرس لإضافته...' : '+ Select teacher to add...'}</option>` +
-        unassignedTeachers.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
-
-      const stuChips = bStus.map(s => `
-        <div class="member-item">
-          <span>${s.name} <small style="color:var(--text-muted);">(${s.grade})</small></span>
-          <button class="remove-btn" onclick="removeStudentFromBus(${s.id})">✕</button>
-        </div>
-      `).join('') || `<div style="font-size:12px; color:var(--text-muted);">${lang === 'ar' ? 'لا يوجد طلبة' : 'No students'}</div>`;
-
-      const tchChips = bTchs.map(t => `
-        <div class="member-item">
-          <span>${t.name}</span>
-          <button class="remove-btn" onclick="removeTeacherFromBus(${t.id})">✕</button>
-        </div>
-      `).join('') || `<div style="font-size:12px; color:var(--text-muted);">${lang === 'ar' ? 'لا يوجد مدرسين' : 'No teachers'}</div>`;
+      const occupantsHtml = [
+        ...bSups.map(s => `
+          <div class="occupant-chip">
+            <span><span class="role-tag sup">${lang === 'ar' ? 'مشرفة' : 'Sup'}</span>${s.name}</span>
+            <button class="eject-btn" onclick="unassignMember('supervisor', ${s.id})" title="إخراج">✕</button>
+          </div>
+        `),
+        ...bTchs.map(t => `
+          <div class="occupant-chip">
+            <span><span class="role-tag tch">${lang === 'ar' ? 'مدرس' : 'Tch'}</span>${t.name}</span>
+            <button class="eject-btn" onclick="unassignMember('teacher', ${t.id})" title="إخراج">✕</button>
+          </div>
+        `),
+        ...bStus.map(s => `
+          <div class="occupant-chip">
+            <span><span class="role-tag">${s.grade}</span>${s.name}</span>
+            <button class="eject-btn" onclick="unassignMember('student', ${s.id})" title="إخراج">✕</button>
+          </div>
+        `)
+      ].join('');
 
       return `
-        <div class="bus-unit">
-          <div class="bus-unit-top">
-            <div>
-              <h3>${b.num}</h3>
-              <div style="font-size:12.5px; color:#e2e8f0;">${b.route}</div>
-            </div>
-            <span>${bStus.length + bTchs.length} / ${b.cap}</span>
-          </div>
-          <div class="bus-driver-bar">
-            <span>${lang === 'ar' ? 'السائق:' : 'Driver:'} ${b.driver}</span>
-            <span>${lang === 'ar' ? 'المشرفة:' : 'Supervisor:'} ${bSup}</span>
-          </div>
-          <div class="bus-body">
-            <!-- Students Section inside Bus -->
-            <div class="section-box">
-              <div class="section-box-title">
-                <span>${lang === 'ar' ? 'الطلبة داخل الباص' : 'Students in Bus'} (${bStus.length})</span>
+        <div class="bus-box" id="bus-box-${b.id}"
+             ondragover="handleDragOver(event, ${b.id})"
+             ondragleave="handleDragLeave(${b.id})"
+             ondrop="handleDrop(event, ${b.id})">
+          <div class="bus-roof">
+            <div class="bus-name-wrap">
+              <span class="bus-icon-badge">BUS</span>
+              <div>
+                <div style="font-size:16px; font-weight:800;">${b.num}</div>
+                <div style="font-size:11.5px; color:#cbd5e1;">${b.route}</div>
               </div>
-              <div class="assign-row" style="margin-bottom:8px;">
-                <select id="add-stu-bus-${b.id}" class="form-control">${stuOptions}</select>
-                <button class="btn-primary" onclick="assignStudentToBus(${b.id})">${lang === 'ar' ? 'إضافة' : 'Add'}</button>
-              </div>
-              <div class="chip-list">${stuChips}</div>
             </div>
+            <div class="bus-capacity-pill">${totalOccupied} / ${b.cap}</div>
+          </div>
 
-            <!-- Teachers Section inside Bus -->
-            <div class="section-box">
-              <div class="section-box-title">
-                <span>${lang === 'ar' ? 'المدرسين داخل الباص' : 'Teachers in Bus'} (${bTchs.length})</span>
-              </div>
-              <div class="assign-row" style="margin-bottom:8px;">
-                <select id="add-tch-bus-${b.id}" class="form-control">${tchOptions}</select>
-                <button class="btn-primary" onclick="assignTeacherToBus(${b.id})">${lang === 'ar' ? 'إضافة' : 'Add'}</button>
-              </div>
-              <div class="chip-list">${tchChips}</div>
+          <div class="bus-exterior-info">
+            <div class="info-line">
+              <span>${lang === 'ar' ? 'السائق:' : 'Driver:'} <strong>${b.driver}</strong></span>
+              <span>${lang === 'ar' ? 'المتبقي:' : 'Left:'} <strong style="color:#0f766e;">${remaining} ${lang === 'ar' ? 'مقعد' : 'seats'}</strong></span>
             </div>
+            <div class="info-line">
+              <span>${lang === 'ar' ? 'المشرفة:' : 'Supervisor:'} <strong>${supNames}</strong></span>
+            </div>
+            <div class="seats-bar-bg">
+              <div class="seats-bar-fill" style="width:${pct}%;"></div>
+            </div>
+          </div>
+
+          <div class="bus-interior">
+            <div class="drop-placeholder">
+              ${lang === 'ar' ? 'اسحب الطالب أو المشرفة أو المدرس وأفلته هنا' : 'Drag & drop student, supervisor, or teacher here'}
+            </div>
+            <div class="occupants-list">${occupantsHtml}</div>
+          </div>
+
+          <div class="bus-wheels">
+            <div class="wheel"></div>
+            <div class="wheel"></div>
           </div>
         </div>
       `;
