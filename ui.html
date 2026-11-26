@@ -111,7 +111,7 @@
   }
   .login-box {
     width: 100%;
-    max-width: 470px;
+    max-width: 490px;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-top: 5px solid var(--accent);
@@ -120,17 +120,20 @@
     overflow: hidden;
   }
   .login-head {
-    background-image: linear-gradient(135deg, rgba(7, 23, 44, 0.65), rgba(25, 63, 115, 0.60)), url('{{BUILDING_SRC}}'), linear-gradient(135deg, #07172c, #193f73);
+    background-image: linear-gradient(135deg, rgba(7, 23, 44, 0.68), rgba(25, 63, 115, 0.62)), url('{{BUILDING_SRC}}'), linear-gradient(135deg, #07172c, #193f73);
     background-size: cover;
     background-position: center;
-    padding: 28px 22px;
-    text-align: center;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     color: #ffffff;
     border-bottom: 3px solid var(--accent);
   }
   .login-body { padding: 24px; }
 
-  /* Header with Transparent Photo Layer + Subtle Glass Rectangles */
+  /* Header */
   .app-header {
     background-image: var(--header-overlay), var(--header-bg-image), linear-gradient(135deg, #07172c, #193f73);
     background-size: cover;
@@ -148,10 +151,9 @@
     margin-bottom: 14px;
     position: relative;
     overflow: visible;
-    z-index: 2000;
+    z-index: 5000;
   }
 
-  /* Very Light Subtle Glass Rectangle for User & Menu Controls */
   .user-control-stack {
     display: flex;
     flex-direction: column;
@@ -162,6 +164,8 @@
     border: 1px solid rgba(255, 255, 255, 0.14);
     padding: 9px 12px;
     border-radius: 12px;
+    position: relative;
+    z-index: 6000;
   }
   .user-top-row { display: flex; align-items: center; gap: 8px; }
   .user-bottom-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -229,9 +233,10 @@
   }
   .shift-pill.active { background: var(--accent); color: #ffffff; }
 
-  .quick-dropdown { position: relative; display: inline-block; }
+  /* Always-on-top Dropdown Menu */
+  .quick-dropdown { position: relative; display: inline-block; z-index: 99999; }
   .dropdown-trigger {
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(255, 255, 255, 0.96);
     color: #0b2240;
     border: 2px solid var(--accent);
     padding: 5px 16px;
@@ -244,18 +249,18 @@
     align-items: center;
     gap: 6px;
   }
-  .nav-bar { position: relative; z-index: 10; }
+  .nav-bar { position: relative; z-index: 5; }
+  .panel, .board-layout, .bus-card, .unassigned-sidebar { position: relative; z-index: 1; }
+
   .dropdown-panel {
-    position: absolute;
-    top: calc(100% + 6px);
-    inset-inline-start: 0;
-    min-width: 255px;
+    position: fixed;
+    min-width: 265px;
     background: var(--bg-surface);
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--accent);
     border-radius: 10px;
-    box-shadow: 0 16px 36px rgba(0,0,0,0.35);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
     padding: 6px;
-    z-index: 99999;
+    z-index: 2147483647;
     display: none;
     flex-direction: column;
     gap: 3px;
@@ -280,24 +285,26 @@
   }
   .drop-item:hover { background: var(--bg-subtle); color: var(--accent); }
 
-  /* Brand Section with Very Light Subtle Rectangle */
+  /* Brand Section occupying full space next to controls */
   .brand-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    min-width: 340px;
+    gap: 24px;
+    min-width: 360px;
     background: rgba(7, 16, 30, 0.14);
     backdrop-filter: blur(3px);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 10px 24px;
+    padding: 10px 26px;
     border-radius: 14px;
+    position: relative;
+    z-index: 1;
   }
 
   .clean-logo-img {
-    width: 88px;
-    height: 88px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
     background: transparent;
@@ -313,6 +320,7 @@
     100% { background-position: 0% 50%; }
   }
 
+  /* Precision Aligned Title + Slogan (width of Academy) + Project Name (width of full title) */
   .brand-title-stack {
     display: inline-flex;
     flex-direction: column;
@@ -321,7 +329,7 @@
   }
 
   .main-academy-title {
-    font-size: 38px;
+    font-size: 42px;
     font-weight: 900;
     background: linear-gradient(110deg, #e11d48 0%, #ff4d6d 35%, #ffc2d1 50%, #ff4d6d 65%, #be123c 100%);
     background-size: 220% auto;
@@ -329,9 +337,18 @@
     -webkit-text-fill-color: transparent;
     animation: gentleCrimsonShine 5s ease-in-out infinite;
     letter-spacing: 0.5px;
-    line-height: 1.08;
+    line-height: 1.06;
     filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.65));
     white-space: nowrap;
+  }
+
+  .sub-meta-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
   }
 
   .academy-sub-row {
@@ -339,14 +356,13 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    margin-top: 1px;
   }
 
   .slogan-aligned {
     font-size: 11px;
     font-weight: 800;
     color: #f8fafc;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
     text-align: justify;
     text-align-last: justify;
     border: none;
@@ -355,14 +371,13 @@
     white-space: nowrap;
   }
 
-  .project-name-tag {
-    margin-top: 4px;
-    font-size: 14px;
+  .project-name-aligned {
+    font-size: 13.5px;
     font-weight: 800;
     color: #fde68a;
-    letter-spacing: 1.2px;
-    align-self: flex-start;
+    letter-spacing: 1px;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
+    white-space: nowrap;
   }
 
   /* Navigation Bar */
@@ -904,11 +919,15 @@
 <div id="loginScreen" class="login-wrapper">
   <div class="login-box">
     <div class="login-head">
-      <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin:0 auto 10px auto; display:block;" onerror="this.style.display='none'">
-      <div class="brand-title-stack" style="align-items:center;">
-        <h1 class="main-academy-title" style="font-size:23px;">TIBA Language Academy</h1>
-        <span style="font-size:11px; color:#f8fafc; letter-spacing:1.2px; margin-top:2px;">A SCHOOL... TO RELY ON</span>
-        <span class="project-name-tag">Transportation System</span>
+      <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin-bottom:12px;" onerror="this.style.display='none'">
+      <div class="brand-title-stack" style="align-items:flex-end;">
+        <h1 class="main-academy-title" style="font-size:27px;">TIBA Language Academy</h1>
+        <div class="sub-meta-row" style="gap:8px; margin-top:4px;">
+          <div class="academy-sub-row" style="width:38.5%;">
+            <span class="slogan-aligned" style="font-size:9px; letter-spacing:0.3px;">A SCHOOL... TO RELY ON</span>
+          </div>
+          <span class="project-name-aligned" style="font-size:11px; letter-spacing:0.6px;">Transportation System</span>
+        </div>
       </div>
     </div>
     <div class="login-body">
@@ -929,11 +948,11 @@
 <!-- ==================== MAIN APPLICATION ==================== -->
 <div id="mainApp" class="container hidden">
   <header class="app-header">
-    <!-- Subtle Glass Rectangle 1: Mahmoud Salah + Shutdown + Shifts + Menu -->
+    <!-- User Controls + Menu -->
     <div class="user-control-stack">
       <div class="user-top-row">
         <div class="profile-chip">
-          <div class="profile-avatar-btn" onclick="triggerAvatarUpload()" title="اضغط لرفع صورتك الشخصية" id="userAvatarCircle">
+          <div class="profile-avatar-btn" onclick="triggerAvatarUpload()" title="تغيير الصورة الشخصية (للسوبر أدمن فقط)" id="userAvatarCircle">
             <span>MS</span>
           </div>
           <span id="activeUserName">Mahmoud Salah</span>
@@ -954,7 +973,7 @@
         </div>
 
         <div class="quick-dropdown" onclick="event.stopPropagation()">
-          <button class="dropdown-trigger" onclick="toggleQuickMenu()">
+          <button class="dropdown-trigger" id="menuBtnTrigger" onclick="toggleQuickMenu(event)">
             <span>Menu</span>
             <span>▾</span>
           </button>
@@ -997,15 +1016,17 @@
       </div>
     </div>
 
-    <!-- Subtle Glass Rectangle 2: Clean White-Removed Logo + TIBA Language Academy + Aligned Slogan + Project Name -->
+    <!-- Brand Section -->
     <div class="brand-wrapper">
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <div class="academy-sub-row">
-          <span class="slogan-aligned">A SCHOOL... TO RELY ON</span>
+        <div class="sub-meta-row">
+          <div class="academy-sub-row">
+            <span class="slogan-aligned">A SCHOOL... TO RELY ON</span>
+          </div>
+          <span class="project-name-aligned">Transportation System</span>
         </div>
-        <span class="project-name-tag">Transportation System</span>
       </div>
     </div>
   </header>
@@ -1652,7 +1673,6 @@
   let draggedItem = null;
   let users = loadMergedUsers();
 
-  // Clean Empty Arrays Ready for Your Live Data Entry
   let buses = [];
   let students = [];
   let supervisors = [];
@@ -1668,10 +1688,37 @@
     teacher: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>`
   };
 
-  function toggleQuickMenu() { document.getElementById('quickMenuPanel').classList.toggle('open'); }
-  function closeQuickMenu() { const p = document.getElementById('quickMenuPanel'); if (p) p.classList.remove('open'); }
+  function isSuperAdmin() {
+    return !!(currentUser && currentUser.isSuper);
+  }
+
+  function toggleQuickMenu(e) {
+    if (e) e.stopPropagation();
+    const panel = document.getElementById('quickMenuPanel');
+    const btn = document.getElementById('menuBtnTrigger');
+    const willOpen = !panel.classList.contains('open');
+    panel.classList.toggle('open', willOpen);
+    if (willOpen && btn) {
+      const rect = btn.getBoundingClientRect();
+      panel.style.top = (rect.bottom + 6) + 'px';
+      const isRtl = document.documentElement.dir === 'rtl';
+      if (isRtl) {
+        panel.style.left = rect.left + 'px';
+        panel.style.right = 'auto';
+      } else {
+        panel.style.right = (window.innerWidth - rect.right) + 'px';
+        panel.style.left = 'auto';
+      }
+    }
+  }
+
+  function closeQuickMenu() {
+    const p = document.getElementById('quickMenuPanel');
+    if (p) p.classList.remove('open');
+  }
 
   function openSectionFromMenu(sectionId) {
+    if ((sectionId === 'users' || sectionId === 'theme') && !isSuperAdmin()) return;
     closeQuickMenu();
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('#mainNavBar .nav-tab').forEach(el => el.classList.remove('active'));
@@ -1680,7 +1727,7 @@
   }
 
   function cycleQuickTheme() {
-    if (!currentUser || !currentUser.isSuper) return;
+    if (!isSuperAdmin()) return;
     const themes = ['default', 'emerald', 'royal'];
     const cur = localStorage.getItem('tiba_theme_variant') || 'default';
     setBrandTheme(themes[(themes.indexOf(cur) + 1) % themes.length]);
@@ -1730,7 +1777,7 @@
   }
 
   function selectHeaderBg(id) {
-    if (!currentUser || !currentUser.isSuper) return;
+    if (!isSuperAdmin()) return;
     const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
     const allItems = [...PRESET_HEADERS, ...customUploads];
     const found = allItems.find(x => x.id === id);
@@ -1741,7 +1788,7 @@
   }
 
   function uploadCustomHeaderBg(e) {
-    if (!currentUser || !currentUser.isSuper) return;
+    if (!isSuperAdmin()) return;
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
@@ -1757,13 +1804,13 @@
   }
 
   function setBrandTheme(val) {
-    if (!currentUser || !currentUser.isSuper) return;
+    if (!isSuperAdmin()) return;
     localStorage.setItem('tiba_theme_variant', val);
     applyBrandAssets();
   }
 
   function uploadBrandImage(e, target) {
-    if (!currentUser || !currentUser.isSuper) return;
+    if (!isSuperAdmin()) return;
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
@@ -1776,13 +1823,13 @@
   }
 
   function updateWatermarkOpacity(val) {
-    if (!currentUser || !currentUser.isSuper) return;
+    if (!isSuperAdmin()) return;
     localStorage.setItem('tiba_wm_opacity', val);
     document.documentElement.style.setProperty('--wm-opacity', (parseInt(val) / 100).toString());
   }
 
   function resetBrandTheme() {
-    if (!currentUser || !currentUser.isSuper) return;
+    if (!isSuperAdmin()) return;
     localStorage.removeItem('tiba_custom_logo');
     localStorage.removeItem('tiba_custom_building');
     localStorage.removeItem('tiba_selected_header_src');
@@ -1791,8 +1838,14 @@
     applyBrandAssets();
   }
 
-  function triggerAvatarUpload() { document.getElementById('avatarFileInput').click(); }
+  /* Only Super Admin (Mahmoud Salah) can upload/change profile avatar image */
+  function triggerAvatarUpload() {
+    if (!isSuperAdmin()) return;
+    document.getElementById('avatarFileInput').click();
+  }
+
   function uploadUserAvatar(e) {
+    if (!isSuperAdmin()) return;
     const file = e.target.files[0];
     if (!file || !currentUser) return;
     const reader = new FileReader();
@@ -1807,6 +1860,7 @@
     if (!currentUser) return;
     const savedAv = localStorage.getItem('tiba_avatar_' + currentUser.id);
     const holder = document.getElementById('userAvatarCircle');
+    holder.style.cursor = isSuperAdmin() ? 'pointer' : 'default';
     if (savedAv) {
       holder.innerHTML = `<img src="${savedAv}" alt="User">`;
     } else {
@@ -1887,6 +1941,7 @@
   }
 
   function doLogout() {
+    closeQuickMenu();
     currentUser = null;
     document.getElementById('mainApp').classList.add('hidden');
     document.getElementById('loginScreen').classList.remove('hidden');
@@ -1894,7 +1949,7 @@
   }
 
   function recordLog(action, details) {
-    if (currentUser && currentUser.isSuper) return;
+    if (isSuperAdmin()) return;
     const now = new Date();
     const ts = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
                String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
@@ -1911,6 +1966,7 @@
   }
 
   function switchTab(tabId, btn) {
+    closeQuickMenu();
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('#mainNavBar .nav-tab').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + tabId).classList.remove('hidden');
@@ -2053,6 +2109,7 @@
   }
 
   function saveUser() {
+    if (!isSuperAdmin()) return;
     const editId = document.getElementById('editUserId').value;
     const full = document.getElementById('usrFull').value.trim();
     const username = document.getElementById('usrName').value.trim();
@@ -2074,6 +2131,7 @@
   }
 
   function editUser(id) {
+    if (!isSuperAdmin()) return;
     const u = users.find(x => x.id === id);
     if (!u) return;
     document.getElementById('editUserId').value = u.id;
@@ -2086,6 +2144,7 @@
   }
 
   function resetUserPassword(id) {
+    if (!isSuperAdmin()) return;
     const u = users.find(x => x.id === id);
     if (!u) return;
     const newPass = prompt(`أدخل كلمة المرور الجديدة للمستخدم (${u.full}):`, '1234');
@@ -2097,7 +2156,7 @@
   }
 
   function deleteUser(id) {
-    if (id === 1) return;
+    if (!isSuperAdmin() || id === 1) return;
     users = users.filter(u => u.id !== id);
     localStorage.setItem('tiba_users_v4', JSON.stringify(users));
     renderUsers();
@@ -2135,6 +2194,7 @@
   }
 
   function saveBus() {
+    if (!hasPerm('buses_edit')) return;
     const editId = document.getElementById('editBusId').value;
     const num = document.getElementById('busNum').value.trim();
     const route = document.getElementById('busRoute').value.trim();
@@ -2160,6 +2220,7 @@
   }
 
   function editBus(id) {
+    if (!hasPerm('buses_edit')) return;
     const b = buses.find(x => x.id === id);
     if (!b) return;
     document.getElementById('editBusId').value = b.id;
@@ -2183,6 +2244,7 @@
   }
 
   function saveStudent() {
+    if (!hasPerm('stu_edit')) return;
     const editId = document.getElementById('editStuId').value;
     const name = document.getElementById('stuName').value.trim();
     if (!name) return;
@@ -2213,6 +2275,7 @@
   }
 
   function editStudent(id) {
+    if (!hasPerm('stu_edit')) return;
     const s = students.find(x => x.id === id);
     if (!s) return;
     document.getElementById('editStuId').value = s.id;
@@ -2250,6 +2313,7 @@
   }
 
   function saveSupervisor() {
+    if (!hasPerm('sup_edit')) return;
     const editId = document.getElementById('editSupId').value;
     const name = document.getElementById('supName').value.trim();
     if (!name) return;
@@ -2267,6 +2331,7 @@
   }
 
   function editSupervisor(id) {
+    if (!hasPerm('sup_edit')) return;
     const s = supervisors.find(x => x.id === id);
     if (!s) return;
     document.getElementById('editSupId').value = s.id;
@@ -2283,6 +2348,7 @@
   }
 
   function saveTeacher() {
+    if (!hasPerm('tch_edit')) return;
     const editId = document.getElementById('editTchId').value;
     const name = document.getElementById('tchName').value.trim();
     if (!name) return;
@@ -2306,6 +2372,7 @@
   }
 
   function editTeacher(id) {
+    if (!hasPerm('tch_edit')) return;
     const t = teachers.find(x => x.id === id);
     if (!t) return;
     document.getElementById('editTchId').value = t.id;
@@ -2325,14 +2392,15 @@
   }
 
   function archiveItem(type, id) {
-    if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) { b.archived = true; recordLog('أرشفة باص', b.num); } }
-    if (type === 'student') { const s = students.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; s.seatIdx = null; recordLog('أرشفة طالب', s.name); } }
-    if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; recordLog('أرشفة مشرفة', s.name); } }
-    if (type === 'teacher') { const t = teachers.find(x => x.id === id); if (t) { t.archived = true; t.busId = null; t.seatIdx = null; recordLog('أرشفة موظف', t.name); } }
+    if (type === 'bus') { if (!hasPerm('buses_arch')) return; const b = buses.find(x => x.id === id); if (b) { b.archived = true; recordLog('أرشفة باص', b.num); } }
+    if (type === 'student') { if (!hasPerm('stu_arch')) return; const s = students.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; s.seatIdx = null; recordLog('أرشفة طالب', s.name); } }
+    if (type === 'supervisor') { if (!hasPerm('sup_arch')) return; const s = supervisors.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; recordLog('أرشفة مشرفة', s.name); } }
+    if (type === 'teacher') { if (!hasPerm('tch_arch')) return; const t = teachers.find(x => x.id === id); if (t) { t.archived = true; t.busId = null; t.seatIdx = null; recordLog('أرشفة موظف', t.name); } }
     renderAll();
   }
 
   function restoreItem(type, id) {
+    if (!hasPerm('arch_rest')) return;
     if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) b.archived = false; }
     if (type === 'student') { const s = students.find(x => x.id === id); if (s) s.archived = false; }
     if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) s.archived = false; }
@@ -2770,6 +2838,7 @@
   }
 
   function exportCurrentReportExcel() {
+    if (!hasPerm('rep_export')) return;
     const area = document.getElementById('reportOutputArea');
     const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"></head><body dir="rtl">' + area.innerHTML + '</body></html>';
     const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
