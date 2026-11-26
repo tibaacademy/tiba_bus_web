@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TIBA Language Academy — Bus Management System</title>
+<title>TIBA Language Academy — Bus Management</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap');
 
@@ -37,11 +37,7 @@
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'Cairo', 'Inter', sans-serif;
@@ -51,47 +47,56 @@
     padding: 16px;
   }
 
-  .container {
-    max-width: 1320px;
-    margin: 0 auto;
-  }
+  .container { max-width: 1360px; margin: 0 auto; }
 
   /* Header */
   .app-header {
     background: var(--header-bg);
     color: #ffffff;
-    padding: 18px 26px;
+    padding: 16px 24px;
     border-radius: 10px;
     border-bottom: 4px solid var(--accent);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 12px;
     box-shadow: var(--shadow);
     margin-bottom: 16px;
   }
 
-  .brand-area h1 {
-    font-size: 21px;
-    font-weight: 800;
-    letter-spacing: 0.4px;
-  }
+  .brand-area h1 { font-size: 20px; font-weight: 800; }
+  .brand-area p { font-size: 12.5px; color: #cbd5e1; margin-top: 2px; }
 
-  .brand-area p {
-    font-size: 13px;
-    color: #cbd5e1;
-    margin-top: 2px;
-  }
+  .header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-  .header-controls {
+  .shift-pills {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  .ctrl-btn, .shift-select {
+  .shift-pill {
+    padding: 5px 16px;
+    border: none;
+    background: transparent;
+    color: #e2e8f0;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .shift-pill.active {
+    background: var(--accent);
+    color: #ffffff;
+  }
+
+  .ctrl-btn {
     background: rgba(255, 255, 255, 0.12);
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -101,23 +106,13 @@
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s;
   }
+  .ctrl-btn:hover { background: rgba(255, 255, 255, 0.22); border-color: var(--accent); }
 
-  .shift-select option {
-    background: #1e293b;
-    color: #ffffff;
-  }
-
-  .ctrl-btn:hover {
-    background: rgba(255, 255, 255, 0.22);
-    border-color: var(--accent);
-  }
-
-  /* Navigation Tabs */
+  /* Navigation Bar */
   .nav-bar {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     background: var(--bg-surface);
     padding: 8px;
     border-radius: 10px;
@@ -129,63 +124,116 @@
 
   .nav-tab {
     flex: 1;
-    min-width: 130px;
-    padding: 10px 14px;
+    min-width: 125px;
+    padding: 10px 12px;
     border: 1px solid transparent;
     background: transparent;
     color: var(--text-muted);
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 700;
     border-radius: 7px;
     cursor: pointer;
     transition: all 0.2s;
     text-align: center;
+    white-space: nowrap;
   }
 
-  .nav-tab:hover {
-    background: var(--bg-subtle);
-    color: var(--text-main);
-    border-color: var(--border-color);
-  }
+  .nav-tab:hover { background: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color); }
+  .nav-tab.active { background: var(--primary); color: #ffffff; }
+  .nav-tab.roster-tab.active { background: #0f766e; color: #ffffff; }
 
-  .nav-tab.active {
-    background: var(--primary);
-    color: #ffffff;
-    box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
-  }
-
-  /* KPI Cards */
-  .kpi-grid {
+  /* Interactive Bus Grid */
+  .bus-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 14px;
-    margin-bottom: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 18px;
   }
 
-  .kpi-card {
+  .bus-unit {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
-    border-inline-start: 4px solid var(--primary);
-    border-radius: 8px;
-    padding: 14px 18px;
+    border-radius: 12px;
+    overflow: hidden;
     box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
   }
 
-  .kpi-card span {
+  .bus-unit-top {
+    background: var(--header-bg);
+    color: #ffffff;
+    padding: 14px 18px;
+    border-bottom: 3px solid var(--accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .bus-unit-top h3 { font-size: 17px; font-weight: 800; }
+  .bus-unit-top span { font-size: 12px; background: rgba(255,255,255,0.16); padding: 4px 10px; border-radius: 12px; font-weight: 700; }
+
+  .bus-driver-bar {
+    background: var(--bg-subtle);
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--border-color);
     font-size: 12.5px;
-    color: var(--text-muted);
     font-weight: 700;
-    display: block;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
-  .kpi-card strong {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--text-main);
-    margin-top: 4px;
-    display: block;
+  .bus-body { padding: 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+  .assign-row { display: flex; gap: 8px; }
+  .assign-row select { flex: 1; }
+
+  .section-box {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: var(--bg-subtle);
   }
+
+  .section-box-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  body.dark-mode .section-box-title { color: #60a5fa; }
+
+  .chip-list { display: flex; flex-direction: column; gap: 6px; }
+
+  .member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .remove-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .remove-btn:hover { background: #fecaca; }
 
   /* Panels & Forms */
   .panel {
@@ -208,11 +256,7 @@
     gap: 10px;
   }
 
-  .panel-title {
-    font-size: 17px;
-    font-weight: 800;
-    color: var(--text-main);
-  }
+  .panel-title { font-size: 17px; font-weight: 800; }
 
   .form-grid {
     display: grid;
@@ -221,50 +265,22 @@
     margin-bottom: 14px;
   }
 
-  .form-group label {
-    display: block;
-    font-size: 12.5px;
-    font-weight: 700;
-    color: var(--text-muted);
-    margin-bottom: 5px;
-  }
+  .form-group label { display: block; font-size: 12.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; }
 
   .form-control {
     width: 100%;
-    padding: 9px 12px;
+    padding: 8px 12px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
     background: var(--bg-subtle);
     color: var(--text-main);
     font-family: inherit;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 600;
-  }
-
-  .form-control:focus {
-    outline: none;
-    border-color: var(--primary);
   }
 
   .btn-primary {
     background: var(--primary);
-    color: #ffffff;
-    border: none;
-    padding: 9px 20px;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 13.5px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .btn-primary:hover {
-    background: var(--primary-hover);
-  }
-
-  .btn-print {
-    background: #0f766e;
     color: #ffffff;
     border: none;
     padding: 8px 16px;
@@ -274,37 +290,26 @@
     font-weight: 700;
     cursor: pointer;
   }
+  .btn-primary:hover { background: var(--primary-hover); }
+
+  .btn-print {
+    background: #0f766e;
+    color: #ffffff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+  }
 
   /* Tables */
-  .table-wrap {
-    overflow-x: auto;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-  }
-
-  th {
-    background: var(--primary);
-    color: #ffffff;
-    padding: 11px 12px;
-    text-align: start;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border-color);
-    font-weight: 700;
-    color: var(--text-main);
-  }
-
-  tbody tr:hover {
-    background: var(--row-hover);
-  }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { background: var(--primary); color: #ffffff; padding: 11px 12px; text-align: start; font-weight: 700; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border-color); font-weight: 700; }
+  tbody tr:hover { background: var(--row-hover); }
 
   .badge {
     padding: 3px 9px;
@@ -314,21 +319,14 @@
     background: rgba(30, 58, 138, 0.12);
     color: var(--primary);
   }
+  body.dark-mode .badge { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
 
-  body.dark-mode .badge {
-    background: rgba(59, 130, 246, 0.2);
-    color: #93c5fd;
-  }
+  .hidden { display: none; }
 
-  .hidden {
-    display: none;
-  }
-
-  /* Print Rules: Bold clean sheets, no URL/file footers */
   @media print {
     @page { size: landscape; margin: 10mm; }
     body { background: #ffffff !important; color: #000000 !important; padding: 0; }
-    .app-header, .nav-bar, .no-print, .kpi-grid { display: none !important; }
+    .app-header, .nav-bar, .no-print { display: none !important; }
     .panel { box-shadow: none !important; border: 1px solid #000 !important; page-break-inside: avoid; }
     th { background: #1e3a8a !important; color: #ffffff !important; -webkit-print-color-adjust: exact; }
     td { color: #000000 !important; border-bottom: 1px solid #94a3b8 !important; font-weight: 800 !important; }
@@ -338,123 +336,40 @@
 <body>
 
 <div class="container">
-  <!-- Top Header -->
+  <!-- Header -->
   <header class="app-header">
     <div class="brand-area">
-      <h1 data-ar="TIBA LANGUAGE ACADEMY — نظام إدارة النقل المدرسي" data-en="TIBA LANGUAGE ACADEMY — Transportation Management">TIBA LANGUAGE ACADEMY — نظام إدارة النقل المدرسي</h1>
-      <p data-ar="لوحة التحكم المركزية لإدارة الحافلات، الطلبة، المشرفات، وسجل المتابعة" data-en="Central Dashboard for Buses, Students, Supervisors & Audit Logs">لوحة التحكم المركزية لإدارة الحافلات، الطلبة، المشرفات، وسجل المتابعة</p>
+      <h1 data-ar="TIBA LANGUAGE ACADEMY — نظام إدارة الحافلات" data-en="TIBA LANGUAGE ACADEMY — Bus Management">TIBA LANGUAGE ACADEMY — نظام إدارة الحافلات</h1>
+      <p data-ar="لوحة التحكم التفاعلية لتسكين الطلبة والمدرسين والمشرفات" data-en="Interactive Dashboard for Students, Teachers & Supervisors Assignment">لوحة التحكم التفاعلية لتسكين الطلبة والمدرسين والمشرفات</p>
     </div>
     <div class="header-controls">
-      <select id="shiftSelect" class="shift-select" onchange="changeShift()">
-        <option value="KG">المرحلة: KG</option>
-        <option value="Junior" selected>المرحلة: Junior</option>
-        <option value="Middle">المرحلة: Middle</option>
-        <option value="Senior">المرحلة: Senior</option>
-      </select>
+      <!-- Two Shifts Only: Junior & KG -->
+      <div class="shift-pills">
+        <button class="shift-pill active" id="pill-Junior" onclick="setShift('Junior')">Junior</button>
+        <button class="shift-pill" id="pill-KG" onclick="setShift('KG')">KG</button>
+      </div>
       <button class="ctrl-btn" onclick="toggleLang()" id="langBtn">English</button>
       <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn" data-ar="الوضع الليلي" data-en="Dark Mode">الوضع الليلي</button>
     </div>
   </header>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation Tabs (Interactive Dashboard -> 3 Core Tabs -> Log -> Roster & Print at the End) -->
   <nav class="nav-bar">
-    <button class="nav-tab active" onclick="switchTab('rosters', this)" data-ar="1. كشوف الباصات والطباعة" data-en="1. Bus Rosters & Print">1. كشوف الباصات والطباعة</button>
-    <button class="nav-tab" onclick="switchTab('students', this)" data-ar="2. الطلبة والتسكين" data-en="2. Students & Assignment">2. الطلبة والتسكين</button>
-    <button class="nav-tab" onclick="switchTab('buses', this)" data-ar="3. الباصات والسائقين" data-en="3. Buses & Drivers">3. الباصات والسائقين</button>
-    <button class="nav-tab" onclick="switchTab('staff', this)" data-ar="4. المشرفات والمدرسين" data-en="4. Supervisors & Teachers">4. المشرفات والمدرسين</button>
-    <button class="nav-tab" onclick="switchTab('logs', this)" data-ar="5. سجل الحركات (Log)" data-en="5. Action Audit Log">5. سجل الحركات (Log)</button>
+    <button class="nav-tab active" onclick="switchTab('dashboard', this)" data-ar="لوحة الباصات التفاعلية" data-en="Interactive Bus Board">لوحة الباصات التفاعلية</button>
+    <button class="nav-tab" onclick="switchTab('buses', this)" data-ar="1. الباصات والسائقين" data-en="1. Buses & Drivers">1. الباصات والسائقين</button>
+    <button class="nav-tab" onclick="switchTab('students', this)" data-ar="2. الطلبة" data-en="2. Students">2. الطلبة</button>
+    <button class="nav-tab" onclick="switchTab('supervisors', this)" data-ar="3. المشرفات" data-en="3. Supervisors">3. المشرفات</button>
+    <button class="nav-tab" onclick="switchTab('teachers', this)" data-ar="4. المدرسين" data-en="4. Teachers">4. المدرسين</button>
+    <button class="nav-tab" onclick="switchTab('logs', this)" data-ar="سجل الحركات" data-en="Audit Log">سجل الحركات</button>
+    <button class="nav-tab roster-tab" onclick="switchTab('rosters', this)" data-ar="كشوف الباصات والطباعة" data-en="Bus Roster & Print">كشوف الباصات والطباعة</button>
   </nav>
 
-  <!-- KPI Summary -->
-  <section class="kpi-grid">
-    <div class="kpi-card">
-      <span data-ar="المرحلة النشطة" data-en="Active Shift">المرحلة النشطة</span>
-      <strong id="kpiShift">Junior</strong>
-    </div>
-    <div class="kpi-card">
-      <span data-ar="إجمالي الباصات" data-en="Total Buses">إجمالي الباصات</span>
-      <strong id="kpiBuses">2</strong>
-    </div>
-    <div class="kpi-card">
-      <span data-ar="الطلبة المسكنين" data-en="Assigned Students">الطلبة المسكنين</span>
-      <strong id="kpiStudents">4</strong>
-    </div>
-    <div class="kpi-card">
-      <span data-ar="المشرفات والمدرسين" data-en="Supervisors & Staff">المشرفات والمدرسين</span>
-      <strong id="kpiStaff">3</strong>
-    </div>
-  </section>
-
-  <!-- TAB 1: ROSTERS -->
-  <div id="tab-rosters" class="tab-content">
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title" data-ar="كشوف تسكين الباصات الجاهزة للطباعة" data-en="Printable Bus Assignment Rosters">كشوف تسكين الباصات الجاهزة للطباعة</div>
-        <div style="display:flex; gap:10px;" class="no-print">
-          <select id="rosterBusFilter" class="form-control" style="width:220px;" onchange="renderAll()">
-            <option value="ALL" data-ar="عرض جميع الباصات" data-en="Show All Buses">عرض جميع الباصات</option>
-          </select>
-          <button class="btn-print" onclick="window.print()" data-ar="طباعة الكشف (Landscape)" data-en="Print Sheet (Landscape)">طباعة الكشف (Landscape)</button>
-        </div>
-      </div>
-      <div id="rostersContainer"></div>
-    </div>
+  <!-- TAB 0: INTERACTIVE BUS DASHBOARD -->
+  <div id="tab-dashboard" class="tab-content">
+    <div class="bus-grid" id="interactiveBusGrid"></div>
   </div>
 
-  <!-- TAB 2: STUDENTS -->
-  <div id="tab-students" class="tab-content hidden">
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title" data-ar="إضافة وتسكين طالب جديد" data-en="Add & Assign New Student">إضافة وتسكين طالب جديد</div>
-      </div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label data-ar="اسم الطالب بالكامل" data-en="Student Full Name">اسم الطالب بالكامل</label>
-          <input type="text" id="stuName" class="form-control" placeholder="مثال: حمزة أحمد محمود">
-        </div>
-        <div class="form-group">
-          <label data-ar="الصف / الفصل" data-en="Grade / Class">الصف / الفصل</label>
-          <input type="text" id="stuGrade" class="form-control" placeholder="J2 - A">
-        </div>
-        <div class="form-group">
-          <label data-ar="العنوان التفصيلي" data-en="Detailed Address">العنوان التفصيلي</label>
-          <input type="text" id="stuAddr" class="form-control" placeholder="فلمنج - شارع مصطفى كامل">
-        </div>
-        <div class="form-group">
-          <label data-ar="هاتف ولي الأمر" data-en="Parent Phone">هاتف ولي الأمر</label>
-          <input type="text" id="stuPhone" class="form-control" placeholder="01000000000">
-        </div>
-        <div class="form-group">
-          <label data-ar="تعيين الباص (Dropdown)" data-en="Assign Bus (Dropdown)">تعيين الباص (Dropdown)</label>
-          <select id="stuBusSelect" class="form-control"></select>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="addStudent()" data-ar="حفظ وتسكين الطالب" data-en="Save & Assign Student">حفظ وتسكين الطالب</button>
-    </div>
-
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title" data-ar="قائمة الطلبة وتعديل التسكين السريع" data-en="Students List & Quick Re-assignment">قائمة الطلبة وتعديل التسكين السريع</div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th data-ar="اسم الطالب" data-en="Student Name">اسم الطالب</th>
-              <th data-ar="الصف" data-en="Grade">الصف</th>
-              <th data-ar="العنوان" data-en="Address">العنوان</th>
-              <th data-ar="الهاتف" data-en="Phone">الهاتف</th>
-              <th data-ar="الباص الحالي (تغيير مباشر)" data-en="Assigned Bus (Direct Change)">الباص الحالي (تغيير مباشر)</th>
-            </tr>
-          </thead>
-          <tbody id="studentsTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB 3: BUSES -->
+  <!-- TAB 1: BUSES & DRIVERS -->
   <div id="tab-buses" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
@@ -463,7 +378,7 @@
       <div class="form-grid">
         <div class="form-group">
           <label data-ar="رقم الباص" data-en="Bus Number">رقم الباص</label>
-          <input type="text" id="busNum" class="form-control" placeholder="12">
+          <input type="text" id="busNum" class="form-control" placeholder="Bus 1">
         </div>
         <div class="form-group">
           <label data-ar="خط السير" data-en="Route">خط السير</label>
@@ -471,7 +386,7 @@
         </div>
         <div class="form-group">
           <label data-ar="اسم السائق" data-en="Driver Name">اسم السائق</label>
-          <input type="text" id="driverName" class="form-control" placeholder="أ. محمد حسن">
+          <input type="text" id="driverName" class="form-control" placeholder="أ. محروس علي">
         </div>
         <div class="form-group">
           <label data-ar="هاتف السائق" data-en="Driver Phone">هاتف السائق</label>
@@ -486,19 +401,18 @@
           <input type="number" id="busCap" class="form-control" value="14">
         </div>
       </div>
-      <button class="btn-primary" onclick="addBus()" data-ar="إضافة الباص" data-en="Add Bus">إضافة الباص</button>
+      <button class="btn-primary" onclick="addBus()" data-ar="حفظ الباص" data-en="Save Bus">حفظ الباص</button>
     </div>
-
     <div class="panel">
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th data-ar="رقم الباص" data-en="Bus No.">رقم الباص</th>
+              <th data-ar="الباص" data-en="Bus">الباص</th>
               <th data-ar="خط السير" data-en="Route">خط السير</th>
               <th data-ar="السائق" data-en="Driver">السائق</th>
               <th data-ar="الهاتف" data-en="Phone">الهاتف</th>
-              <th data-ar="رقم اللوحة" data-en="Plate">رقم اللوحة</th>
+              <th data-ar="اللوحة" data-en="Plate">اللوحة</th>
               <th data-ar="السعة" data-en="Capacity">السعة</th>
             </tr>
           </thead>
@@ -508,53 +422,131 @@
     </div>
   </div>
 
-  <!-- TAB 4: STAFF (SUPERVISORS & TEACHERS) -->
-  <div id="tab-staff" class="tab-content hidden">
+  <!-- TAB 2: STUDENTS -->
+  <div id="tab-students" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" data-ar="إضافة مشرفة باص أو مدرس مرافق" data-en="Add Bus Supervisor or Teacher">إضافة مشرفة باص أو مدرس مرافق</div>
+        <div class="panel-title" data-ar="إضافة طالب جديد" data-en="Add New Student">إضافة طالب جديد</div>
       </div>
       <div class="form-grid">
         <div class="form-group">
-          <label data-ar="الصفة" data-en="Role">الصفة</label>
-          <select id="staffRole" class="form-control">
-            <option value="مشرفة باص">مشرفة باص (Supervisor)</option>
-            <option value="مدرس / موظف">مدرس / موظف (Teacher)</option>
-          </select>
+          <label data-ar="اسم الطالب" data-en="Student Name">اسم الطالب</label>
+          <input type="text" id="stuName" class="form-control" placeholder="حمزة أحمد محمود">
         </div>
         <div class="form-group">
-          <label data-ar="الاسم" data-en="Full Name">الاسم</label>
-          <input type="text" id="staffName" class="form-control" placeholder="أ. رنا محمود">
+          <label data-ar="الصف / الفصل" data-en="Grade / Class">الصف / الفصل</label>
+          <input type="text" id="stuGrade" class="form-control" placeholder="J2 - A">
         </div>
         <div class="form-group">
-          <label data-ar="رقم الهاتف" data-en="Phone">رقم الهاتف</label>
-          <input type="text" id="staffPhone" class="form-control" placeholder="01100000000">
+          <label data-ar="العنوان التفصيلي" data-en="Address">العنوان التفصيلي</label>
+          <input type="text" id="stuAddr" class="form-control" placeholder="فلمنج">
         </div>
         <div class="form-group">
-          <label data-ar="العنوان (اختياري)" data-en="Address (Optional)">العنوان (اختياري)</label>
-          <input type="text" id="staffAddr" class="form-control" placeholder="سموحة">
+          <label data-ar="هاتف ولي الأمر" data-en="Parent Phone">هاتف ولي الأمر</label>
+          <input type="text" id="stuPhone" class="form-control" placeholder="01000000000">
         </div>
         <div class="form-group">
-          <label data-ar="الباص المخصص" data-en="Assigned Bus">الباص المخصص</label>
-          <select id="staffBusSelect" class="form-control"></select>
+          <label data-ar="الباص" data-en="Bus">الباص</label>
+          <select id="stuBusSelect" class="form-control"></select>
         </div>
       </div>
-      <button class="btn-primary" onclick="addStaff()" data-ar="حفظ في الدليل" data-en="Save to Directory">حفظ في الدليل</button>
+      <button class="btn-primary" onclick="addStudent()" data-ar="حفظ الطالب" data-en="Save Student">حفظ الطالب</button>
     </div>
-
     <div class="panel">
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th data-ar="الصفة" data-en="Role">الصفة</th>
-              <th data-ar="الاسم" data-en="Name">الاسم</th>
+              <th>#</th>
+              <th data-ar="اسم الطالب" data-en="Name">اسم الطالب</th>
+              <th data-ar="الصف" data-en="Grade">الصف</th>
+              <th data-ar="العنوان" data-en="Address">العنوان</th>
               <th data-ar="الهاتف" data-en="Phone">الهاتف</th>
+              <th data-ar="الباص المعين" data-en="Assigned Bus">الباص المعين</th>
+            </tr>
+          </thead>
+          <tbody id="studentsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: SUPERVISORS (SEPARATE) -->
+  <div id="tab-supervisors" class="tab-content hidden">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title" data-ar="إضافة مشرفة باص" data-en="Add Bus Supervisor">إضافة مشرفة باص</div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label data-ar="اسم المشرفة" data-en="Supervisor Name">اسم المشرفة</label>
+          <input type="text" id="supName" class="form-control" placeholder="أ. رنا محمود">
+        </div>
+        <div class="form-group">
+          <label data-ar="رقم الهاتف" data-en="Phone">رقم الهاتف</label>
+          <input type="text" id="supPhone" class="form-control" placeholder="01000000000">
+        </div>
+        <div class="form-group">
+          <label data-ar="الباص المسؤول عنه" data-en="Assigned Bus">الباص المسؤول عنه</label>
+          <select id="supBusSelect" class="form-control"></select>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="addSupervisor()" data-ar="حفظ المشرفة" data-en="Save Supervisor">حفظ المشرفة</button>
+    </div>
+    <div class="panel">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-ar="اسم المشرفة" data-en="Supervisor Name">اسم المشرفة</th>
+              <th data-ar="رقم الهاتف" data-en="Phone">رقم الهاتف</th>
+              <th data-ar="الباص" data-en="Bus">الباص</th>
+            </tr>
+          </thead>
+          <tbody id="supervisorsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: TEACHERS (SEPARATE) -->
+  <div id="tab-teachers" class="tab-content hidden">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title" data-ar="إضافة مدرس / موظف مرافق" data-en="Add Teacher / Staff">إضافة مدرس / موظف مرافق</div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label data-ar="اسم المدرس" data-en="Teacher Name">اسم المدرس</label>
+          <input type="text" id="tchName" class="form-control" placeholder="أ. عمر أحمد">
+        </div>
+        <div class="form-group">
+          <label data-ar="رقم الهاتف" data-en="Phone">رقم الهاتف</label>
+          <input type="text" id="tchPhone" class="form-control" placeholder="01100000000">
+        </div>
+        <div class="form-group">
+          <label data-ar="العنوان (اختياري)" data-en="Address (Optional)">العنوان (اختياري)</label>
+          <input type="text" id="tchAddr" class="form-control" placeholder="سموحة">
+        </div>
+        <div class="form-group">
+          <label data-ar="الباص" data-en="Assigned Bus">الباص</label>
+          <select id="tchBusSelect" class="form-control"></select>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="addTeacher()" data-ar="حفظ المدرس" data-en="Save Teacher">حفظ المدرس</button>
+    </div>
+    <div class="panel">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-ar="اسم المدرس" data-en="Teacher Name">اسم المدرس</th>
+              <th data-ar="رقم الهاتف" data-en="Phone">رقم الهاتف</th>
               <th data-ar="العنوان" data-en="Address">العنوان</th>
               <th data-ar="الباص" data-en="Bus">الباص</th>
             </tr>
           </thead>
-          <tbody id="staffTableBody"></tbody>
+          <tbody id="teachersTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -564,15 +556,15 @@
   <div id="tab-logs" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" data-ar="سجل المتابعة والعمليات الزمني (Audit Log)" data-en="Timestamped Action Audit Log">سجل المتابعة والعمليات الزمني (Audit Log)</div>
+        <div class="panel-title" data-ar="سجل العمليات الزمني" data-en="Timestamped Action Log">سجل العمليات الزمني</div>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th data-ar="التاريخ والوقت" data-en="Timestamp">التاريخ والوقت</th>
-              <th data-ar="المستخدم" data-en="User">المستخدم</th>
-              <th data-ar="نوع الحركة" data-en="Action">نوع الحركة</th>
+              <th data-ar="التوقيت" data-en="Timestamp">التوقيت</th>
+              <th data-ar="المرحلة" data-en="Shift">المرحلة</th>
+              <th data-ar="العملية" data-en="Action">العملية</th>
               <th data-ar="التفاصيل" data-en="Details">التفاصيل</th>
             </tr>
           </thead>
@@ -581,42 +573,68 @@
       </div>
     </div>
   </div>
+
+  <!-- TAB 6 (LAST): BUS ROSTER & PRINT -->
+  <div id="tab-rosters" class="tab-content hidden">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title" data-ar="كشوف الباصات النهائية والطباعة" data-en="Final Bus Rosters & Print">كشوف الباصات النهائية والطباعة</div>
+        <div style="display:flex; gap:10px;" class="no-print">
+          <select id="rosterBusFilter" class="form-control" style="width:220px;" onchange="renderAll()"></select>
+          <button class="btn-print" onclick="window.print()" data-ar="طباعة الكشف (Landscape)" data-en="Print Roster (Landscape)">طباعة الكشف (Landscape)</button>
+        </div>
+      </div>
+      <div id="rostersContainer"></div>
+    </div>
+  </div>
 </div>
 
 <script>
+  let currentShift = 'Junior';
   let lang = 'ar';
+
   let buses = [
-    { id: 1, num: '11', route: 'سيدي بشر بحري - العصافرة', driver: 'أ. محروس علي', phone: '01223456789', plate: 'س ن ر 8421', cap: 14 },
-    { id: 2, num: '12', route: 'سموحة - كفر عبده - فلمنج', driver: 'أ. محمد سامي', phone: '01098765432', plate: 'س أ م 3190', cap: 16 }
+    { id: 1, shift: 'Junior', num: 'Bus 1', route: 'سيدي بشر بحري - العصافرة', driver: 'أ. محروس علي', phone: '01223456789', plate: 'س ن ر 8421', cap: 14 },
+    { id: 2, shift: 'Junior', num: 'Bus 2', route: 'سموحة - كفر عبده - فلمنج', driver: 'أ. محمد سامي', phone: '01098765432', plate: 'س أ م 3190', cap: 16 },
+    { id: 3, shift: 'KG', num: 'Bus 1 (KG)', route: 'جليم - زيزينيا - سان ستيفانو', driver: 'أ. كيرو عادل', phone: '01211112222', plate: 'س ر ط 1120', cap: 12 }
   ];
 
   let students = [
-    { id: 101, name: 'عمر خالد إبراهيم', grade: 'J2 - A', addr: 'سيدي بشر - شارع خالد بن الوليد', phone: '01011223344', busId: 1 },
-    { id: 102, name: 'ليلى طارق حسن', grade: 'J1 - B', addr: 'ميامي - شارع إسكندر إبراهيم', phone: '01122334455', busId: 1 },
-    { id: 103, name: 'ياسين محمود صلاح', grade: 'J3 - A', addr: 'فلمنج - شارع مصطفى كامل', phone: '01233445566', busId: 2 },
-    { id: 104, name: 'فريدة عمرو سعيد', grade: 'J2 - C', addr: 'سموحة - ميدان فيكتور عمانويل', phone: '01544556677', busId: 2 }
+    { id: 101, shift: 'Junior', name: 'عمر خالد إبراهيم', grade: 'J2 - A', addr: 'سيدي بشر', phone: '01011223344', busId: 1 },
+    { id: 102, shift: 'Junior', name: 'ليلى طارق حسن', grade: 'J1 - B', addr: 'ميامي', phone: '01122334455', busId: 1 },
+    { id: 103, shift: 'Junior', name: 'ياسين محمود صلاح', grade: 'J3 - A', addr: 'فلمنج', phone: '01233445566', busId: 2 },
+    { id: 104, shift: 'Junior', name: 'فريدة عمرو سعيد', grade: 'J2 - C', addr: 'سموحة', phone: '01544556677', busId: null },
+    { id: 105, shift: 'KG', name: 'آدم كريم محمد', grade: 'KG 1', addr: 'زيزينيا', phone: '01099887766', busId: 3 }
   ];
 
-  let staff = [
-    { role: 'مشرفة باص', name: 'أ. رنا', phone: '01055667788', addr: 'سيدي بشر', busId: 1 },
-    { role: 'مشرفة باص', name: 'أ. نسمة', phone: '01166778899', addr: 'فلمنج', busId: 2 },
-    { role: 'مدرس / موظف', name: 'أ. عمر', phone: '01277889900', addr: 'سموحة', busId: 2 }
+  let supervisors = [
+    { id: 201, shift: 'Junior', name: 'أ. رنا', phone: '01055667788', busId: 1 },
+    { id: 202, shift: 'Junior', name: 'أ. نسمة', phone: '01166778899', busId: 2 },
+    { id: 203, shift: 'KG', name: 'أ. هدير', phone: '01288990011', busId: 3 }
+  ];
+
+  let teachers = [
+    { id: 301, shift: 'Junior', name: 'أ. عمر', phone: '01277889900', addr: 'سموحة', busId: 2 },
+    { id: 302, shift: 'Junior', name: 'أ. شيماء', phone: '01044332211', addr: 'سيدي بشر', busId: null },
+    { id: 303, shift: 'KG', name: 'أ. مروة', phone: '01122334400', addr: 'جليم', busId: 3 }
   ];
 
   let logs = [
-    { time: '2026-11-26 07:45:12', user: 'Mahmoud Salah', action: 'تسكين طالب', details: 'تسكين الطالب ياسين محمود صلاح على باص رقم 12' },
-    { time: '2026-11-26 07:30:05', user: 'Mahmoud Salah', action: 'إضافة باص', details: 'إضافة باص رقم 11 — خط سيدي بشر بحري' }
+    { time: '2026-11-26 07:50:10', shift: 'Junior', action: 'تسكين', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1' }
   ];
 
   function recordLog(action, details) {
     const now = new Date();
-    const ts = now.getFullYear() + '-' +
-      String(now.getMonth()+1).padStart(2,'0') + '-' +
-      String(now.getDate()).padStart(2,'0') + ' ' +
-      String(now.getHours()).padStart(2,'0') + ':' +
-      String(now.getMinutes()).padStart(2,'0') + ':' +
-      String(now.getSeconds()).padStart(2,'0');
-    logs.unshift({ time: ts, user: 'Mahmoud Salah', action, details });
+    const ts = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
+               String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    logs.unshift({ time: ts, shift: currentShift, action, details });
+  }
+
+  function setShift(sh) {
+    currentShift = sh;
+    document.getElementById('pill-Junior').classList.toggle('active', sh === 'Junior');
+    document.getElementById('pill-KG').classList.toggle('active', sh === 'KG');
+    renderAll();
   }
 
   function switchTab(tabId, btn) {
@@ -624,6 +642,7 @@
     document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + tabId).classList.remove('hidden');
     btn.classList.add('active');
+    renderAll();
   }
 
   function toggleTheme() {
@@ -646,28 +665,66 @@
     renderAll();
   }
 
-  function changeShift() {
-    const val = document.getElementById('shiftSelect').value;
-    document.getElementById('kpiShift').textContent = val;
-    recordLog('تغيير المرحلة', 'الانتقال إلى مرحلة ' + val);
-    renderAll();
+  // Interactive Board Actions
+  function assignStudentToBus(busId) {
+    const sel = document.getElementById('add-stu-bus-' + busId);
+    const stuId = parseInt(sel.value);
+    if (!stuId) return;
+    const s = students.find(x => x.id === stuId);
+    const b = buses.find(x => x.id === busId);
+    if (s && b) {
+      s.busId = busId;
+      recordLog('تسكين طالب', `إضافة الطالب ${s.name} إلى ${b.num}`);
+      renderAll();
+    }
   }
 
+  function removeStudentFromBus(stuId) {
+    const s = students.find(x => x.id === stuId);
+    if (s) {
+      const b = buses.find(x => x.id === s.busId);
+      s.busId = null;
+      recordLog('إزالة طالب', `إخراج الطالب ${s.name} من ${b ? b.num : ''}`);
+      renderAll();
+    }
+  }
+
+  function assignTeacherToBus(busId) {
+    const sel = document.getElementById('add-tch-bus-' + busId);
+    const tchId = parseInt(sel.value);
+    if (!tchId) return;
+    const t = teachers.find(x => x.id === tchId);
+    const b = buses.find(x => x.id === busId);
+    if (t && b) {
+      t.busId = busId;
+      recordLog('تسكين مدرس', `إضافة المدرس ${t.name} إلى ${b.num}`);
+      renderAll();
+    }
+  }
+
+  function removeTeacherFromBus(tchId) {
+    const t = teachers.find(x => x.id === tchId);
+    if (t) {
+      const b = buses.find(x => x.id === t.busId);
+      t.busId = null;
+      recordLog('إزالة مدرس', `إخراج المدرس ${t.name} من ${b ? b.num : ''}`);
+      renderAll();
+    }
+  }
+
+  // Add Forms
   function addBus() {
     const num = document.getElementById('busNum').value.trim();
     const route = document.getElementById('busRoute').value.trim();
     if (!num || !route) return;
-    const newBus = {
-      id: Date.now(),
-      num,
-      route,
+    buses.push({
+      id: Date.now(), shift: currentShift, num, route,
       driver: document.getElementById('driverName').value.trim() || '-',
       phone: document.getElementById('driverPhone').value.trim() || '-',
       plate: document.getElementById('busPlate').value.trim() || '-',
       cap: parseInt(document.getElementById('busCap').value) || 14
-    };
-    buses.push(newBus);
-    recordLog('إضافة باص', `إضافة باص رقم ${num} (${route})`);
+    });
+    recordLog('إضافة باص', `إضافة ${num} (${route})`);
     document.getElementById('busNum').value = '';
     document.getElementById('busRoute').value = '';
     renderAll();
@@ -676,86 +733,180 @@
   function addStudent() {
     const name = document.getElementById('stuName').value.trim();
     if (!name) return;
-    const busId = parseInt(document.getElementById('stuBusSelect').value) || null;
     students.push({
-      id: Date.now(),
-      name,
+      id: Date.now(), shift: currentShift, name,
       grade: document.getElementById('stuGrade').value.trim() || '-',
       addr: document.getElementById('stuAddr').value.trim() || '-',
       phone: document.getElementById('stuPhone').value.trim() || '-',
-      busId
+      busId: parseInt(document.getElementById('stuBusSelect').value) || null
     });
     recordLog('إضافة طالب', `تسجيل الطالب ${name}`);
     document.getElementById('stuName').value = '';
     renderAll();
   }
 
-  function reassignStudent(stuId, newBusId) {
-    const s = students.find(x => x.id === stuId);
-    if (!s) return;
-    s.busId = parseInt(newBusId) || null;
-    const b = buses.find(x => x.id === s.busId);
-    recordLog('نقل وتسكين', `نقل ${s.name} إلى ${b ? 'باص ' + b.num : 'بدون باص'}`);
+  function addSupervisor() {
+    const name = document.getElementById('supName').value.trim();
+    if (!name) return;
+    supervisors.push({
+      id: Date.now(), shift: currentShift, name,
+      phone: document.getElementById('supPhone').value.trim() || '-',
+      busId: parseInt(document.getElementById('supBusSelect').value) || null
+    });
+    recordLog('إضافة مشرفة', `تسجيل المشرفة ${name}`);
+    document.getElementById('supName').value = '';
     renderAll();
   }
 
-  function addStaff() {
-    const name = document.getElementById('staffName').value.trim();
+  function addTeacher() {
+    const name = document.getElementById('tchName').value.trim();
     if (!name) return;
-    const role = document.getElementById('staffRole').value;
-    const busId = parseInt(document.getElementById('staffBusSelect').value) || null;
-    staff.push({
-      role,
-      name,
-      phone: document.getElementById('staffPhone').value.trim() || '-',
-      addr: document.getElementById('staffAddr').value.trim() || '-',
-      busId
+    teachers.push({
+      id: Date.now(), shift: currentShift, name,
+      phone: document.getElementById('tchPhone').value.trim() || '-',
+      addr: document.getElementById('tchAddr').value.trim() || '-',
+      busId: parseInt(document.getElementById('tchBusSelect').value) || null
     });
-    recordLog('إضافة طاقم', `إضافة ${role}: ${name}`);
-    document.getElementById('staffName').value = '';
+    recordLog('إضافة مدرس', `تسجيل المدرس ${name}`);
+    document.getElementById('tchName').value = '';
     renderAll();
   }
 
   function renderAll() {
-    document.getElementById('kpiBuses').textContent = buses.length;
-    document.getElementById('kpiStudents').textContent = students.length;
-    document.getElementById('kpiStaff').textContent = staff.length;
+    const shBuses = buses.filter(b => b.shift === currentShift);
+    const shStudents = students.filter(s => s.shift === currentShift);
+    const shSups = supervisors.filter(s => s.shift === currentShift);
+    const shTeachers = teachers.filter(t => t.shift === currentShift);
 
-    // Populate Bus Dropdowns
-    const busOptsHtml = `<option value="">${lang === 'ar' ? 'بدون باص' : 'Unassigned'}</option>` +
-      buses.map(b => `<option value="${b.id}">${lang === 'ar' ? 'باص' : 'Bus'} (${b.num}) - ${b.route}</option>`).join('');
-    document.getElementById('stuBusSelect').innerHTML = busOptsHtml;
-    document.getElementById('staffBusSelect').innerHTML = busOptsHtml;
+    // Dropdowns
+    const busOpts = `<option value="">${lang === 'ar' ? 'بدون باص' : 'Unassigned'}</option>` +
+      shBuses.map(b => `<option value="${b.id}">${b.num} — ${b.route}</option>`).join('');
+    document.getElementById('stuBusSelect').innerHTML = busOpts;
+    document.getElementById('supBusSelect').innerHTML = busOpts;
+    document.getElementById('tchBusSelect').innerHTML = busOpts;
 
-    const filterSelect = document.getElementById('rosterBusFilter');
-    const currentFilter = filterSelect.value;
-    filterSelect.innerHTML = `<option value="ALL">${lang === 'ar' ? 'عرض جميع الباصات' : 'Show All Buses'}</option>` +
-      buses.map(b => `<option value="${b.id}">${lang === 'ar' ? 'باص' : 'Bus'} (${b.num}) - ${b.route}</option>`).join('');
-    filterSelect.value = currentFilter || 'ALL';
+    // 0. Interactive Bus Dashboard
+    const unassignedStudents = shStudents.filter(s => !s.busId);
+    const unassignedTeachers = shTeachers.filter(t => !t.busId);
 
-    // Render Rosters
-    const rostersDiv = document.getElementById('rostersContainer');
-    rostersDiv.innerHTML = buses
-      .filter(b => filterSelect.value === 'ALL' || String(b.id) === filterSelect.value)
+    document.getElementById('interactiveBusGrid').innerHTML = shBuses.map(b => {
+      const bStus = shStudents.filter(s => s.busId === b.id);
+      const bTchs = shTeachers.filter(t => t.busId === b.id);
+      const bSup = shSups.filter(s => s.busId === b.id).map(s => s.name).join(' ، ') || (lang === 'ar' ? 'غير معينة' : 'None');
+
+      const stuOptions = `<option value="">${lang === 'ar' ? '+ اختر طالب لإضافته...' : '+ Select student to add...'}</option>` +
+        unassignedStudents.map(s => `<option value="${s.id}">${s.name} (${s.grade})</option>`).join('');
+
+      const tchOptions = `<option value="">${lang === 'ar' ? '+ اختر مدرس لإضافته...' : '+ Select teacher to add...'}</option>` +
+        unassignedTeachers.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+
+      const stuChips = bStus.map(s => `
+        <div class="member-item">
+          <span>${s.name} <small style="color:var(--text-muted);">(${s.grade})</small></span>
+          <button class="remove-btn" onclick="removeStudentFromBus(${s.id})">✕</button>
+        </div>
+      `).join('') || `<div style="font-size:12px; color:var(--text-muted);">${lang === 'ar' ? 'لا يوجد طلبة' : 'No students'}</div>`;
+
+      const tchChips = bTchs.map(t => `
+        <div class="member-item">
+          <span>${t.name}</span>
+          <button class="remove-btn" onclick="removeTeacherFromBus(${t.id})">✕</button>
+        </div>
+      `).join('') || `<div style="font-size:12px; color:var(--text-muted);">${lang === 'ar' ? 'لا يوجد مدرسين' : 'No teachers'}</div>`;
+
+      return `
+        <div class="bus-unit">
+          <div class="bus-unit-top">
+            <div>
+              <h3>${b.num}</h3>
+              <div style="font-size:12.5px; color:#e2e8f0;">${b.route}</div>
+            </div>
+            <span>${bStus.length + bTchs.length} / ${b.cap}</span>
+          </div>
+          <div class="bus-driver-bar">
+            <span>${lang === 'ar' ? 'السائق:' : 'Driver:'} ${b.driver}</span>
+            <span>${lang === 'ar' ? 'المشرفة:' : 'Supervisor:'} ${bSup}</span>
+          </div>
+          <div class="bus-body">
+            <!-- Students Section inside Bus -->
+            <div class="section-box">
+              <div class="section-box-title">
+                <span>${lang === 'ar' ? 'الطلبة داخل الباص' : 'Students in Bus'} (${bStus.length})</span>
+              </div>
+              <div class="assign-row" style="margin-bottom:8px;">
+                <select id="add-stu-bus-${b.id}" class="form-control">${stuOptions}</select>
+                <button class="btn-primary" onclick="assignStudentToBus(${b.id})">${lang === 'ar' ? 'إضافة' : 'Add'}</button>
+              </div>
+              <div class="chip-list">${stuChips}</div>
+            </div>
+
+            <!-- Teachers Section inside Bus -->
+            <div class="section-box">
+              <div class="section-box-title">
+                <span>${lang === 'ar' ? 'المدرسين داخل الباص' : 'Teachers in Bus'} (${bTchs.length})</span>
+              </div>
+              <div class="assign-row" style="margin-bottom:8px;">
+                <select id="add-tch-bus-${b.id}" class="form-control">${tchOptions}</select>
+                <button class="btn-primary" onclick="assignTeacherToBus(${b.id})">${lang === 'ar' ? 'إضافة' : 'Add'}</button>
+              </div>
+              <div class="chip-list">${tchChips}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // 1. Buses Table
+    document.getElementById('busesTableBody').innerHTML = shBuses.map(b => `
+      <tr><td><span class="badge">${b.num}</span></td><td>${b.route}</td><td>${b.driver}</td><td>${b.phone}</td><td>${b.plate}</td><td>${b.cap}</td></tr>
+    `).join('');
+
+    // 2. Students Table
+    document.getElementById('studentsTableBody').innerHTML = shStudents.map((s, i) => {
+      const b = shBuses.find(x => x.id === s.busId);
+      return `<tr><td>${i+1}</td><td>${s.name}</td><td>${s.grade}</td><td>${s.addr}</td><td>${s.phone}</td><td><span class="badge">${b ? b.num : (lang === 'ar' ? 'غير مسكن' : 'Unassigned')}</span></td></tr>`;
+    }).join('');
+
+    // 3. Supervisors Table
+    document.getElementById('supervisorsTableBody').innerHTML = shSups.map(s => {
+      const b = shBuses.find(x => x.id === s.busId);
+      return `<tr><td>${s.name}</td><td>${s.phone}</td><td><span class="badge">${b ? b.num : '-'}</span></td></tr>`;
+    }).join('');
+
+    // 4. Teachers Table
+    document.getElementById('teachersTableBody').innerHTML = shTeachers.map(t => {
+      const b = shBuses.find(x => x.id === t.busId);
+      return `<tr><td>${t.name}</td><td>${t.phone}</td><td>${t.addr}</td><td><span class="badge">${b ? b.num : '-'}</span></td></tr>`;
+    }).join('');
+
+    // 5. Audit Logs
+    document.getElementById('logsTableBody').innerHTML = logs.map(l => `
+      <tr><td dir="ltr" style="text-align:start;">${l.time}</td><td><span class="badge">${l.shift}</span></td><td>${l.action}</td><td>${l.details}</td></tr>
+    `).join('');
+
+    // 6. Rosters & Print (Last Tab)
+    const filterSel = document.getElementById('rosterBusFilter');
+    const prevVal = filterSel.value;
+    filterSel.innerHTML = `<option value="ALL">${lang === 'ar' ? 'عرض جميع الباصات' : 'Show All Buses'}</option>` +
+      shBuses.map(b => `<option value="${b.id}">${b.num} — ${b.route}</option>`).join('');
+    filterSel.value = prevVal || 'ALL';
+
+    document.getElementById('rostersContainer').innerHTML = shBuses
+      .filter(b => filterSel.value === 'ALL' || String(b.id) === filterSel.value)
       .map(b => {
-        const bStudents = students.filter(s => s.busId === b.id);
-        const bSups = staff.filter(st => st.busId === b.id).map(st => st.name).join(' ، ') || '-';
-        const rows = bStudents.map((s, idx) => `
-          <tr>
-            <td>${idx + 1}</td>
-            <td>${s.name}</td>
-            <td>${s.grade}</td>
-            <td>${s.addr}</td>
-            <td>${s.phone}</td>
-          </tr>
+        const bStus = shStudents.filter(s => s.busId === b.id);
+        const bTchs = shTeachers.filter(t => t.busId === b.id).map(t => t.name).join(' ، ') || '-';
+        const bSup = shSups.filter(s => s.busId === b.id).map(s => s.name).join(' ، ') || '-';
+        const rows = bStus.map((s, idx) => `
+          <tr><td>${idx+1}</td><td>${s.name}</td><td>${s.grade}</td><td>${s.addr}</td><td>${s.phone}</td></tr>
         `).join('');
 
         return `
-          <div style="border:1px solid var(--border-color); border-radius:8px; margin-bottom:18px; overflow:hidden;">
+          <div style="border:1px solid var(--border-color); border-radius:8px; margin-bottom:20px; overflow:hidden;">
             <div style="background:var(--bg-subtle); padding:12px 16px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-              <strong>${lang === 'ar' ? 'باص رقم' : 'Bus No.'} (${b.num}) | ${b.route}</strong>
+              <strong>${b.num} | ${b.route} (${currentShift})</strong>
               <span style="font-size:13px; color:var(--text-muted); font-weight:700;">
-                ${lang === 'ar' ? 'السائق:' : 'Driver:'} ${b.driver} (${b.phone}) | ${lang === 'ar' ? 'المشرفة:' : 'Supervisor:'} ${bSups} | ${lang === 'ar' ? 'الإشغال:' : 'Occupancy:'} ${bStudents.length}/${b.cap}
+                ${lang === 'ar' ? 'السائق:' : 'Driver:'} ${b.driver} (${b.phone}) | ${lang === 'ar' ? 'المشرفة:' : 'Supervisor:'} ${bSup} | ${lang === 'ar' ? 'المدرسين:' : 'Teachers:'} ${bTchs}
               </span>
             </div>
             <div class="table-wrap">
@@ -765,7 +916,7 @@
                     <th style="width:50px;">#</th>
                     <th>${lang === 'ar' ? 'اسم الطالب' : 'Student Name'}</th>
                     <th>${lang === 'ar' ? 'الصف' : 'Grade'}</th>
-                    <th>${lang === 'ar' ? 'العنوان التفصيلي' : 'Detailed Address'}</th>
+                    <th>${lang === 'ar' ? 'العنوان' : 'Address'}</th>
                     <th>${lang === 'ar' ? 'هاتف ولي الأمر' : 'Parent Phone'}</th>
                   </tr>
                 </thead>
@@ -775,31 +926,6 @@
           </div>
         `;
       }).join('');
-
-    // Render Students Table
-    document.getElementById('studentsTableBody').innerHTML = students.map((s, i) => {
-      const selectHtml = `<select class="form-control" style="padding:5px 8px;" onchange="reassignStudent(${s.id}, this.value)">
-        <option value="">${lang === 'ar' ? 'بدون باص' : 'Unassigned'}</option>
-        ${buses.map(b => `<option value="${b.id}" ${s.busId === b.id ? 'selected' : ''}>${lang === 'ar' ? 'باص' : 'Bus'} (${b.num}) - ${b.route}</option>`).join('')}
-      </select>`;
-      return `<tr><td>${i+1}</td><td>${s.name}</td><td>${s.grade}</td><td>${s.addr}</td><td>${s.phone}</td><td>${selectHtml}</td></tr>`;
-    }).join('');
-
-    // Render Buses Table
-    document.getElementById('busesTableBody').innerHTML = buses.map(b => `
-      <tr><td><span class="badge">${b.num}</span></td><td>${b.route}</td><td>${b.driver}</td><td>${b.phone}</td><td>${b.plate}</td><td>${b.cap}</td></tr>
-    `).join('');
-
-    // Render Staff Table
-    document.getElementById('staffTableBody').innerHTML = staff.map(st => {
-      const b = buses.find(x => x.id === st.busId);
-      return `<tr><td><span class="badge">${st.role}</span></td><td>${st.name}</td><td>${st.phone}</td><td>${st.addr}</td><td>${b ? 'باص ' + b.num : '-'}</td></tr>`;
-    }).join('');
-
-    // Render Audit Logs
-    document.getElementById('logsTableBody').innerHTML = logs.map(l => `
-      <tr><td dir="ltr" style="text-align:start;">${l.time}</td><td>${l.user}</td><td><span class="badge">${l.action}</span></td><td>${l.details}</td></tr>
-    `).join('');
   }
 
   renderAll();
