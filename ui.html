@@ -112,7 +112,7 @@
   }
   .login-box {
     width: 100%;
-    max-width: 520px;
+    max-width: 500px;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-top: 5px solid var(--accent);
@@ -189,7 +189,7 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.92);
+    background: transparent;
     color: var(--primary);
     border: 2px solid var(--accent);
     overflow: hidden;
@@ -200,7 +200,7 @@
     position: relative;
     flex-shrink: 0;
   }
-  .profile-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
+  .profile-avatar-btn img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
   .shutdown-btn {
     width: 36px;
@@ -294,7 +294,7 @@
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 20px;
     min-width: 340px;
     background: rgba(7, 16, 30, 0.14);
@@ -306,17 +306,18 @@
     z-index: 1;
   }
 
-  /* Logo only: outer navy circle edge, NO white background/square/frame/effect */
+  /* Pure Logo: outer edge is the logo's own navy circle, NO white circle/square/background */
   .clean-logo-img {
     width: 92px;
     height: 92px;
     border-radius: 50%;
     object-fit: cover;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    filter: none;
-    mix-blend-mode: normal;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    mix-blend-mode: normal !important;
     flex-shrink: 0;
   }
 
@@ -326,8 +327,6 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* Line 1: TIBA Language Academy
-     Line 2 (same line): A SCHOOL... TO RELY ON (under TIBA on right) + Transportation System (under Language Academy) */
   .brand-title-stack {
     display: inline-flex;
     flex-direction: column;
@@ -944,6 +943,17 @@
 <!-- ==================== MAIN APPLICATION ==================== -->
 <div id="mainApp" class="container hidden">
   <header class="app-header">
+    <div class="brand-wrapper">
+      <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
+      <div class="brand-title-stack">
+        <h1 class="main-academy-title">TIBA Language Academy</h1>
+        <div class="second-line-row">
+          <span class="slogan-under-tiba">A SCHOOL... TO RELY ON</span>
+          <span class="transport-under-academy">Transportation System</span>
+        </div>
+      </div>
+    </div>
+
     <div class="user-control-stack">
       <div class="user-top-row">
         <div class="profile-chip">
@@ -1007,17 +1017,6 @@
               <strong>🖌️</strong>
             </button>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="brand-wrapper">
-      <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
-      <div class="brand-title-stack">
-        <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <div class="second-line-row">
-          <span class="slogan-under-tiba">A SCHOOL... TO RELY ON</span>
-          <span class="transport-under-academy">Transportation System</span>
         </div>
       </div>
     </div>
