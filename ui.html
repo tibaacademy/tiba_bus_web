@@ -99,6 +99,7 @@
     z-index: -1;
   }
 
+  .container, .tab-content, .panel { overflow: visible !important; }
   .container { max-width: 1460px; margin: 0 auto; position: relative; z-index: 1; }
 
   /* LOGIN PORTAL */
@@ -111,7 +112,7 @@
   }
   .login-box {
     width: 100%;
-    max-width: 490px;
+    max-width: 500px;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-top: 5px solid var(--accent);
@@ -150,7 +151,7 @@
     box-shadow: var(--shadow);
     margin-bottom: 14px;
     position: relative;
-    overflow: visible;
+    overflow: visible !important;
     z-index: 5000;
   }
 
@@ -165,10 +166,11 @@
     padding: 9px 12px;
     border-radius: 12px;
     position: relative;
+    overflow: visible !important;
     z-index: 6000;
   }
   .user-top-row { display: flex; align-items: center; gap: 8px; }
-  .user-bottom-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .user-bottom-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; position: relative; overflow: visible !important; }
 
   .profile-chip {
     display: flex;
@@ -234,7 +236,7 @@
   .shift-pill.active { background: var(--accent); color: #ffffff; }
 
   /* Always-on-top Dropdown Menu */
-  .quick-dropdown { position: relative; display: inline-block; z-index: 99999; }
+  .quick-dropdown { position: relative; display: inline-block; z-index: 999999; overflow: visible !important; }
   .dropdown-trigger {
     background: rgba(255, 255, 255, 0.96);
     color: #0b2240;
@@ -249,23 +251,24 @@
     align-items: center;
     gap: 6px;
   }
-  .nav-bar { position: relative; z-index: 5; }
-  .panel, .board-layout, .bus-card, .unassigned-sidebar { position: relative; z-index: 1; }
+  .nav-bar { position: relative; z-index: 1; }
 
   .dropdown-panel {
-    position: fixed;
-    min-width: 265px;
+    position: absolute;
+    top: calc(100% + 6px);
+    inset-inline-start: 0;
+    min-width: 268px;
     background: var(--bg-surface);
     border: 2px solid var(--accent);
     border-radius: 10px;
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
     padding: 6px;
-    z-index: 2147483647;
+    z-index: 999999;
     display: none;
     flex-direction: column;
     gap: 3px;
   }
-  .dropdown-panel.open { display: flex; }
+  .dropdown-panel.open { display: flex !important; }
   .drop-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
   .drop-item {
     width: 100%;
@@ -285,12 +288,12 @@
   }
   .drop-item:hover { background: var(--bg-subtle); color: var(--accent); }
 
-  /* Brand Section occupying full space next to controls */
+  /* Brand Section */
   .brand-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 24px;
     min-width: 360px;
     background: rgba(7, 16, 30, 0.14);
@@ -320,7 +323,6 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* Precision Aligned Title + Slogan (width of Academy) + Project Name (width of full title) */
   .brand-title-stack {
     display: inline-flex;
     flex-direction: column;
@@ -329,26 +331,17 @@
   }
 
   .main-academy-title {
-    font-size: 42px;
+    font-size: 44px;
     font-weight: 900;
     background: linear-gradient(110deg, #e11d48 0%, #ff4d6d 35%, #ffc2d1 50%, #ff4d6d 65%, #be123c 100%);
     background-size: 220% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gentleCrimsonShine 5s ease-in-out infinite;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     line-height: 1.06;
     filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.65));
     white-space: nowrap;
-  }
-
-  .sub-meta-row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 14px;
-    margin-top: 4px;
   }
 
   .academy-sub-row {
@@ -356,13 +349,14 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    margin-top: 2px;
   }
 
   .slogan-aligned {
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 800;
     color: #f8fafc;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
     text-align: justify;
     text-align-last: justify;
     border: none;
@@ -371,11 +365,14 @@
     white-space: nowrap;
   }
 
-  .project-name-aligned {
-    font-size: 13.5px;
-    font-weight: 800;
+  .project-name-full-span {
+    width: 100%;
+    font-size: 18px;
+    font-weight: 900;
     color: #fde68a;
-    letter-spacing: 1px;
+    text-align: justify;
+    text-align-last: justify;
+    margin-top: 4px;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
     white-space: nowrap;
   }
@@ -910,7 +907,7 @@
   }
 </style>
 </head>
-<body onclick="closeQuickMenu()">
+<body>
 
 <div id="customWatermark"></div>
 <input type="file" id="avatarFileInput" accept="image/*" class="hidden" onchange="uploadUserAvatar(event)">
@@ -921,13 +918,11 @@
     <div class="login-head">
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin-bottom:12px;" onerror="this.style.display='none'">
       <div class="brand-title-stack" style="align-items:flex-end;">
-        <h1 class="main-academy-title" style="font-size:27px;">TIBA Language Academy</h1>
-        <div class="sub-meta-row" style="gap:8px; margin-top:4px;">
-          <div class="academy-sub-row" style="width:38.5%;">
-            <span class="slogan-aligned" style="font-size:9px; letter-spacing:0.3px;">A SCHOOL... TO RELY ON</span>
-          </div>
-          <span class="project-name-aligned" style="font-size:11px; letter-spacing:0.6px;">Transportation System</span>
+        <h1 class="main-academy-title" style="font-size:29px;">TIBA Language Academy</h1>
+        <div class="academy-sub-row" style="width:38.5%; margin-top:2px;">
+          <span class="slogan-aligned" style="font-size:8.5px; letter-spacing:0.2px;">A SCHOOL... TO RELY ON</span>
         </div>
+        <span class="project-name-full-span" style="font-size:13.5px; margin-top:4px;">Transportation System</span>
       </div>
     </div>
     <div class="login-body">
@@ -972,42 +967,42 @@
           <button class="shift-pill" id="pill-Teachers" onclick="setShift('Teachers')">Teachers</button>
         </div>
 
-        <div class="quick-dropdown" onclick="event.stopPropagation()">
-          <button class="dropdown-trigger" id="menuBtnTrigger" onclick="toggleQuickMenu(event)">
+        <div class="quick-dropdown">
+          <button type="button" class="dropdown-trigger" id="menuBtnTrigger" onclick="toggleQuickMenu(event)">
             <span>Menu</span>
             <span>▾</span>
           </button>
           <div class="dropdown-panel" id="quickMenuPanel">
-            <button class="drop-item" id="menu-reports" onclick="openSectionFromMenu('reports')">
+            <button type="button" class="drop-item" id="menu-reports" onclick="openSectionFromMenu('reports')">
               <span>التقارير والطباعة (A4 / Excel / PDF)</span>
               <strong>📊</strong>
             </button>
-            <button class="drop-item" id="menu-archive" onclick="openSectionFromMenu('archive')">
+            <button type="button" class="drop-item" id="menu-archive" onclick="openSectionFromMenu('archive')">
               <span>الأرشيف (Archive)</span>
               <strong>🗂️</strong>
             </button>
-            <button class="drop-item" id="menu-logs" onclick="openSectionFromMenu('logs')">
+            <button type="button" class="drop-item" id="menu-logs" onclick="openSectionFromMenu('logs')">
               <span>سجل الحركات (Audit Log)</span>
               <strong>📝</strong>
             </button>
-            <button class="drop-item" id="menu-users" onclick="openSectionFromMenu('users')">
+            <button type="button" class="drop-item" id="menu-users" onclick="openSectionFromMenu('users')">
               <span>إدارة المستخدمين والصلاحيات</span>
               <strong>👥</strong>
             </button>
-            <button class="drop-item" id="menu-theme" onclick="openSectionFromMenu('theme')">
+            <button type="button" class="drop-item" id="menu-theme" onclick="openSectionFromMenu('theme')">
               <span>إعدادات الثيم وخلفيات الهيدر (Super Admin)</span>
               <strong>🎨</strong>
             </button>
             <div class="drop-divider"></div>
-            <button class="drop-item" onclick="toggleLang()">
+            <button type="button" class="drop-item" onclick="toggleLang()">
               <span>اللغة (عربي / English)</span>
               <strong id="langIndicator">EN</strong>
             </button>
-            <button class="drop-item" onclick="toggleTheme()">
+            <button type="button" class="drop-item" onclick="toggleTheme()">
               <span>الوضع الليلي / النهاري</span>
               <strong id="modeIndicator">🌙</strong>
             </button>
-            <button class="drop-item" id="menu-quick-color" onclick="cycleQuickTheme()">
+            <button type="button" class="drop-item" id="menu-quick-color" onclick="cycleQuickTheme()">
               <span>تبديل لون الواجهة</span>
               <strong>🖌️</strong>
             </button>
@@ -1021,12 +1016,10 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <div class="sub-meta-row">
-          <div class="academy-sub-row">
-            <span class="slogan-aligned">A SCHOOL... TO RELY ON</span>
-          </div>
-          <span class="project-name-aligned">Transportation System</span>
+        <div class="academy-sub-row">
+          <span class="slogan-aligned">A SCHOOL... TO RELY ON</span>
         </div>
+        <span class="project-name-full-span">Transportation System</span>
       </div>
     </div>
   </header>
@@ -1693,24 +1686,18 @@
   }
 
   function toggleQuickMenu(e) {
-    if (e) e.stopPropagation();
+    if (e) { e.preventDefault(); e.stopPropagation(); }
     const panel = document.getElementById('quickMenuPanel');
-    const btn = document.getElementById('menuBtnTrigger');
-    const willOpen = !panel.classList.contains('open');
-    panel.classList.toggle('open', willOpen);
-    if (willOpen && btn) {
-      const rect = btn.getBoundingClientRect();
-      panel.style.top = (rect.bottom + 6) + 'px';
-      const isRtl = document.documentElement.dir === 'rtl';
-      if (isRtl) {
-        panel.style.left = rect.left + 'px';
-        panel.style.right = 'auto';
-      } else {
-        panel.style.right = (window.innerWidth - rect.right) + 'px';
-        panel.style.left = 'auto';
-      }
-    }
+    if (panel) panel.classList.toggle('open');
   }
+
+  document.addEventListener('mousedown', function(e) {
+    const dd = document.querySelector('.quick-dropdown');
+    const panel = document.getElementById('quickMenuPanel');
+    if (panel && dd && !dd.contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
 
   function closeQuickMenu() {
     const p = document.getElementById('quickMenuPanel');
@@ -1838,7 +1825,6 @@
     applyBrandAssets();
   }
 
-  /* Only Super Admin (Mahmoud Salah) can upload/change profile avatar image */
   function triggerAvatarUpload() {
     if (!isSuperAdmin()) return;
     document.getElementById('avatarFileInput').click();
