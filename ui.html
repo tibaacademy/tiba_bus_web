@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TIBA Language Academy — Wael Edition</title>
+<title>TIBA Language Academy — Transportation System</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap');
 
@@ -18,6 +18,12 @@
     --primary-hover: #172554;
     --accent: #d97706;
     --header-bg: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    --stu-color: #2563eb;
+    --stu-bg: #eff6ff;
+    --sup-color: #d97706;
+    --sup-bg: #fffbeb;
+    --tch-color: #059669;
+    --tch-bg: #ecfdf5;
     --seat-empty-bg: #dbeafe;
     --seat-empty-border: #3b82f6;
     --seat-empty-text: #1e40af;
@@ -38,10 +44,13 @@
     --primary-hover: #3b82f6;
     --accent: #f59e0b;
     --header-bg: linear-gradient(135deg, #020617 0%, #1e293b 100%);
+    --stu-bg: rgba(37, 99, 235, 0.16);
+    --sup-bg: rgba(217, 119, 6, 0.16);
+    --tch-bg: rgba(5, 150, 105, 0.16);
     --seat-empty-bg: rgba(37, 99, 235, 0.22);
     --seat-empty-border: #60a5fa;
     --seat-empty-text: #bfdbfe;
-    --seat-occ-bg: rgba(220, 38, 38, 0.25);
+    --seat-occ-bg: rgba(220, 38, 38, 0.28);
     --seat-occ-border: #f87171;
     --seat-occ-text: #fecaca;
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
@@ -142,14 +151,14 @@
   .nav-tab.active { background: var(--primary); color: #ffffff; }
   .nav-tab.roster-tab.active { background: #0f766e; color: #ffffff; }
 
-  /* WAEL DESIGN: Left Full-Row Sidebar + 3-Column Compact Bus Grid */
-  .wael-layout {
+  /* Interactive Bus Board Layout */
+  .board-layout {
     display: grid;
-    grid-template-columns: 310px 1fr;
+    grid-template-columns: 320px 1fr;
     gap: 16px;
     align-items: start;
   }
-  @media (max-width: 960px) { .wael-layout { grid-template-columns: 1fr; } }
+  @media (max-width: 960px) { .board-layout { grid-template-columns: 1fr; } }
 
   .unassigned-sidebar {
     background: var(--bg-surface);
@@ -159,7 +168,7 @@
     box-shadow: var(--shadow);
     position: sticky;
     top: 12px;
-    max-height: 84vh;
+    max-height: 85vh;
     overflow-y: auto;
   }
 
@@ -170,7 +179,6 @@
     overflow: hidden;
   }
   .pool-header {
-    background: var(--bg-subtle);
     padding: 8px 12px;
     font-size: 13px;
     font-weight: 800;
@@ -179,6 +187,10 @@
     align-items: center;
     border-bottom: 1px solid var(--border-color);
   }
+  .pool-header.stu-hdr { background: var(--stu-bg); color: var(--stu-color); }
+  .pool-header.sup-hdr { background: var(--sup-bg); color: var(--sup-color); }
+  .pool-header.tch-hdr { background: var(--tch-bg); color: var(--tch-color); }
+
   .pool-rows {
     padding: 6px;
     display: flex;
@@ -187,11 +199,11 @@
     max-height: 210px;
     overflow-y: auto;
   }
+
+  /* Color-Coded Full-Row Draggable Items with Role Avatars */
   .single-row-item {
     width: 100%;
-    background: var(--bg-surface);
     border: 1px solid var(--border-color);
-    border-inline-start: 4px solid var(--primary);
     padding: 7px 10px;
     border-radius: 6px;
     font-size: 13px;
@@ -200,18 +212,55 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 6px;
   }
-  .single-row-item.sup { border-inline-start-color: #d97706; }
-  .single-row-item.tch { border-inline-start-color: #0f766e; }
+  .single-row-item.stu {
+    background: var(--stu-bg);
+    border-inline-start: 4px solid var(--stu-color);
+  }
+  .single-row-item.sup {
+    background: var(--sup-bg);
+    border-inline-start: 4px solid var(--sup-color);
+  }
+  .single-row-item.tch {
+    background: var(--tch-bg);
+    border-inline-start: 4px solid var(--tch-color);
+  }
   .single-row-item:active { cursor: grabbing; }
+
+  .person-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    overflow: hidden;
+  }
+  .person-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .role-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #ffffff;
+  }
+  .role-avatar.stu { background: var(--stu-color); }
+  .role-avatar.sup { background: var(--sup-color); }
+  .role-avatar.tch { background: var(--tch-color); }
 
   .tag-pill {
     font-size: 11px;
     padding: 2px 7px;
     border-radius: 4px;
-    background: var(--bg-subtle);
+    background: var(--bg-surface);
     color: var(--text-muted);
     border: 1px solid var(--border-color);
+    white-space: nowrap;
   }
 
   /* 3-Column Compact Bus Grid */
@@ -243,7 +292,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
   .bus-head-top strong { font-size: 15px; font-weight: 800; }
   .cap-badge {
@@ -278,20 +327,18 @@
     text-align: center;
   }
 
-  /* 14-Seat Bus Blueprint: Front Row (Driver + 2 Seats) + 4 Rows x 3 Seats */
+  /* 14-Seat Bus Blueprint */
   .bus-cabin {
     padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
-
   .seat-row-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 6px;
   }
-
   .driver-seat {
     background: #334155;
     color: #ffffff;
@@ -308,41 +355,39 @@
 
   .seat-slot {
     border-radius: 6px;
-    padding: 6px 4px;
+    padding: 6px 5px;
     font-size: 11.5px;
     font-weight: 800;
-    text-align: center;
     min-height: 34px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 3px;
-    transition: all 0.15s;
     overflow: hidden;
   }
-
-  /* Empty Seat = Blue */
   .seat-slot.empty {
     background: var(--seat-empty-bg);
     border: 1.5px dashed var(--seat-empty-border);
     color: var(--seat-empty-text);
     justify-content: center;
   }
-
-  /* Occupied Seat = Red */
   .seat-slot.occupied {
     background: var(--seat-occ-bg);
     border: 1.5px solid var(--seat-occ-border);
     color: var(--seat-occ-text);
   }
-
+  .seat-role-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
   .seat-name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     flex: 1;
   }
-
   .seat-eject {
     background: transparent;
     border: none;
@@ -441,7 +486,18 @@
     background: #0f766e;
     color: #ffffff;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-excel {
+    background: #15803d;
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px;
     border-radius: 6px;
     font-family: inherit;
     font-size: 13px;
@@ -482,15 +538,31 @@
   }
   .sub-tab-btn.active { background: var(--primary); color: #ffffff; border-color: var(--primary); }
 
+  .report-summary-bar {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 13.5px;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
   .hidden { display: none !important; }
 
+  /* A4 Ready Print Styling */
   @media print {
-    @page { size: landscape; margin: 10mm; }
-    body { background: #ffffff !important; color: #000000 !important; padding: 0; }
-    .app-header, .nav-bar, .no-print { display: none !important; }
-    .panel { box-shadow: none !important; border: 1px solid #000 !important; page-break-inside: avoid; }
-    th { background: #1e3a8a !important; color: #ffffff !important; -webkit-print-color-adjust: exact; }
-    td { color: #000000 !important; border-bottom: 1px solid #94a3b8 !important; font-weight: 800 !important; }
+    @page { size: A4 portrait; margin: 10mm; }
+    body { background: #ffffff !important; color: #000000 !important; padding: 0; font-size: 11px; }
+    .app-header, .nav-bar, .sub-tabs, .no-print { display: none !important; }
+    .panel { box-shadow: none !important; border: none !important; padding: 0 !important; }
+    .route-print-block { page-break-inside: avoid; border: 1.5px solid #0f172a !important; margin-bottom: 14px !important; }
+    th { background: #1e3a8a !important; color: #ffffff !important; padding: 6px 8px !important; font-size: 11px !important; -webkit-print-color-adjust: exact; }
+    td { color: #000000 !important; border-bottom: 1px solid #94a3b8 !important; padding: 5px 8px !important; font-size: 11px !important; font-weight: 700 !important; }
   }
 </style>
 </head>
@@ -501,7 +573,7 @@
   <header class="app-header">
     <div class="brand-area">
       <h1 data-ar="TIBA LANGUAGE ACADEMY — نظام إدارة النقل المدرسي" data-en="TIBA LANGUAGE ACADEMY — Transportation System">TIBA LANGUAGE ACADEMY — نظام إدارة النقل المدرسي</h1>
-      <p data-ar="توزيع المقاعد التفاعلي (14 مقعد) | إدارة السائقين، المشرفات، الطلبة، والأرشيف" data-en="Interactive 14-Seat Assignment | Drivers, Supervisors, Students & Archive">توزيع المقاعد التفاعلي (14 مقعد) | إدارة السائقين، المشرفات، الطلبة، والأرشيف</p>
+      <p data-ar="لوحة التحكم المركزية | التسكين التفاعلي والتقارير الشاملة (A4 / Excel / PDF)" data-en="Central Control Panel | Interactive Assignment & Comprehensive Reports">لوحة التحكم المركزية | التسكين التفاعلي والتقارير الشاملة (A4 / Excel / PDF)</p>
     </div>
     <div class="header-controls">
       <div class="shift-pills">
@@ -515,23 +587,23 @@
 
   <!-- Navigation Tabs -->
   <nav class="nav-bar">
-    <button class="nav-tab active" onclick="switchTab('dashboard', this)" data-ar="لوحة الباصات (وائل)" data-en="Bus Board (Wael)">لوحة الباصات (وائل)</button>
+    <button class="nav-tab active" onclick="switchTab('dashboard', this)" data-ar="لوحة التوزيع (Bus Board)" data-en="Interactive Bus Board">لوحة التوزيع (Bus Board)</button>
     <button class="nav-tab" onclick="switchTab('buses', this)" data-ar="1. الباصات والسائقين" data-en="1. Buses & Drivers">1. الباصات والسائقين</button>
     <button class="nav-tab" onclick="switchTab('students', this)" data-ar="2. الطلبة" data-en="2. Students">2. الطلبة</button>
     <button class="nav-tab" onclick="switchTab('supervisors', this)" data-ar="3. المشرفات" data-en="3. Supervisors">3. المشرفات</button>
-    <button class="nav-tab" onclick="switchTab('teachers', this)" data-ar="4. المدرسين" data-en="4. Teachers">4. المدرسين</button>
+    <button class="nav-tab" onclick="switchTab('teachers', this)" data-ar="4. المدرسين والإداريين" data-en="4. Teachers & Staff">4. المدرسين والإداريين</button>
     <button class="nav-tab" onclick="switchTab('archive', this)" data-ar="الأرشيف (Archive)" data-en="Archive">الأرشيف (Archive)</button>
     <button class="nav-tab" onclick="switchTab('logs', this)" data-ar="سجل الحركات" data-en="Audit Log">سجل الحركات</button>
-    <button class="nav-tab roster-tab" onclick="switchTab('rosters', this)" data-ar="كشوف الباصات والطباعة" data-en="Bus Roster & Print">كشوف الباصات والطباعة</button>
+    <button class="nav-tab roster-tab" onclick="switchTab('reports', this)" data-ar="التقارير والطباعة (A4 / Excel)" data-en="Reports & Print (A4 / Excel)">التقارير والطباعة (A4 / Excel)</button>
   </nav>
 
-  <!-- TAB 0: WAEL INTERACTIVE DASHBOARD -->
+  <!-- TAB 0: INTERACTIVE BUS BOARD -->
   <div id="tab-dashboard" class="tab-content">
-    <div class="wael-layout">
-      <!-- Left Full-Row Sidebar -->
+    <div class="board-layout">
+      <!-- Left Color-Coded Full-Row Sidebar -->
       <aside class="unassigned-sidebar">
         <div class="pool-section">
-          <div class="pool-header">
+          <div class="pool-header stu-hdr">
             <span data-ar="الطلبة غير المسكنين" data-en="Unassigned Students">الطلبة غير المسكنين</span>
             <span class="tag-pill" id="cnt-stu">0</span>
           </div>
@@ -539,7 +611,7 @@
         </div>
 
         <div class="pool-section">
-          <div class="pool-header">
+          <div class="pool-header sup-hdr">
             <span data-ar="المشرفات غير المسكنات" data-en="Unassigned Supervisors">المشرفات غير المسكنات</span>
             <span class="tag-pill" id="cnt-sup">0</span>
           </div>
@@ -547,8 +619,8 @@
         </div>
 
         <div class="pool-section">
-          <div class="pool-header">
-            <span data-ar="المدرسين غير المسكنين" data-en="Unassigned Teachers">المدرسين غير المسكنين</span>
+          <div class="pool-header tch-hdr">
+            <span data-ar="المدرسين غير المسكنين" data-en="Unassigned Staff">المدرسين غير المسكنين</span>
             <span class="tag-pill" id="cnt-tch">0</span>
           </div>
           <div class="pool-rows" id="pool-teachers"></div>
@@ -556,7 +628,7 @@
       </aside>
 
       <!-- Right 3-Column Compact 14-Seat Bus Grid -->
-      <main class="buses-3col-grid" id="waelBusGrid"></main>
+      <main class="buses-3col-grid" id="busBoardGrid"></main>
     </div>
   </div>
 
@@ -564,7 +636,7 @@
   <div id="tab-buses" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" id="busFormTitle" data-ar="إضافة / تعديل بيانات الباص والسائق" data-en="Add / Edit Bus & Driver">إضافة / تعديل بيانات الباص والسائق</div>
+        <div class="panel-title" data-ar="إضافة / تعديل بيانات الباص والسائق" data-en="Add / Edit Bus & Driver">إضافة / تعديل بيانات الباص والسائق</div>
       </div>
       <input type="hidden" id="editBusId">
       <div class="form-grid">
@@ -573,7 +645,7 @@
           <input type="text" id="busNum" class="form-control" placeholder="Bus 1">
         </div>
         <div class="form-group">
-          <label data-ar="اسم الخط *" data-en="Route Name *">اسم الخط *</label>
+          <label data-ar="خط السير *" data-en="Route Name *">خط السير *</label>
           <input type="text" id="busRoute" class="form-control" placeholder="سيدي بشر - ميامي">
         </div>
         <div class="form-group">
@@ -584,6 +656,7 @@
           <label data-ar="سعة الباص" data-en="Bus Capacity">سعة الباص</label>
           <select id="busCap" class="form-control">
             <option value="14">14 راكب</option>
+            <option value="22">22 راكب</option>
             <option value="32">32 راكب</option>
           </select>
         </div>
@@ -605,13 +678,13 @@
         <table>
           <thead>
             <tr>
-              <th data-ar="الباص" data-en="Bus">الباص</th>
-              <th data-ar="اسم الخط" data-en="Route">اسم الخط</th>
-              <th data-ar="نوع / رقم العربية" data-en="Vehicle / Plate">نوع / رقم العربية</th>
-              <th data-ar="السعة" data-en="Capacity">السعة</th>
-              <th data-ar="اسم السائق" data-en="Driver">اسم السائق</th>
-              <th data-ar="تليفون السائق" data-en="Driver Phone">تليفون السائق</th>
-              <th data-ar="إجراءات" data-en="Actions">إجراءات</th>
+              <th>الباص</th>
+              <th>خط السير</th>
+              <th>نوع / رقم العربية</th>
+              <th>السعة</th>
+              <th>اسم السائق</th>
+              <th>تليفون السائق</th>
+              <th>إجراءات</th>
             </tr>
           </thead>
           <tbody id="busesTableBody"></tbody>
@@ -620,20 +693,20 @@
     </div>
   </div>
 
-  <!-- TAB 2: STUDENTS -->
+  <!-- TAB 2: STUDENTS (NO BUS DROPDOWN - ORDERED: NAME -> GRADE -> ADDRESS -> PHONES) -->
   <div id="tab-students" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" id="stuFormTitle" data-ar="تسجيل / تعديل بيانات الطالب" data-en="Register / Edit Student">تسجيل / تعديل بيانات الطالب</div>
+        <div class="panel-title" data-ar="تسجيل / تعديل بيانات الطالب (التسكين من لوحة الباصات)" data-en="Register / Edit Student">تسجيل / تعديل بيانات الطالب (التسكين من لوحة الباصات)</div>
       </div>
       <input type="hidden" id="editStuId">
       <div class="form-grid">
         <div class="form-group">
-          <label data-ar="اسم الطالب بالكامل *" data-en="Student Full Name *">اسم الطالب بالكامل *</label>
+          <label data-ar="1. اسم الطالب بالكامل *" data-en="1. Student Full Name *">1. اسم الطالب بالكامل *</label>
           <input type="text" id="stuName" class="form-control" placeholder="الاسم الرباعي للطالب">
         </div>
         <div class="form-group">
-          <label data-ar="الصف الدراسي (Grade) *" data-en="Grade *">الصف الدراسي (Grade) *</label>
+          <label data-ar="2. الصف الدراسي (Grade) *" data-en="2. Grade *">2. الصف الدراسي (Grade) *</label>
           <select id="stuGrade" class="form-control">
             <option value="KG 1">KG 1</option>
             <option value="KG 2">KG 2</option>
@@ -646,17 +719,12 @@
           </select>
         </div>
         <div class="form-group">
-          <label data-ar="العنوان بالتفصيل *" data-en="Detailed Address *">العنوان بالتفصيل *</label>
+          <label data-ar="3. العنوان بالتفصيل *" data-en="3. Detailed Address *">3. العنوان بالتفصيل *</label>
           <input type="text" id="stuAddr" class="form-control" placeholder="المنطقة - الشارع - رقم العقار">
-        </div>
-        <div class="form-group">
-          <label data-ar="الباص (اختياري)" data-en="Bus (Optional)">الباص (اختياري)</label>
-          <select id="stuBusSelect" class="form-control"></select>
         </div>
       </div>
 
       <div class="form-grid">
-        <!-- Father Phones -->
         <div class="form-group">
           <label data-ar="رقم تليفون الأب" data-en="Father Phone">رقم تليفون الأب</label>
           <div class="phone-flex">
@@ -668,7 +736,6 @@
           </div>
         </div>
 
-        <!-- Mother Phones -->
         <div class="form-group">
           <label data-ar="رقم تليفون الأم" data-en="Mother Phone">رقم تليفون الأم</label>
           <div class="phone-flex">
@@ -680,11 +747,10 @@
           </div>
         </div>
 
-        <!-- Custom Extra Contact -->
         <div class="form-group">
-          <label data-ar="رقم تليفون إضافي + صلة القرابة (تُكتب يدوياً)" data-en="Extra Phone & Relation">رقم تليفون إضافي + صلة القرابة (تُكتب يدوياً)</label>
+          <label data-ar="رقم إضافي + صلة القرابة (تُكتب يدوياً)" data-en="Extra Phone & Relation">رقم إضافي + صلة القرابة (تُكتب يدوياً)</label>
           <div class="phone-flex">
-            <input type="text" id="extraRelation" class="form-control" placeholder="ده رقم تليفون مين؟ (مثلاً: الجدة)">
+            <input type="text" id="extraRelation" class="form-control" placeholder="ده رقم مين؟ (مثلاً: الجدة)">
             <input type="text" id="extraPhone" class="form-control" placeholder="01200000000">
           </div>
         </div>
@@ -700,14 +766,14 @@
           <thead>
             <tr>
               <th>#</th>
-              <th data-ar="اسم الطالب بالكامل" data-en="Full Name">اسم الطالب بالكامل</th>
-              <th data-ar="Grade" data-en="Grade">Grade</th>
-              <th data-ar="العنوان بالتفصيل" data-en="Detailed Address">العنوان بالتفصيل</th>
-              <th data-ar="تليفون الأب" data-en="Father Phone">تليفون الأب</th>
-              <th data-ar="تليفون الأم" data-en="Mother Phone">تليفون الأم</th>
-              <th data-ar="رقم إضافي" data-en="Extra Contact">رقم إضافي</th>
-              <th data-ar="الباص" data-en="Bus">الباص</th>
-              <th data-ar="إجراءات" data-en="Actions">إجراءات</th>
+              <th>اسم الطالب بالكامل</th>
+              <th>Grade</th>
+              <th>العنوان بالتفصيل</th>
+              <th>تليفون الأب</th>
+              <th>تليفون الأم</th>
+              <th>رقم إضافي</th>
+              <th>الباص الحالي</th>
+              <th>إجراءات</th>
             </tr>
           </thead>
           <tbody id="studentsTableBody"></tbody>
@@ -716,11 +782,11 @@
     </div>
   </div>
 
-  <!-- TAB 3: SUPERVISORS -->
+  <!-- TAB 3: SUPERVISORS (NAME & PHONE ONLY - NO BUS DROPDOWN) -->
   <div id="tab-supervisors" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" id="supFormTitle" data-ar="إضافة / تعديل بيانات المشرفة" data-en="Add / Edit Supervisor">إضافة / تعديل بيانات المشرفة</div>
+        <div class="panel-title" data-ar="إضافة / تعديل بيانات المشرفة (التسكين من لوحة الباصات)" data-en="Add / Edit Supervisor">إضافة / تعديل بيانات المشرفة (التسكين من لوحة الباصات)</div>
       </div>
       <input type="hidden" id="editSupId">
       <div class="form-grid">
@@ -732,10 +798,6 @@
           <label data-ar="رقم تليفون المشرفة" data-en="Supervisor Phone">رقم تليفون المشرفة</label>
           <input type="text" id="supPhone" class="form-control" placeholder="01000000000">
         </div>
-        <div class="form-group">
-          <label data-ar="الباص المسؤول عنه" data-en="Assigned Bus">الباص المسؤول عنه</label>
-          <select id="supBusSelect" class="form-control"></select>
-        </div>
       </div>
       <button class="btn-primary" onclick="saveSupervisor()" data-ar="حفظ المشرفة" data-en="Save Supervisor">حفظ المشرفة</button>
       <button class="btn-secondary hidden" id="cancelSupEditBtn" onclick="resetSupForm()" data-ar="إلغاء التعديل" data-en="Cancel">إلغاء التعديل</button>
@@ -746,10 +808,10 @@
         <table>
           <thead>
             <tr>
-              <th data-ar="اسم المشرفة" data-en="Supervisor Name">اسم المشرفة</th>
-              <th data-ar="رقم التليفون" data-en="Phone">رقم التليفون</th>
-              <th data-ar="الباص" data-en="Bus">الباص</th>
-              <th data-ar="إجراءات" data-en="Actions">إجراءات</th>
+              <th>اسم المشرفة</th>
+              <th>رقم التليفون</th>
+              <th>الباص الحالي</th>
+              <th>إجراءات</th>
             </tr>
           </thead>
           <tbody id="supervisorsTableBody"></tbody>
@@ -758,16 +820,16 @@
     </div>
   </div>
 
-  <!-- TAB 4: TEACHERS -->
+  <!-- TAB 4: TEACHERS & STAFF (NAME, PHONE, CATEGORIZED DEPARTMENT - NO ADDRESS, NO BUS DROPDOWN) -->
   <div id="tab-teachers" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" id="tchFormTitle" data-ar="إضافة / تعديل بيانات المدرس" data-en="Add / Edit Teacher">إضافة / تعديل بيانات المدرس</div>
+        <div class="panel-title" data-ar="إضافة / تعديل المدرسين والإداريين (التسكين من لوحة الباصات)" data-en="Add / Edit Teachers & Staff">إضافة / تعديل المدرسين والإداريين (التسكين من لوحة الباصات)</div>
       </div>
       <input type="hidden" id="editTchId">
       <div class="form-grid">
         <div class="form-group">
-          <label data-ar="اسم المدرس *" data-en="Teacher Name *">اسم المدرس *</label>
+          <label data-ar="الاسم *" data-en="Full Name *">الاسم *</label>
           <input type="text" id="tchName" class="form-control" placeholder="أ. عمر أحمد">
         </div>
         <div class="form-group">
@@ -775,15 +837,43 @@
           <input type="text" id="tchPhone" class="form-control" placeholder="01100000000">
         </div>
         <div class="form-group">
-          <label data-ar="العنوان (اختياري)" data-en="Address (Optional)">العنوان (اختياري)</label>
-          <input type="text" id="tchAddr" class="form-control" placeholder="سموحة">
-        </div>
-        <div class="form-group">
-          <label data-ar="الباص" data-en="Assigned Bus">الباص</label>
-          <select id="tchBusSelect" class="form-control"></select>
+          <label data-ar="التخصص / القسم (Department) *" data-en="Department *">التخصص / القسم (Department) *</label>
+          <select id="tchDept" class="form-control">
+            <optgroup label="Languages — اللغات">
+              <option value="Arabic">Arabic</option>
+              <option value="English">English</option>
+              <option value="French">French</option>
+              <option value="German">German</option>
+            </optgroup>
+            <optgroup label="Core Subjects — المواد الأساسية">
+              <option value="Maths">Maths</option>
+              <option value="Science">Science</option>
+              <option value="Social Studies">Social Studies</option>
+              <option value="Quran">Quran</option>
+              <option value="ICT">ICT</option>
+              <option value="KG">KG</option>
+            </optgroup>
+            <optgroup label="Activities — الأنشطة">
+              <option value="PE">PE</option>
+              <option value="Music">Music</option>
+              <option value="Art">Art</option>
+              <option value="Domestic Science">Domestic Science</option>
+              <option value="Library">Library</option>
+            </optgroup>
+            <optgroup label="Administration & Supervision — الإدارة والإشراف">
+              <option value="Administrators">Administrators</option>
+              <option value="Floor Supervisor">Floor Supervisor</option>
+              <option value="Social Worker">Social Worker</option>
+              <option value="Control">Control</option>
+              <option value="Copy Room">Copy Room</option>
+              <option value="Baby Room">Baby Room</option>
+              <option value="Bus Supervisor">Bus Supervisor</option>
+              <option value="Others">Others</option>
+            </optgroup>
+          </select>
         </div>
       </div>
-      <button class="btn-primary" onclick="saveTeacher()" data-ar="حفظ المدرس" data-en="Save Teacher">حفظ المدرس</button>
+      <button class="btn-primary" onclick="saveTeacher()" data-ar="حفظ البيانات" data-en="Save Staff">حفظ البيانات</button>
       <button class="btn-secondary hidden" id="cancelTchEditBtn" onclick="resetTchForm()" data-ar="إلغاء التعديل" data-en="Cancel">إلغاء التعديل</button>
     </div>
 
@@ -792,11 +882,11 @@
         <table>
           <thead>
             <tr>
-              <th data-ar="اسم المدرس" data-en="Teacher Name">اسم المدرس</th>
-              <th data-ar="رقم التليفون" data-en="Phone">رقم التليفون</th>
-              <th data-ar="العنوان" data-en="Address">العنوان</th>
-              <th data-ar="الباص" data-en="Bus">الباص</th>
-              <th data-ar="إجراءات" data-en="Actions">إجراءات</th>
+              <th>الاسم</th>
+              <th>التخصص / القسم</th>
+              <th>رقم التليفون</th>
+              <th>الباص الحالي</th>
+              <th>إجراءات</th>
             </tr>
           </thead>
           <tbody id="teachersTableBody"></tbody>
@@ -805,17 +895,17 @@
     </div>
   </div>
 
-  <!-- TAB 5: ARCHIVE (DIVIDED INTO SUB-TABS) -->
+  <!-- TAB 5: ARCHIVE -->
   <div id="tab-archive" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" data-ar="الأرشيف (العناصر المحذوفة القابلة للاستعادة)" data-en="Archive (Deleted Items & Restore)">الأرشيف (العناصر المحذوفة القابلة للاستعادة)</div>
+        <div class="panel-title" data-ar="الأرشيف (العناصر المحذوفة القابلة للاستعادة)" data-en="Archive">الأرشيف (العناصر المحذوفة القابلة للاستعادة)</div>
       </div>
       <div class="sub-tabs">
-        <button class="sub-tab-btn active" onclick="switchArchiveSub('students', this)" data-ar="أرشيف الطلبة" data-en="Archived Students">أرشيف الطلبة</button>
-        <button class="sub-tab-btn" onclick="switchArchiveSub('supervisors', this)" data-ar="أرشيف المشرفات" data-en="Archived Supervisors">أرشيف المشرفات</button>
-        <button class="sub-tab-btn" onclick="switchArchiveSub('teachers', this)" data-ar="أرشيف المدرسين" data-en="Archived Teachers">أرشيف المدرسين</button>
-        <button class="sub-tab-btn" onclick="switchArchiveSub('buses', this)" data-ar="أرشيف الباصات" data-en="Archived Buses">أرشيف الباصات</button>
+        <button class="sub-tab-btn active" onclick="switchArchiveSub('students', this)">أرشيف الطلبة</button>
+        <button class="sub-tab-btn" onclick="switchArchiveSub('supervisors', this)">أرشيف المشرفات</button>
+        <button class="sub-tab-btn" onclick="switchArchiveSub('teachers', this)">أرشيف المدرسين</button>
+        <button class="sub-tab-btn" onclick="switchArchiveSub('buses', this)">أرشيف الباصات</button>
       </div>
       <div class="table-wrap" id="archiveTableContainer"></div>
     </div>
@@ -825,16 +915,16 @@
   <div id="tab-logs" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" data-ar="سجل العمليات والتعديلات الزمني" data-en="Timestamped Action Log">سجل العمليات والتعديلات الزمني</div>
+        <div class="panel-title" data-ar="سجل العمليات والتعديلات الزمني" data-en="Audit Log">سجل العمليات والتعديلات الزمني</div>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th data-ar="التوقيت" data-en="Timestamp">التوقيت</th>
-              <th data-ar="المرحلة" data-en="Shift">المرحلة</th>
-              <th data-ar="العملية" data-en="Action">العملية</th>
-              <th data-ar="التفاصيل" data-en="Details">التفاصيل</th>
+              <th>التوقيت</th>
+              <th>المرحلة</th>
+              <th>العملية</th>
+              <th>التفاصيل</th>
             </tr>
           </thead>
           <tbody id="logsTableBody"></tbody>
@@ -843,17 +933,26 @@
     </div>
   </div>
 
-  <!-- TAB 7 (LAST): BUS ROSTER & PRINT -->
-  <div id="tab-rosters" class="tab-content hidden">
+  <!-- TAB 7 (LAST): COMPREHENSIVE REPORTS, A4 PRINT, EXCEL & PDF -->
+  <div id="tab-reports" class="tab-content hidden">
     <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title" data-ar="كشوف الباصات النهائية والطباعة" data-en="Final Bus Rosters & Print">كشوف الباصات النهائية والطباعة</div>
-        <div style="display:flex; gap:10px;" class="no-print">
-          <select id="rosterBusFilter" class="form-control" style="width:220px;" onchange="renderAll()"></select>
-          <button class="btn-print" onclick="window.print()" data-ar="طباعة الكشف (Landscape)" data-en="Print Roster (Landscape)">طباعة الكشف (Landscape)</button>
+      <div class="panel-header no-print">
+        <div class="panel-title" data-ar="منظومة التقارير الشاملة والتصدير (A4 / Excel / PDF)" data-en="Comprehensive Reports & Export">منظومة التقارير الشاملة والتصدير (A4 / Excel / PDF)</div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn-excel" onclick="exportCurrentReportExcel()">تصدير Excel (.xls)</button>
+          <button class="btn-print" onclick="window.print()">طباعة A4 / حفظ PDF</button>
         </div>
       </div>
-      <div id="rostersContainer"></div>
+
+      <div class="sub-tabs no-print">
+        <button class="sub-tab-btn active" onclick="switchReportType('master', this)">1. التقرير الشامل (خطوط السير والطلبة)</button>
+        <button class="sub-tab-btn" onclick="switchReportType('buses', this)">2. تقرير الباصات والسعة</button>
+        <button class="sub-tab-btn" onclick="switchReportType('students', this)">3. تقرير الطلبة الكامل</button>
+        <button class="sub-tab-btn" onclick="switchReportType('supervisors', this)">4. تقرير المشرفات</button>
+        <button class="sub-tab-btn" onclick="switchReportType('teachers', this)">5. تقرير المدرسين والإداريين</button>
+      </div>
+
+      <div id="reportOutputArea"></div>
     </div>
   </div>
 </div>
@@ -862,12 +961,20 @@
   let currentShift = 'Junior';
   let lang = 'ar';
   let archiveSubTab = 'students';
+  let currentReport = 'master';
   let draggedItem = null;
+
+  // SVG Avatars for Student, Supervisor, Teacher
+  const svgIcons = {
+    student: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>`,
+    supervisor: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`,
+    teacher: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>`
+  };
 
   let buses = [
     { id: 1, shift: 'Junior', num: 'Bus 1', route: 'سيدي بشر بحري - العصافرة', plate: 'ميكروباص — س ن ر 8421', cap: 14, driver: 'أ. محروس علي', phone: '01223456789', archived: false },
     { id: 2, shift: 'Junior', num: 'Bus 2', route: 'سموحة - كفر عبده - فلمنج', plate: 'ميكروباص — س أ م 3190', cap: 14, driver: 'أ. محمد سامي', phone: '01098765432', archived: false },
-    { id: 3, shift: 'Junior', num: 'Bus 3', route: 'محرم بك - الإبراهيمية', plate: 'ميكروباص — س و ق 7732', cap: 14, driver: 'أ. عمرو حسن', phone: '01144556677', archived: false },
+    { id: 3, shift: 'Junior', num: 'Bus 3', route: 'محرم بك - الإبراهيمية', plate: 'ميكروباص — س و ق 7732', cap: 22, driver: 'أ. عمرو حسن', phone: '01144556677', archived: false },
     { id: 4, shift: 'KG', num: 'Bus 1 (KG)', route: 'جليم - زيزينيا', plate: 'ميكروباص — س ر ط 1120', cap: 14, driver: 'أ. كيرو عادل', phone: '01211112222', archived: false }
   ];
 
@@ -885,13 +992,13 @@
   ];
 
   let teachers = [
-    { id: 301, shift: 'Junior', name: 'أ. عمر أحمد', phone: '01277889900', addr: 'سموحة', busId: 1, seatIdx: 1, archived: false },
-    { id: 302, shift: 'Junior', name: 'أ. شيماء حسن', phone: '01044332211', addr: 'سيدي بشر', busId: null, seatIdx: null, archived: false },
-    { id: 303, shift: 'KG', name: 'أ. مروة علي', phone: '01122334400', addr: 'جليم', busId: null, seatIdx: null, archived: false }
+    { id: 301, shift: 'Junior', name: 'أ. عمر أحمد', dept: 'Maths', phone: '01277889900', busId: 1, seatIdx: 1, archived: false },
+    { id: 302, shift: 'Junior', name: 'أ. شيماء حسن', dept: 'English', phone: '01044332211', busId: null, seatIdx: null, archived: false },
+    { id: 303, shift: 'KG', name: 'أ. مروة علي', dept: 'KG', phone: '01122334400', busId: null, seatIdx: null, archived: false }
   ];
 
   let logs = [
-    { time: '2026-11-26 08:10:00', shift: 'Junior', action: 'تسكين مقعد', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1 (مقعد 1)' }
+    { time: '2026-11-26 08:30:00', shift: 'Junior', action: 'تسكين مقعد', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1' }
   ];
 
   function recordLog(action, details) {
@@ -918,9 +1025,16 @@
 
   function switchArchiveSub(sub, btn) {
     archiveSubTab = sub;
-    document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#tab-archive .sub-tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderArchive();
+  }
+
+  function switchReportType(rep, btn) {
+    currentReport = rep;
+    document.querySelectorAll('#tab-reports .sub-tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderReports();
   }
 
   function toggleTheme() {
@@ -947,19 +1061,10 @@
     document.getElementById(elId).classList.toggle('hidden');
   }
 
-  /* Drag & Drop onto Specific Seat or Bus */
-  function handleDragStart(type, id) {
-    draggedItem = { type, id };
-  }
-
-  function handleDragOver(e, busId) {
-    e.preventDefault();
-    document.getElementById('bus-card-' + busId).classList.add('drag-over');
-  }
-
-  function handleDragLeave(busId) {
-    document.getElementById('bus-card-' + busId).classList.remove('drag-over');
-  }
+  /* Drag & Drop */
+  function handleDragStart(type, id) { draggedItem = { type, id }; }
+  function handleDragOver(e, busId) { e.preventDefault(); document.getElementById('bus-card-' + busId).classList.add('drag-over'); }
+  function handleDragLeave(busId) { document.getElementById('bus-card-' + busId).classList.remove('drag-over'); }
 
   function getBusSeatOccupants(busId) {
     const bStus = students.filter(s => !s.archived && s.busId === busId).map(s => ({ type: 'student', id: s.id, name: s.name, seatIdx: s.seatIdx }));
@@ -973,7 +1078,7 @@
     for (let i = 0; i < 14; i++) {
       if (!used.has(i)) return i;
     }
-    return occ.length; // Allows > 14 with overcapacity warning
+    return occ.length;
   }
 
   function handleDropOnSeat(e, busId, seatIdx) {
@@ -987,26 +1092,15 @@
 
     if (draggedItem.type === 'supervisor') {
       const sup = supervisors.find(x => x.id === draggedItem.id);
-      if (sup) {
-        sup.busId = busId;
-        recordLog('تعيين مشرفة', `تعيين المشرفة ${sup.name} على ${bus.num}`);
-      }
+      if (sup) { sup.busId = busId; recordLog('تعيين مشرفة', `تعيين المشرفة ${sup.name} على ${bus.num}`); }
     } else {
       const targetSeat = (seatIdx !== null && seatIdx !== undefined) ? seatIdx : findFirstFreeSeat(busId);
       if (draggedItem.type === 'student') {
         const s = students.find(x => x.id === draggedItem.id);
-        if (s) {
-          s.busId = busId;
-          s.seatIdx = targetSeat;
-          recordLog('تسكين طالب', `تسكين الطالب ${s.name} في ${bus.num}`);
-        }
+        if (s) { s.busId = busId; s.seatIdx = targetSeat; recordLog('تسكين طالب', `تسكين الطالب ${s.name} في ${bus.num}`); }
       } else if (draggedItem.type === 'teacher') {
         const t = teachers.find(x => x.id === draggedItem.id);
-        if (t) {
-          t.busId = busId;
-          t.seatIdx = targetSeat;
-          recordLog('تسكين مدرس', `تسكين المدرس ${t.name} في ${bus.num}`);
-        }
+        if (t) { t.busId = busId; t.seatIdx = targetSeat; recordLog('تسكين موظف', `تسكين ${t.name} في ${bus.num}`); }
       }
     }
     draggedItem = null;
@@ -1016,18 +1110,18 @@
   function ejectSeat(type, id) {
     if (type === 'student') {
       const s = students.find(x => x.id === id);
-      if (s) { recordLog('إخلاء مقعد', `إخراج الطالب ${s.name} من الباص`); s.busId = null; s.seatIdx = null; }
+      if (s) { recordLog('إخلاء مقعد', `إخراج الطالب ${s.name}`); s.busId = null; s.seatIdx = null; }
     } else if (type === 'teacher') {
       const t = teachers.find(x => x.id === id);
-      if (t) { recordLog('إخلاء مقعد', `إخراج المدرس ${t.name} من الباص`); t.busId = null; t.seatIdx = null; }
+      if (t) { recordLog('إخلاء مقعد', `إخراج ${t.name}`); t.busId = null; t.seatIdx = null; }
     } else if (type === 'supervisor') {
       const sup = supervisors.find(x => x.id === id);
-      if (sup) { recordLog('إزالة مشرفة', `إزالة المشرفة ${sup.name} من الباص`); sup.busId = null; }
+      if (sup) { recordLog('إزالة مشرفة', `إزالة المشرفة ${sup.name}`); sup.busId = null; }
     }
     renderAll();
   }
 
-  /* CRUD & Edit + Archive for Buses */
+  /* CRUD Buses */
   function saveBus() {
     const editId = document.getElementById('editBusId').value;
     const num = document.getElementById('busNum').value.trim();
@@ -1076,38 +1170,11 @@
     document.getElementById('cancelBusEditBtn').classList.add('hidden');
   }
 
-  function archiveItem(type, id) {
-    if (type === 'bus') {
-      const b = buses.find(x => x.id === id);
-      if (b) { b.archived = true; recordLog('أرشفة باص', `نقل ${b.num} إلى الأرشيف`); }
-    } else if (type === 'student') {
-      const s = students.find(x => x.id === id);
-      if (s) { s.archived = true; s.busId = null; s.seatIdx = null; recordLog('أرشفة طالب', `نقل الطالب ${s.name} إلى الأرشيف`); }
-    } else if (type === 'supervisor') {
-      const sup = supervisors.find(x => x.id === id);
-      if (sup) { sup.archived = true; sup.busId = null; recordLog('أرشفة مشرفة', `نقل المشرفة ${sup.name} إلى الأرشيف`); }
-    } else if (type === 'teacher') {
-      const t = teachers.find(x => x.id === id);
-      if (t) { t.archived = true; t.busId = null; t.seatIdx = null; recordLog('أرشفة مدرس', `نقل المدرس ${t.name} إلى الأرشيف`); }
-    }
-    renderAll();
-  }
-
-  function restoreItem(type, id) {
-    if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) b.archived = false; }
-    if (type === 'student') { const s = students.find(x => x.id === id); if (s) s.archived = false; }
-    if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) s.archived = false; }
-    if (type === 'teacher') { const t = teachers.find(x => x.id === id); if (t) t.archived = false; }
-    recordLog('استعادة من الأرشيف', `استعادة عنصر (${type})`);
-    renderAll();
-  }
-
-  /* CRUD & Edit for Students */
+  /* CRUD Students (No Bus Input Here) */
   function saveStudent() {
     const editId = document.getElementById('editStuId').value;
     const name = document.getElementById('stuName').value.trim();
     if (!name) return;
-    const busVal = parseInt(document.getElementById('stuBusSelect').value) || null;
     const data = {
       shift: currentShift, name,
       grade: document.getElementById('stuGrade').value,
@@ -1118,7 +1185,6 @@
       mPhone2: document.getElementById('motherPhone2').value.trim() || '',
       extraRel: document.getElementById('extraRelation').value.trim() || '',
       extraPhone: document.getElementById('extraPhone').value.trim() || '',
-      busId: busVal,
       archived: false
     };
     if (editId) {
@@ -1126,8 +1192,7 @@
       if (idx > -1) students[idx] = { ...students[idx], ...data };
       recordLog('تعديل طالب', `تعديل بيانات الطالب ${name}`);
     } else {
-      const seatIdx = busVal ? findFirstFreeSeat(busVal) : null;
-      students.push({ id: Date.now(), ...data, seatIdx });
+      students.push({ id: Date.now(), ...data, busId: null, seatIdx: null });
       recordLog('إضافة طالب', `تسجيل الطالب ${name}`);
     }
     resetStuForm();
@@ -1141,7 +1206,6 @@
     document.getElementById('stuName').value = s.name;
     document.getElementById('stuGrade').value = s.grade;
     document.getElementById('stuAddr').value = s.addr;
-    document.getElementById('stuBusSelect').value = s.busId || '';
     document.getElementById('fatherPhone1').value = s.fPhone1 || '';
     document.getElementById('fatherPhone2').value = s.fPhone2 || '';
     if (s.fPhone2) document.getElementById('fatherPhone2Wrap').classList.remove('hidden');
@@ -1168,7 +1232,7 @@
     document.getElementById('cancelStuEditBtn').classList.add('hidden');
   }
 
-  /* CRUD & Edit for Supervisors */
+  /* CRUD Supervisors (Name & Phone Only) */
   function saveSupervisor() {
     const editId = document.getElementById('editSupId').value;
     const name = document.getElementById('supName').value.trim();
@@ -1176,7 +1240,6 @@
     const data = {
       shift: currentShift, name,
       phone: document.getElementById('supPhone').value.trim() || '-',
-      busId: parseInt(document.getElementById('supBusSelect').value) || null,
       archived: false
     };
     if (editId) {
@@ -1184,7 +1247,7 @@
       if (idx > -1) supervisors[idx] = { ...supervisors[idx], ...data };
       recordLog('تعديل مشرفة', `تعديل بيانات المشرفة ${name}`);
     } else {
-      supervisors.push({ id: Date.now(), ...data });
+      supervisors.push({ id: Date.now(), ...data, busId: null });
       recordLog('إضافة مشرفة', `تسجيل المشرفة ${name}`);
     }
     resetSupForm();
@@ -1197,7 +1260,6 @@
     document.getElementById('editSupId').value = s.id;
     document.getElementById('supName').value = s.name;
     document.getElementById('supPhone').value = s.phone;
-    document.getElementById('supBusSelect').value = s.busId || '';
     document.getElementById('cancelSupEditBtn').classList.remove('hidden');
   }
 
@@ -1208,27 +1270,24 @@
     document.getElementById('cancelSupEditBtn').classList.add('hidden');
   }
 
-  /* CRUD & Edit for Teachers */
+  /* CRUD Teachers & Staff (Name, Phone, Department Only) */
   function saveTeacher() {
     const editId = document.getElementById('editTchId').value;
     const name = document.getElementById('tchName').value.trim();
     if (!name) return;
-    const busVal = parseInt(document.getElementById('tchBusSelect').value) || null;
     const data = {
       shift: currentShift, name,
       phone: document.getElementById('tchPhone').value.trim() || '-',
-      addr: document.getElementById('tchAddr').value.trim() || '-',
-      busId: busVal,
+      dept: document.getElementById('tchDept').value,
       archived: false
     };
     if (editId) {
       const idx = teachers.findIndex(t => t.id === parseInt(editId));
       if (idx > -1) teachers[idx] = { ...teachers[idx], ...data };
-      recordLog('تعديل مدرس', `تعديل بيانات المدرس ${name}`);
+      recordLog('تعديل موظف', `تعديل بيانات ${name}`);
     } else {
-      const seatIdx = busVal ? findFirstFreeSeat(busVal) : null;
-      teachers.push({ id: Date.now(), ...data, seatIdx });
-      recordLog('إضافة مدرس', `تسجيل المدرس ${name}`);
+      teachers.push({ id: Date.now(), ...data, busId: null, seatIdx: null });
+      recordLog('إضافة موظف', `تسجيل ${name} (${data.dept})`);
     }
     resetTchForm();
     renderAll();
@@ -1240,8 +1299,7 @@
     document.getElementById('editTchId').value = t.id;
     document.getElementById('tchName').value = t.name;
     document.getElementById('tchPhone').value = t.phone;
-    document.getElementById('tchAddr').value = t.addr;
-    document.getElementById('tchBusSelect').value = t.busId || '';
+    document.getElementById('tchDept').value = t.dept;
     document.getElementById('cancelTchEditBtn').classList.remove('hidden');
   }
 
@@ -1249,8 +1307,25 @@
     document.getElementById('editTchId').value = '';
     document.getElementById('tchName').value = '';
     document.getElementById('tchPhone').value = '';
-    document.getElementById('tchAddr').value = '';
     document.getElementById('cancelTchEditBtn').classList.add('hidden');
+  }
+
+  /* Archive & Restore */
+  function archiveItem(type, id) {
+    if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) { b.archived = true; recordLog('أرشفة باص', b.num); } }
+    if (type === 'student') { const s = students.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; s.seatIdx = null; recordLog('أرشفة طالب', s.name); } }
+    if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) { s.archived = true; s.busId = null; recordLog('أرشفة مشرفة', s.name); } }
+    if (type === 'teacher') { const t = teachers.find(x => x.id === id); if (t) { t.archived = true; t.busId = null; t.seatIdx = null; recordLog('أرشفة موظف', t.name); } }
+    renderAll();
+  }
+
+  function restoreItem(type, id) {
+    if (type === 'bus') { const b = buses.find(x => x.id === id); if (b) b.archived = false; }
+    if (type === 'student') { const s = students.find(x => x.id === id); if (s) s.archived = false; }
+    if (type === 'supervisor') { const s = supervisors.find(x => x.id === id); if (s) s.archived = false; }
+    if (type === 'teacher') { const t = teachers.find(x => x.id === id); if (t) t.archived = false; }
+    recordLog('استعادة', `استعادة من الأرشيف (${type})`);
+    renderAll();
   }
 
   /* Render Everything */
@@ -1260,13 +1335,7 @@
     const shSups = supervisors.filter(s => !s.archived && s.shift === currentShift);
     const shTeachers = teachers.filter(t => !t.archived && t.shift === currentShift);
 
-    const busOpts = `<option value="">${lang === 'ar' ? 'بدون باص (قائمة السحب)' : 'Unassigned'}</option>` +
-      shBuses.map(b => `<option value="${b.id}">${b.num} — ${b.route}</option>`).join('');
-    document.getElementById('stuBusSelect').innerHTML = busOpts;
-    document.getElementById('supBusSelect').innerHTML = busOpts;
-    document.getElementById('tchBusSelect').innerHTML = busOpts;
-
-    // Sidebar Unassigned Full-Row Lists
+    // Sidebar Unassigned Lists with Distinct Colors & Avatars
     const unStus = shStudents.filter(s => !s.busId);
     const unSups = shSups.filter(s => !s.busId);
     const unTchs = shTeachers.filter(t => !t.busId);
@@ -1276,35 +1345,43 @@
     document.getElementById('cnt-tch').textContent = unTchs.length;
 
     document.getElementById('pool-students').innerHTML = unStus.map(s => `
-      <div class="single-row-item" draggable="true" ondragstart="handleDragStart('student', ${s.id})">
-        <span>${s.name}</span>
+      <div class="single-row-item stu" draggable="true" ondragstart="handleDragStart('student', ${s.id})">
+        <div class="person-info">
+          <span class="role-avatar stu">${svgIcons.student}</span>
+          <span class="person-name">${s.name}</span>
+        </div>
         <span class="tag-pill">${s.grade}</span>
       </div>
     `).join('') || `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px;">لا يوجد</div>`;
 
     document.getElementById('pool-supervisors').innerHTML = unSups.map(s => `
       <div class="single-row-item sup" draggable="true" ondragstart="handleDragStart('supervisor', ${s.id})">
-        <span>${s.name}</span>
+        <div class="person-info">
+          <span class="role-avatar sup">${svgIcons.supervisor}</span>
+          <span class="person-name">${s.name}</span>
+        </div>
         <span class="tag-pill">مشرفة</span>
       </div>
     `).join('') || `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px;">لا يوجد</div>`;
 
     document.getElementById('pool-teachers').innerHTML = unTchs.map(t => `
       <div class="single-row-item tch" draggable="true" ondragstart="handleDragStart('teacher', ${t.id})">
-        <span>${t.name}</span>
-        <span class="tag-pill">مدرس</span>
+        <div class="person-info">
+          <span class="role-avatar tch">${svgIcons.teacher}</span>
+          <span class="person-name">${t.name}</span>
+        </div>
+        <span class="tag-pill">${t.dept}</span>
       </div>
     `).join('') || `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px;">لا يوجد</div>`;
 
-    // Wael 3-Column 14-Seat Bus Cards
-    document.getElementById('waelBusGrid').innerHTML = shBuses.map(b => {
+    // 3-Column Compact 14-Seat Bus Grid
+    document.getElementById('busBoardGrid').innerHTML = shBuses.map(b => {
       const occList = getBusSeatOccupants(b.id);
       const bSups = shSups.filter(s => s.busId === b.id);
       const totalOcc = occList.length;
       const isOver = totalOcc > b.cap;
       const extraCount = Math.max(0, totalOcc - b.cap);
 
-      // Map 14 seats (index 0..13)
       const seatMap = new Array(14).fill(null);
       const overflowOccupants = [];
       occList.forEach(item => {
@@ -1312,19 +1389,18 @@
           seatMap[item.seatIdx] = item;
         } else {
           const freeIdx = seatMap.findIndex(x => x === null);
-          if (freeIdx > -1) {
-            seatMap[freeIdx] = item;
-          } else {
-            overflowOccupants.push(item);
-          }
+          if (freeIdx > -1) seatMap[freeIdx] = item;
+          else overflowOccupants.push(item);
         }
       });
 
       const renderSeat = (idx) => {
         const occ = seatMap[idx];
         if (occ) {
+          const dotColor = occ.type === 'teacher' ? '#059669' : '#2563eb';
           return `
             <div class="seat-slot occupied" title="${occ.name}">
+              <span class="seat-role-dot" style="background:${dotColor};"></span>
               <span class="seat-name">${occ.name.split(' ')[0]}</span>
               <button class="seat-eject" onclick="ejectSeat('${occ.type}', ${occ.id})">✕</button>
             </div>
@@ -1341,7 +1417,7 @@
         <span style="background:#fef3c7; color:#92400e; padding:1px 6px; border-radius:4px;">
           ${s.name} <button onclick="ejectSeat('supervisor', ${s.id})" style="border:none; background:none; color:#b91c1c; font-weight:900; cursor:pointer;">✕</button>
         </span>
-      `).join(' ') || (lang === 'ar' ? 'بدون مشرفة' : 'None');
+      `).join(' ') || 'بدون مشرفة';
 
       const overflowHtml = overflowOccupants.length > 0 ? `
         <div class="extra-overflow-box">
@@ -1372,22 +1448,17 @@
             <span>المشرفة: ${supBadges}</span>
           </div>
 
-          ${isOver ? `<div class="over-warning">تنبيه: يوجد عدد (${extraCount}) راكب زيادة عن سعة الباص (${b.cap})</div>` : ''}
+          ${isOver ? `<div class="over-warning">تنبيه: يوجد عدد (${extraCount}) راكب زيادة عن السعة (${b.cap})</div>` : ''}
 
           <div class="bus-cabin">
-            <!-- Front Row: Driver + Seat 1 + Seat 2 -->
             <div class="seat-row-3">
               <div class="driver-seat">السائق</div>
               ${renderSeat(0)}
               ${renderSeat(1)}
             </div>
-            <!-- Row 2: Seats 3, 4, 5 -->
             <div class="seat-row-3">${renderSeat(2)}${renderSeat(3)}${renderSeat(4)}</div>
-            <!-- Row 3: Seats 6, 7, 8 -->
             <div class="seat-row-3">${renderSeat(5)}${renderSeat(6)}${renderSeat(7)}</div>
-            <!-- Row 4: Seats 9, 10, 11 -->
             <div class="seat-row-3">${renderSeat(8)}${renderSeat(9)}${renderSeat(10)}</div>
-            <!-- Row 5: Seats 12, 13, 14 -->
             <div class="seat-row-3">${renderSeat(11)}${renderSeat(12)}${renderSeat(13)}</div>
             ${overflowHtml}
           </div>
@@ -1395,15 +1466,10 @@
       `;
     }).join('');
 
-    // Render Tab 1: Buses Table
+    // Tab 1: Buses Table
     document.getElementById('busesTableBody').innerHTML = shBuses.map(b => `
       <tr>
-        <td>${b.num}</td>
-        <td>${b.route}</td>
-        <td>${b.plate}</td>
-        <td>${b.cap} راكب</td>
-        <td>${b.driver}</td>
-        <td>${b.phone}</td>
+        <td>${b.num}</td><td>${b.route}</td><td>${b.plate}</td><td>${b.cap} راكب</td><td>${b.driver}</td><td>${b.phone}</td>
         <td>
           <button class="action-btn edit-btn" onclick="editBus(${b.id})">تعديل</button>
           <button class="action-btn arch-btn" onclick="archiveItem('bus', ${b.id})">أرشفة</button>
@@ -1411,7 +1477,7 @@
       </tr>
     `).join('');
 
-    // Render Tab 2: Students Table
+    // Tab 2: Students Table
     document.getElementById('studentsTableBody').innerHTML = shStudents.map((s, i) => {
       const b = shBuses.find(x => x.id === s.busId);
       const fPhones = s.fPhone2 ? `${s.fPhone1} / ${s.fPhone2}` : s.fPhone1;
@@ -1419,13 +1485,8 @@
       const extraTxt = s.extraPhone ? `${s.extraRel ? s.extraRel + ': ' : ''}${s.extraPhone}` : '-';
       return `
         <tr>
-          <td>${i + 1}</td>
-          <td>${s.name}</td>
-          <td>${s.grade}</td>
-          <td>${s.addr}</td>
-          <td>${fPhones}</td>
-          <td>${mPhones}</td>
-          <td>${extraTxt}</td>
+          <td>${i + 1}</td><td>${s.name}</td><td>${s.grade}</td><td>${s.addr}</td>
+          <td>${fPhones}</td><td>${mPhones}</td><td>${extraTxt}</td>
           <td>${b ? b.num : 'غير مسكن'}</td>
           <td>
             <button class="action-btn edit-btn" onclick="editStudent(${s.id})">تعديل</button>
@@ -1435,14 +1496,12 @@
       `;
     }).join('');
 
-    // Render Tab 3: Supervisors Table
+    // Tab 3: Supervisors Table
     document.getElementById('supervisorsTableBody').innerHTML = shSups.map(s => {
       const b = shBuses.find(x => x.id === s.busId);
       return `
         <tr>
-          <td>${s.name}</td>
-          <td>${s.phone}</td>
-          <td>${b ? b.num : '-'}</td>
+          <td>${s.name}</td><td>${s.phone}</td><td>${b ? b.num : 'غير مسكنة'}</td>
           <td>
             <button class="action-btn edit-btn" onclick="editSupervisor(${s.id})">تعديل</button>
             <button class="action-btn arch-btn" onclick="archiveItem('supervisor', ${s.id})">أرشفة</button>
@@ -1451,15 +1510,12 @@
       `;
     }).join('');
 
-    // Render Tab 4: Teachers Table
+    // Tab 4: Teachers Table
     document.getElementById('teachersTableBody').innerHTML = shTeachers.map(t => {
       const b = shBuses.find(x => x.id === t.busId);
       return `
         <tr>
-          <td>${t.name}</td>
-          <td>${t.phone}</td>
-          <td>${t.addr}</td>
-          <td>${b ? b.num : '-'}</td>
+          <td>${t.name}</td><td>${t.dept}</td><td>${t.phone}</td><td>${b ? b.num : 'غير مسكن'}</td>
           <td>
             <button class="action-btn edit-btn" onclick="editTeacher(${t.id})">تعديل</button>
             <button class="action-btn arch-btn" onclick="archiveItem('teacher', ${t.id})">أرشفة</button>
@@ -1468,28 +1524,53 @@
       `;
     }).join('');
 
-    // Render Tab 5: Archive
     renderArchive();
 
-    // Render Tab 6: Logs
     document.getElementById('logsTableBody').innerHTML = logs.map(l => `
       <tr><td dir="ltr">${l.time}</td><td>${l.shift}</td><td>${l.action}</td><td>${l.details}</td></tr>
     `).join('');
 
-    // Render Tab 7: Rosters & Print
-    const filterSel = document.getElementById('rosterBusFilter');
-    const prevVal = filterSel.value;
-    filterSel.innerHTML = `<option value="ALL">عرض جميع الباصات</option>` +
-      shBuses.map(b => `<option value="${b.id}">${b.num} — ${b.route}</option>`).join('');
-    filterSel.value = prevVal || 'ALL';
+    renderReports();
+  }
 
-    document.getElementById('rostersContainer').innerHTML = shBuses
-      .filter(b => filterSel.value === 'ALL' || String(b.id) === filterSel.value)
-      .map(b => {
+  function renderArchive() {
+    const container = document.getElementById('archiveTableContainer');
+    if (archiveSubTab === 'students') {
+      const list = students.filter(s => s.archived);
+      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>Grade</th><th>المرحلة</th><th>العنوان</th><th>استعادة</th></tr></thead><tbody>` +
+        (list.map(s => `<tr><td>${s.name}</td><td>${s.grade}</td><td>${s.shift}</td><td>${s.addr}</td><td><button class="action-btn rest-btn" onclick="restoreItem('student', ${s.id})">استعادة</button></td></tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
+    } else if (archiveSubTab === 'supervisors') {
+      const list = supervisors.filter(s => s.archived);
+      container.innerHTML = `<table><thead><tr><th>اسم المشرفة</th><th>الهاتف</th><th>المرحلة</th><th>استعادة</th></tr></thead><tbody>` +
+        (list.map(s => `<tr><td>${s.name}</td><td>${s.phone}</td><td>${s.shift}</td><td><button class="action-btn rest-btn" onclick="restoreItem('supervisor', ${s.id})">استعادة</button></td></tr>`).join('') || `<tr><td colspan="4" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
+    } else if (archiveSubTab === 'teachers') {
+      const list = teachers.filter(t => t.archived);
+      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>التخصص</th><th>الهاتف</th><th>المرحلة</th><th>استعادة</th></tr></thead><tbody>` +
+        (list.map(t => `<tr><td>${t.name}</td><td>${t.dept}</td><td>${t.phone}</td><td>${t.shift}</td><td><button class="action-btn rest-btn" onclick="restoreItem('teacher', ${t.id})">استعادة</button></td></tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
+    } else if (archiveSubTab === 'buses') {
+      const list = buses.filter(b => b.archived);
+      container.innerHTML = `<table><thead><tr><th>الباص</th><th>الخط</th><th>السائق</th><th>المرحلة</th><th>استعادة</th></tr></thead><tbody>` +
+        (list.map(b => `<tr><td>${b.num}</td><td>${b.route}</td><td>${b.driver}</td><td>${b.shift}</td><td><button class="action-btn rest-btn" onclick="restoreItem('bus', ${b.id})">استعادة</button></td></tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
+    }
+  }
+
+  /* Comprehensive Reports Engine (A4 Ready + Excel Export) */
+  function renderReports() {
+    const area = document.getElementById('reportOutputArea');
+    const shBuses = buses.filter(b => !b.archived && b.shift === currentShift);
+    const shStudents = students.filter(s => !s.archived && s.shift === currentShift);
+    const shSups = supervisors.filter(s => !s.archived && s.shift === currentShift);
+    const shTeachers = teachers.filter(t => !t.archived && t.shift === currentShift);
+
+    if (currentReport === 'master') {
+      // 1. Master Route Report (Each route table + driver + supervisor + count, followed by student rows)
+      area.innerHTML = shBuses.map(b => {
         const bStus = shStudents.filter(s => s.busId === b.id);
+        const bTchs = shTeachers.filter(t => t.busId === b.id);
         const bSup = shSups.filter(s => s.busId === b.id).map(s => `${s.name} (${s.phone})`).join(' ، ') || '-';
-        const bTchs = shTeachers.filter(t => t.busId === b.id).map(t => t.name).join(' ، ') || '-';
-        const rows = bStus.map((s, idx) => `
+        const totalOnBus = bStus.length + bTchs.length;
+
+        const stuRows = bStus.map((s, idx) => `
           <tr>
             <td>${idx + 1}</td>
             <td>${s.name}</td>
@@ -1502,53 +1583,226 @@
         `).join('');
 
         return `
-          <div style="border:1px solid var(--border-color); border-radius:8px; margin-bottom:20px; overflow:hidden;">
-            <div style="background:var(--bg-subtle); padding:12px 16px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-              <strong>${b.num} | ${b.route} | ${b.plate} (${currentShift})</strong>
-              <span style="font-size:12.5px; color:var(--text-muted); font-weight:700;">
-                السائق: ${b.driver} (${b.phone}) | المشرفة: ${bSup} | المدرسين: ${bTchs}
-              </span>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width:45px;">#</th>
-                    <th>اسم الطالب بالكامل</th>
-                    <th>Grade</th>
-                    <th>العنوان بالتفصيل</th>
-                    <th>تليفون الأب</th>
-                    <th>تليفون الأم</th>
-                    <th>رقم إضافي</th>
-                  </tr>
-                </thead>
-                <tbody>${rows || `<tr><td colspan="7" style="text-align:center;">لا يوجد طلبة مسكنين</td></tr>`}</tbody>
-              </table>
-            </div>
+          <div class="route-print-block" style="border:1.5px solid var(--border-color); border-radius:8px; margin-bottom:20px; overflow:hidden;">
+            <table style="margin-bottom:0;">
+              <thead>
+                <tr>
+                  <th>الباص: ${b.num}</th>
+                  <th>خط السير: ${b.route}</th>
+                  <th>السائق: ${b.driver} (${b.phone})</th>
+                  <th>المشرفة: ${bSup}</th>
+                  <th>العدد: ${totalOnBus} / ${b.cap} (طلاب: ${bStus.length})</th>
+                </tr>
+              </thead>
+            </table>
+            <table>
+              <thead>
+                <tr style="background:#334155;">
+                  <th style="width:40px;">#</th>
+                  <th>اسم الطالب بالكامل</th>
+                  <th>Grade</th>
+                  <th>العنوان بالتفصيل</th>
+                  <th>تليفون الأب</th>
+                  <th>تليفون الأم</th>
+                  <th>رقم إضافي</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${stuRows || `<tr><td colspan="7" style="text-align:center;">لا يوجد طلبة مسكنين على هذا الخط</td></tr>`}
+              </tbody>
+            </table>
           </div>
         `;
+      }).join('') || `<p>لا توجد باصات مسجلة في مرحلة ${currentShift}.</p>`;
+
+    } else if (currentReport === 'buses') {
+      // 2. Buses Fleet Report
+      const rows = shBuses.map((b, i) => {
+        const bStus = shStudents.filter(s => s.busId === b.id).length;
+        const bTchs = shTeachers.filter(t => t.busId === b.id).length;
+        const totalOcc = bStus + bTchs;
+        const remaining = b.cap - totalOcc;
+        const supName = shSups.filter(s => s.busId === b.id).map(s => s.name).join(' ، ') || '-';
+        return `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${b.num}</td>
+            <td>${b.route}</td>
+            <td>${b.plate}</td>
+            <td>${b.cap} راكب</td>
+            <td>${b.driver} (${b.phone})</td>
+            <td>${supName}</td>
+            <td>${totalOcc}</td>
+            <td>${remaining >= 0 ? remaining : 'زيادة ' + Math.abs(remaining)}</td>
+          </tr>
+        `;
       }).join('');
+
+      area.innerHTML = `
+        <div class="report-summary-bar">
+          <span>تقرير أسطول الباصات — مرحلة ${currentShift}</span>
+          <span>إجمالي عدد الباصات: ${shBuses.length} باص</span>
+        </div>
+        <div class="table-wrap">
+          <table id="exportableTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>رقم الباص</th>
+                <th>خط السير</th>
+                <th>نوع / رقم العربية</th>
+                <th>السعة</th>
+                <th>السائق</th>
+                <th>المشرفة</th>
+                <th>العدد المشغول</th>
+                <th>المتبقي من السعة</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+
+    } else if (currentReport === 'students') {
+      // 3. Full Students Report
+      const rows = shStudents.map((s, i) => {
+        const b = shBuses.find(x => x.id === s.busId);
+        return `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${s.name}</td>
+            <td>${s.shift}</td>
+            <td>${s.grade}</td>
+            <td>${s.addr}</td>
+            <td>${s.fPhone1}${s.fPhone2 ? ' / ' + s.fPhone2 : ''}</td>
+            <td>${s.mPhone1}${s.mPhone2 ? ' / ' + s.mPhone2 : ''}</td>
+            <td>${s.extraPhone ? (s.extraRel + ': ' + s.extraPhone) : '-'}</td>
+            <td>${b ? b.num + ' (' + b.route + ')' : 'غير مسكن'}</td>
+          </tr>
+        `;
+      }).join('');
+
+      area.innerHTML = `
+        <div class="report-summary-bar">
+          <span>تقرير الطلبة الشامل — مرحلة ${currentShift}</span>
+          <span>إجمالي الطلبة: ${shStudents.length} طالب</span>
+        </div>
+        <div class="table-wrap">
+          <table id="exportableTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>اسم الطالب بالكامل</th>
+                <th>المرحلة</th>
+                <th>Grade</th>
+                <th>العنوان بالتفصيل</th>
+                <th>تليفون الأب</th>
+                <th>تليفون الأم</th>
+                <th>رقم إضافي</th>
+                <th>الباص وخط السير</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+
+    } else if (currentReport === 'supervisors') {
+      // 4. Supervisors Full Report
+      const rows = shSups.map((sup, i) => {
+        const b = shBuses.find(x => x.id === sup.busId);
+        const stusCount = b ? shStudents.filter(s => s.busId === b.id).length : 0;
+        const tchsCount = b ? shTeachers.filter(t => t.busId === b.id).length : 0;
+        return `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${sup.name}</td>
+            <td>${sup.phone}</td>
+            <td>${b ? b.num : 'غير معينة'}</td>
+            <td>${b ? b.route : '-'}</td>
+            <td>${b ? b.driver : '-'}</td>
+            <td>${b ? (stusCount + tchsCount) : 0}</td>
+            <td>${stusCount}</td>
+          </tr>
+        `;
+      }).join('');
+
+      area.innerHTML = `
+        <div class="report-summary-bar">
+          <span>تقرير المشرفات التفصيلي — مرحلة ${currentShift}</span>
+          <span>إجمالي المشرفات: ${shSups.length} مشرفة</span>
+        </div>
+        <div class="table-wrap">
+          <table id="exportableTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>اسم المشرفة</th>
+                <th>رقم التليفون</th>
+                <th>اسم الباص</th>
+                <th>خط السير</th>
+                <th>اسم السائق</th>
+                <th>إجمالي الركاب</th>
+                <th>عدد الطلبة معها</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+
+    } else if (currentReport === 'teachers') {
+      // 5. Teachers & Staff Report (Name, Department, Bus/Route, Total Count)
+      const rows = shTeachers.map((t, i) => {
+        const b = shBuses.find(x => x.id === t.busId);
+        return `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${t.name}</td>
+            <td>${t.dept}</td>
+            <td>${b ? b.num + ' — ' + b.route : 'غير مسكن على باص'}</td>
+          </tr>
+        `;
+      }).join('');
+
+      area.innerHTML = `
+        <div class="report-summary-bar">
+          <span>تقرير المدرسين والإداريين — مرحلة ${currentShift}</span>
+          <span>الإجمالي الكلي (Total): ${shTeachers.length} فرد</span>
+        </div>
+        <div class="table-wrap">
+          <table id="exportableTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>الاسم</th>
+                <th>التخصص / القسم</th>
+                <th>الباص وخط السير</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+              <tr style="background:var(--bg-subtle); font-weight:800;">
+                <td colspan="3">الإجمالي الكلي للمدرسين والإداريين (Total Staff)</td>
+                <td>${shTeachers.length}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
   }
 
-  function renderArchive() {
-    const container = document.getElementById('archiveTableContainer');
-    if (archiveSubTab === 'students') {
-      const list = students.filter(s => s.archived);
-      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>Grade</th><th>المرحلة</th><th>العنوان</th><th>استعادة</th></tr></thead><tbody>` +
-        (list.map(s => `<tr><td>${s.name}</td><td>${s.grade}</td><td>${s.shift}</td><td>${s.addr}</td><td><button class="action-btn rest-btn" onclick="restoreItem('student', ${s.id})">استعادة للنشط</button></td></tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
-    } else if (archiveSubTab === 'supervisors') {
-      const list = supervisors.filter(s => s.archived);
-      container.innerHTML = `<table><thead><tr><th>اسم المشرفة</th><th>الهاتف</th><th>المرحلة</th><th>استعادة</th></tr></thead><tbody>` +
-        (list.map(s => `<tr><td>${s.name}</td><td>${s.phone}</td><td>${s.shift}</td><td><button class="action-btn rest-btn" onclick="restoreItem('supervisor', ${s.id})">استعادة للنشط</button></td></tr>`).join('') || `<tr><td colspan="4" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
-    } else if (archiveSubTab === 'teachers') {
-      const list = teachers.filter(t => t.archived);
-      container.innerHTML = `<table><thead><tr><th>اسم المدرس</th><th>الهاتف</th><th>المرحلة</th><th>استعادة</th></tr></thead><tbody>` +
-        (list.map(t => `<tr><td>${t.name}</td><td>${t.phone}</td><td>${t.shift}</td><td><button class="action-btn rest-btn" onclick="restoreItem('teacher', ${t.id})">استعادة للنشط</button></td></tr>`).join('') || `<tr><td colspan="4" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
-    } else if (archiveSubTab === 'buses') {
-      const list = buses.filter(b => b.archived);
-      container.innerHTML = `<table><thead><tr><th>الباص</th><th>الخط</th><th>السائق</th><th>المرحلة</th><th>استعادة</th></tr></thead><tbody>` +
-        (list.map(b => `<tr><td>${b.num}</td><td>${b.route}</td><td>${b.driver}</td><td>${b.shift}</td><td><button class="action-btn rest-btn" onclick="restoreItem('bus', ${b.id})">استعادة للنشط</button></td></tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
-    }
+  function exportCurrentReportExcel() {
+    const area = document.getElementById('reportOutputArea');
+    const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"></head><body dir="rtl">' + area.innerHTML + '</body></html>';
+    const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `TIBA_Report_${currentReport}_${currentShift}.xls`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   renderAll();
