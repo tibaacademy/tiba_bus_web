@@ -6,7 +6,7 @@ import os
 page_icon_path = "Logo_3.jpg" if os.path.exists("Logo_3.jpg") else None
 
 st.set_page_config(
-    page_title="TIBA Languages Academy — Transportation System",
+    page_title="TIBA Language Academy — Transportation System",
     page_icon=page_icon_path,
     layout="wide",
     initial_sidebar_state="collapsed"
