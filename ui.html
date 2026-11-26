@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TIBA Language Academy — Transportation Management</title>
+<title>TIBA Languages Academy — Transportation System</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap');
 
@@ -17,7 +17,8 @@
     --primary: #0b2240;
     --primary-hover: #163a6b;
     --accent: #c8102e;
-    --header-bg: linear-gradient(135deg, #051020 0%, #0b2240 55%, #163a6b 100%);
+    --header-overlay: linear-gradient(105deg, rgba(7, 23, 44, 0.56) 0%, rgba(15, 44, 82, 0.48) 55%, rgba(25, 63, 115, 0.56) 100%);
+    --header-bg-image: url('{{HEADER_9}}');
     --stu-color: #1d4ed8;
     --stu-bg: #eff6ff;
     --sup-color: #c8102e;
@@ -33,7 +34,7 @@
     --seat-tch-bg: #d1fae5;
     --seat-tch-border: #059669;
     --seat-tch-text: #065f46;
-    --wm-opacity: 0.08;
+    --wm-opacity: 0.07;
     --shadow: 0 3px 12px rgba(11, 34, 64, 0.09);
   }
 
@@ -41,14 +42,14 @@
     --primary: #064e3b;
     --primary-hover: #047857;
     --accent: #e11d48;
-    --header-bg: linear-gradient(135deg, #032920 0%, #064e3b 60%, #065f46 100%);
+    --header-overlay: linear-gradient(105deg, rgba(3, 41, 32, 0.62) 0%, rgba(6, 78, 59, 0.54) 60%, rgba(6, 95, 70, 0.62) 100%);
   }
 
   body.theme-royal {
     --primary: #1e1b4b;
     --primary-hover: #312e81;
     --accent: #e11d48;
-    --header-bg: linear-gradient(135deg, #0d0a24 0%, #1e1b4b 60%, #312e81 100%);
+    --header-overlay: linear-gradient(105deg, rgba(13, 10, 36, 0.64) 0%, rgba(30, 27, 75, 0.56) 60%, rgba(49, 46, 129, 0.64) 100%);
   }
 
   body.dark-mode {
@@ -110,7 +111,7 @@
   }
   .login-box {
     width: 100%;
-    max-width: 450px;
+    max-width: 470px;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-top: 5px solid var(--accent);
@@ -119,7 +120,9 @@
     overflow: hidden;
   }
   .login-head {
-    background: var(--header-bg);
+    background-image: var(--header-overlay), var(--header-bg-image), linear-gradient(135deg, #07172c, #193f73);
+    background-size: cover;
+    background-position: center;
     padding: 26px 22px;
     text-align: center;
     color: #ffffff;
@@ -127,11 +130,13 @@
   }
   .login-body { padding: 24px; }
 
-  /* Header Layout */
+  /* Header with Transparent Photo Layer + Subtle Glass Rectangles */
   .app-header {
-    background: var(--header-bg);
+    background-image: var(--header-overlay), var(--header-bg-image), linear-gradient(135deg, #07172c, #193f73);
+    background-size: cover;
+    background-position: center center;
     color: #ffffff;
-    padding: 14px 24px;
+    padding: 14px 22px;
     border-radius: 14px;
     border-bottom: 4px solid var(--accent);
     display: flex;
@@ -141,13 +146,21 @@
     gap: 16px;
     box-shadow: var(--shadow);
     margin-bottom: 14px;
+    position: relative;
+    overflow: visible;
   }
 
+  /* Subtle Glass Rectangle for User & Menu Controls */
   .user-control-stack {
     display: flex;
     flex-direction: column;
     gap: 8px;
     align-items: flex-start;
+    background: rgba(7, 16, 30, 0.45);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 10px 12px;
+    border-radius: 12px;
   }
   .user-top-row { display: flex; align-items: center; gap: 8px; }
   .user-bottom-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -157,7 +170,7 @@
     align-items: center;
     gap: 8px;
     background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     padding: 4px 14px 4px 6px;
     border-radius: 25px;
     color: #ffffff;
@@ -168,7 +181,7 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     color: var(--primary);
     border: 2px solid var(--accent);
     overflow: hidden;
@@ -185,7 +198,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: rgba(200, 16, 46, 0.88);
+    background: rgba(200, 16, 46, 0.9);
     border: 1.5px solid #fca5a5;
     color: #ffffff;
     display: inline-flex;
@@ -197,10 +210,10 @@
 
   .shift-pills {
     display: flex;
-    background: rgba(255, 255, 255, 0.14);
+    background: rgba(8, 17, 32, 0.45);
     padding: 3px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   .shift-pill {
     padding: 5px 14px;
@@ -215,10 +228,9 @@
   }
   .shift-pill.active { background: var(--accent); color: #ffffff; }
 
-  /* Unified Menu Dropdown */
   .quick-dropdown { position: relative; display: inline-block; }
   .dropdown-trigger {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.94);
     color: #0b2240;
     border: 2px solid var(--accent);
     padding: 5px 16px;
@@ -266,45 +278,78 @@
   }
   .drop-item:hover { background: var(--bg-subtle); color: var(--accent); }
 
-  /* Clean Logo + Luminous Crimson Title */
+  /* Brand Section with Subtle Transparent Rectangle & Clean White-Removed Logo */
   .brand-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    min-width: 320px;
+    gap: 18px;
+    min-width: 340px;
+    background: rgba(7, 16, 30, 0.42);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 24px;
+    border-radius: 14px;
   }
 
   .clean-logo-img {
-    width: 78px;
-    height: 78px;
+    width: 82px;
+    height: 82px;
     object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+    mix-blend-mode: screen;
+    filter: contrast(1.18) brightness(1.06) drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
     flex-shrink: 0;
   }
 
-  .brand-text-glow { text-align: center; }
-
-  .brand-text-glow h1 {
-    font-size: 28px;
-    font-weight: 900;
-    color: #ff4d6d;
-    letter-spacing: 1px;
-    line-height: 1.15;
-    text-shadow:
-      0 0 12px rgba(255, 77, 109, 0.55),
-      0 2px 6px rgba(0, 0, 0, 0.55);
+  /* Precision Aligned Title + Slogan spanning exact width of 'Academy' + Transportation System */
+  .brand-title-stack {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    direction: ltr;
   }
 
-  .brand-text-glow .slogan-line {
-    display: block;
-    margin-top: 4px;
-    font-size: 13px;
+  .main-academy-title {
+    font-size: 31px;
+    font-weight: 900;
+    color: #ff4d6d;
+    letter-spacing: 0.4px;
+    line-height: 1.1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+  }
+
+  /* Aligned directly beneath 'Academy' (approx 36% of 'TIBA Languages Academy') */
+  .academy-sub-row {
+    width: 37%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 2px;
+  }
+
+  .slogan-aligned {
+    font-size: 10.5px;
     font-weight: 800;
     color: #f8fafc;
-    letter-spacing: 1.6px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.7px;
+    text-align: justify;
+    text-align-last: justify;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    padding-top: 2px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+  }
+
+  .project-name-tag {
+    margin-top: 5px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fde68a;
+    letter-spacing: 1.1px;
+    align-self: center;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
   }
 
   /* Navigation Bar */
@@ -451,22 +496,45 @@
   }
   .bus-card.drag-over { border-color: var(--accent); }
 
+  /* Route on its own line + Bus badge inside a circle below */
   .bus-card-head {
-    background: var(--header-bg);
+    background: linear-gradient(135deg, #07172c 0%, #0f2c52 55%, #193f73 100%);
     color: #ffffff;
     padding: 10px 12px;
     border-bottom: 3px solid var(--accent);
   }
-  .bus-head-top {
+  .bus-route-line {
+    font-size: 14.5px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .bus-badge-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 3px;
   }
-  .bus-head-top strong { font-size: 15px; font-weight: 800; }
+  .bus-circle-badge {
+    min-width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    border: 2px solid var(--accent);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+
   .cap-badge {
     background: rgba(255,255,255,0.18);
-    padding: 2px 8px;
+    padding: 3px 9px;
     border-radius: 10px;
     font-size: 11.5px;
     font-weight: 800;
@@ -640,6 +708,39 @@
     font-weight: 600;
   }
 
+  /* Header Gallery Grid inside Theme Studio */
+  .header-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .header-thumb-card {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.15s, border-color 0.2s;
+  }
+  .header-thumb-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .header-thumb-card.selected { border: 3px solid var(--accent); box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.25); }
+  .header-thumb-card img {
+    width: 100%;
+    height: 62px;
+    object-fit: cover;
+    display: block;
+  }
+  .header-thumb-label {
+    padding: 5px 8px;
+    font-size: 11.5px;
+    font-weight: 800;
+    background: var(--bg-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .perm-matrix {
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -793,9 +894,10 @@
   <div class="login-box">
     <div class="login-head">
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin:0 auto 10px auto; display:block;" onerror="this.style.display='none'">
-      <div class="brand-text-glow">
-        <h1 style="font-size:23px;">TIBA LANGUAGE ACADEMY</h1>
-        <span class="slogan-line">A SCHOOL... TO RELY ON</span>
+      <div class="brand-title-stack" style="align-items:center;">
+        <h1 class="main-academy-title" style="font-size:23px;">TIBA Languages Academy</h1>
+        <span style="font-size:11px; color:#f8fafc; letter-spacing:1.2px; margin-top:2px;">A SCHOOL... TO RELY ON</span>
+        <span class="project-name-tag">Transportation System</span>
       </div>
     </div>
     <div class="login-body">
@@ -816,6 +918,7 @@
 <!-- ==================== MAIN APPLICATION ==================== -->
 <div id="mainApp" class="container hidden">
   <header class="app-header">
+    <!-- Subtle Glass Rectangle 1: Mahmoud Salah + Shutdown + Shifts + Menu -->
     <div class="user-control-stack">
       <div class="user-top-row">
         <div class="profile-chip">
@@ -862,7 +965,7 @@
               <strong>👥</strong>
             </button>
             <button class="drop-item" id="menu-theme" onclick="openSectionFromMenu('theme')">
-              <span>إعدادات الثيم والشعار</span>
+              <span>إعدادات الثيم وخلفيات الهيدر</span>
               <strong>🎨</strong>
             </button>
             <div class="drop-divider"></div>
@@ -883,11 +986,15 @@
       </div>
     </div>
 
+    <!-- Subtle Glass Rectangle 2: Clean White-Removed Logo + TIBA Languages Academy + Aligned Slogan + Project Name -->
     <div class="brand-wrapper">
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
-      <div class="brand-text-glow">
-        <h1>TIBA LANGUAGE ACADEMY</h1>
-        <span class="slogan-line">A SCHOOL... TO RELY ON</span>
+      <div class="brand-title-stack">
+        <h1 class="main-academy-title">TIBA Languages Academy</h1>
+        <div class="academy-sub-row">
+          <span class="slogan-aligned">A SCHOOL... TO RELY ON</span>
+        </div>
+        <span class="project-name-tag">Transportation System</span>
       </div>
     </div>
   </header>
@@ -1395,35 +1502,42 @@
     </div>
   </div>
 
-  <!-- MENU SECTION: THEME STUDIO -->
+  <!-- MENU SECTION: THEME STUDIO & ALEXANDRIA HEADER GALLERY (SUPER ADMIN ONLY) -->
   <div id="tab-theme" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">إعدادات الثيم ورفع الشعار وصورة المبنى (Super Admin Only)</div>
+        <div class="panel-title">معرض خلفيات الهيدر وإعدادات الثيم (Super Admin Only)</div>
       </div>
+
       <div class="form-grid">
         <div class="form-group">
-          <label>اختيار ثيم الألوان الرسمي</label>
+          <label>اختيار ثيم الألوان العام</label>
           <select id="themeColorSelect" class="form-control" onchange="setBrandTheme(this.value)">
             <option value="default">ثيم مدارس طيبة الرسمي (كحلي + أحمر)</option>
-            <option value="emerald">الثيم الزمردي والذهبي (Emerald & Gold)</option>
-            <option value="royal">الثيم الملكي (Royal Indigo & Crimson)</option>
+            <option value="emerald">الثيم الزمردي (Emerald)</option>
+            <option value="royal">الثيم الملكي (Royal Indigo)</option>
           </select>
+        </div>
+        <div class="form-group">
+          <label>رفع صورة جديدة للهيدر من جهازك</label>
+          <input type="file" accept="image/*" class="form-control" onchange="uploadCustomHeaderBg(event)">
         </div>
         <div class="form-group">
           <label>رفع شعار المدرسة (Logo)</label>
           <input type="file" accept="image/*" class="form-control" onchange="uploadBrandImage(event, 'logo')">
         </div>
         <div class="form-group">
-          <label>رفع صورة مبنى المدرسة للخلفية (Watermark)</label>
-          <input type="file" accept="image/*" class="form-control" onchange="uploadBrandImage(event, 'building')">
-        </div>
-        <div class="form-group">
-          <label>درجة وضوح صورة المبنى في الخلفية</label>
-          <input type="range" min="0" max="25" value="8" class="form-control" oninput="updateWatermarkOpacity(this.value)">
+          <label>درجة وضوح الخلفية المائية للمبنى</label>
+          <input type="range" min="0" max="25" value="7" class="form-control" oninput="updateWatermarkOpacity(this.value)">
         </div>
       </div>
-      <button class="btn-secondary" onclick="resetBrandTheme()">استعادة الشعار والثيم الافتراضي</button>
+
+      <div style="margin-top:14px; font-size:13.5px; font-weight:800;">اختر خلفية الهيدر من الصور البانورامية المرفوعة (اضغط على الصورة لتطبيقها فوراً):</div>
+      <div class="header-gallery-grid" id="headerGalleryGrid"></div>
+
+      <div style="margin-top:14px;">
+        <button class="btn-secondary" onclick="resetBrandTheme()">استعادة الإعدادات الافتراضية</button>
+      </div>
     </div>
   </div>
 
@@ -1453,6 +1567,18 @@
 
 <script>
   const FALLBACK_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="#ff4d6d" stroke-width="5"/><text x="60" y="68" text-anchor="middle" font-family="Arial" font-weight="900" font-size="22" fill="#ffffff">T.L.A</text></svg>`);
+
+  const PRESET_HEADERS = [
+    { id: 'h9', label: 'كوبري ستانلي والبحر (9)', src: '{{HEADER_9}}' },
+    { id: 'h8', label: 'قصر المنتزه والبحر (8)', src: '{{HEADER_8}}' },
+    { id: 'h5', label: 'مكتبة الإسكندرية (5)', src: '{{HEADER_5}}' },
+    { id: 'h4', label: 'كورنيش الإسكندرية والأمواج (4)', src: '{{HEADER_4}}' },
+    { id: 'h2', label: 'قلعة قايتباي والميناء (2)', src: '{{HEADER_2}}' },
+    { id: 'h7', label: 'شاطئ الإسكندرية (7)', src: '{{HEADER_7}}' },
+    { id: 'h6', label: 'أمواج البحر والكورنيش (6)', src: '{{HEADER_6}}' },
+    { id: 'h3', label: 'إطلالة بانورامية على الخليج (3)', src: '{{HEADER_3}}' },
+    { id: 'h1', label: 'مياه البحر والصخور (1)', src: '{{HEADER_1}}' }
+  ];
 
   const ALL_PERMS_TRUE = {
     shift_kg: true, shift_junior: true, shift_teachers: true,
@@ -1515,6 +1641,13 @@
   let draggedItem = null;
   let users = loadMergedUsers();
 
+  // Clean Empty Arrays Ready for Your Live Data Entry
+  let buses = [];
+  let students = [];
+  let supervisors = [];
+  let teachers = [];
+  let logs = [];
+
   const tripLabels = { both: 'ذهاب وعودة', go: 'ذهاب فقط', return: 'عودة فقط' };
   const termLabels = { two_terms: 'ترمين', one_term: 'ترم واحد' };
 
@@ -1523,37 +1656,6 @@
     supervisor: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`,
     teacher: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>`
   };
-
-  let buses = [
-    { id: 1, shift: 'Junior', num: 'Bus 1', route: 'سيدي بشر بحري - العصافرة', plate: 'س ن ر 8421', cap: 14, driver: 'أ. محروس علي', phone: '01223456789', archived: false },
-    { id: 2, shift: 'Junior', num: 'Bus 2', route: 'سموحة - كفر عبده - فلمنج', plate: 'س أ م 3190', cap: 14, driver: 'أ. محمد سامي', phone: '01098765432', archived: false },
-    { id: 3, shift: 'KG', num: 'Bus 1 (KG)', route: 'جليم - زيزينيا', plate: 'س ر ط 1120', cap: 14, driver: 'أ. كيرو عادل', phone: '01211112222', archived: false },
-    { id: 4, shift: 'Teachers', num: 'Staff Car 1', route: 'سيدي جابر - سموحة - المدرسة', plate: 'س م د 5510', cap: 7, driver: 'أ. هاني محمود', phone: '01155443322', archived: false },
-    { id: 5, shift: 'Teachers', num: 'Staff Bus 2', route: 'العصافرة - المندرة - المدرسة', plate: 'س ع م 9920', cap: 14, driver: 'أ. طارق حسن', phone: '01066778899', archived: false }
-  ];
-
-  let students = [
-    { id: 101, shift: 'Junior', name: 'عمر خالد إبراهيم محمد', grade: 'Junior 2', tripType: 'both', termDuration: 'two_terms', addr: 'سيدي بشر - شارع خالد بن الوليد', fPhone1: '01011223344', fPhone2: '', mPhone1: '01122334455', mPhone2: '', extraRel: 'الجدة', extraPhone: '01299887766', busId: 1, seatIdx: 0, archived: false },
-    { id: 102, shift: 'Junior', name: 'ليلى طارق حسن محمود', grade: 'Junior 1', tripType: 'go', termDuration: 'one_term', addr: 'ميامي - شارع إسكندر إبراهيم', fPhone1: '01055443322', fPhone2: '', mPhone1: '01166554433', mPhone2: '', extraRel: '', extraPhone: '', busId: null, seatIdx: null, archived: false },
-    { id: 103, shift: 'KG', name: 'آدم كريم محمد علي', grade: 'Play School', tripType: 'both', termDuration: 'two_terms', addr: 'زيزينيا - شارع أبو قير', fPhone1: '01099887766', fPhone2: '', mPhone1: '', mPhone2: '', extraRel: '', extraPhone: '', busId: 3, seatIdx: 0, archived: false }
-  ];
-
-  let supervisors = [
-    { id: 201, shift: 'Junior', name: 'أ. رنا محمود', phone: '01055667788', busId: 1, archived: false },
-    { id: 202, shift: 'Junior', name: 'أ. نسمة عادل', phone: '01166778899', busId: null, archived: false },
-    { id: 203, shift: 'KG', name: 'أ. هدير سامي', phone: '01288990011', busId: 3, archived: false },
-    { id: 204, shift: 'Teachers', name: 'أ. أسماء عباس', phone: '01233445511', busId: 5, archived: false }
-  ];
-
-  let teachers = [
-    { id: 301, shift: 'Junior', name: 'أ. عمر أحمد', dept: 'Maths', tripType: 'go', phone: '01277889900', busId: 1, seatIdx: 1, archived: false },
-    { id: 302, shift: 'Teachers', name: 'أ. شيماء حسن', dept: 'English', tripType: 'both', phone: '01044332211', busId: 4, seatIdx: 0, archived: false },
-    { id: 303, shift: 'Teachers', name: 'أ. مروة علي', dept: 'Science', tripType: 'go', phone: '01122334400', busId: null, seatIdx: null, archived: false }
-  ];
-
-  let logs = [
-    { time: '2026-11-26 09:00:00', user: 'Junior & KG Staff', shift: 'Junior', action: 'تسكين مقعد', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1' }
-  ];
 
   function toggleQuickMenu() { document.getElementById('quickMenuPanel').classList.toggle('open'); }
   function closeQuickMenu() { const p = document.getElementById('quickMenuPanel'); if (p) p.classList.remove('open'); }
@@ -1575,12 +1677,16 @@
 
   function applyBrandAssets() {
     const savedLogo = localStorage.getItem('tiba_custom_logo') || '{{LOGO_SRC}}' || FALLBACK_LOGO;
-    const savedBuilding = localStorage.getItem('tiba_custom_building') || '{{BUILDING_SRC}}';
-    const savedOpacity = localStorage.getItem('tiba_wm_opacity') || '8';
+    const savedBuilding = localStorage.getItem('tiba_custom_building') || '{{HEADER_5}}';
+    const savedHeaderBg = localStorage.getItem('tiba_selected_header_src') || '{{HEADER_9}}';
+    const savedOpacity = localStorage.getItem('tiba_wm_opacity') || '7';
     const savedTheme = localStorage.getItem('tiba_theme_variant') || 'default';
 
     document.querySelectorAll('.clean-logo-img').forEach(img => { img.src = savedLogo; });
-    if (savedBuilding) {
+    if (savedHeaderBg && savedHeaderBg.startsWith('data:')) {
+      document.documentElement.style.setProperty('--header-bg-image', `url('${savedHeaderBg}')`);
+    }
+    if (savedBuilding && savedBuilding.startsWith('data:')) {
       document.getElementById('customWatermark').style.backgroundImage = `url('${savedBuilding}')`;
     }
     document.documentElement.style.setProperty('--wm-opacity', (parseInt(savedOpacity) / 100).toString());
@@ -1590,6 +1696,53 @@
     if (savedTheme === 'royal') document.body.classList.add('theme-royal');
     const sel = document.getElementById('themeColorSelect');
     if (sel) sel.value = savedTheme;
+
+    renderHeaderGallery();
+  }
+
+  function renderHeaderGallery() {
+    const grid = document.getElementById('headerGalleryGrid');
+    if (!grid) return;
+    const activeSrc = localStorage.getItem('tiba_selected_header_src') || '{{HEADER_9}}';
+    const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
+    const allItems = [...PRESET_HEADERS.filter(h => h.src && h.src.startsWith('data:')), ...customUploads];
+
+    grid.innerHTML = allItems.map(item => `
+      <div class="header-thumb-card ${activeSrc === item.src ? 'selected' : ''}" onclick="selectHeaderBg('${item.id}')">
+        <img src="${item.src}" alt="${item.label}">
+        <div class="header-thumb-label">
+          <span>${item.label}</span>
+          <span>${activeSrc === item.src ? '✓ مفعل' : ''}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function selectHeaderBg(id) {
+    if (!currentUser || !currentUser.isSuper) return;
+    const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
+    const allItems = [...PRESET_HEADERS, ...customUploads];
+    const found = allItems.find(x => x.id === id);
+    if (found && found.src) {
+      localStorage.setItem('tiba_selected_header_src', found.src);
+      applyBrandAssets();
+    }
+  }
+
+  function uploadCustomHeaderBg(e) {
+    if (!currentUser || !currentUser.isSuper) return;
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
+      const newId = 'cust_' + Date.now();
+      customUploads.unshift({ id: newId, label: file.name.slice(0, 22), src: evt.target.result });
+      localStorage.setItem('tiba_custom_headers_list', JSON.stringify(customUploads));
+      localStorage.setItem('tiba_selected_header_src', evt.target.result);
+      applyBrandAssets();
+    };
+    reader.readAsDataURL(file);
   }
 
   function setBrandTheme(val) {
@@ -1621,6 +1774,7 @@
     if (!currentUser || !currentUser.isSuper) return;
     localStorage.removeItem('tiba_custom_logo');
     localStorage.removeItem('tiba_custom_building');
+    localStorage.removeItem('tiba_selected_header_src');
     localStorage.removeItem('tiba_wm_opacity');
     localStorage.removeItem('tiba_theme_variant');
     applyBrandAssets();
@@ -2221,113 +2375,123 @@
       </div>
     `).join('') || `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px;">لا يوجد</div>`;
 
-    document.getElementById('busBoardGrid').innerHTML = shBuses.map(b => {
-      const { slots, overflow, effectiveSeats } = buildBusSeats(b);
-      const bSups = shSups.filter(s => s.busId === b.id);
-      const isOver = effectiveSeats > b.cap;
-      const extraCount = effectiveSeats - b.cap;
+    if (shBuses.length === 0) {
+      document.getElementById('busBoardGrid').innerHTML = `
+        <div class="panel" style="grid-column: 1 / -1; text-align:center; padding:32px;">
+          <h3 style="margin-bottom:8px;">لا توجد باصات مسجلة حالياً في قسم (${currentShift})</h3>
+          <p style="font-size:13px; color:var(--text-muted);">اضغط على تبويب <strong>1. الباصات والسائقين</strong> بالأعلى لإضافة الباصات والخطوط الخاصة بك.</p>
+        </div>
+      `;
+    } else {
+      document.getElementById('busBoardGrid').innerHTML = shBuses.map(b => {
+        const { slots, overflow, effectiveSeats } = buildBusSeats(b);
+        const bSups = shSups.filter(s => s.busId === b.id);
+        const isOver = effectiveSeats > b.cap;
+        const extraCount = effectiveSeats - b.cap;
 
-      const renderSeat = (idx) => {
-        const slot = slots[idx];
-        if (!slot) return '';
-        if (slot.kind === 'student') {
+        const renderSeat = (idx) => {
+          const slot = slots[idx];
+          if (!slot) return '';
+          if (slot.kind === 'student') {
+            return `
+              <div class="seat-slot student-occ" title="طالب: ${slot.item.name}">
+                <span class="seat-name">${slot.item.name.split(' ')[0]}</span>
+                ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('student', ${slot.item.id})">✕</button>` : ''}
+              </div>
+            `;
+          }
+          if (slot.kind === 'teacher') {
+            return `
+              <div class="seat-slot teacher-occ" title="مدرس: ${slot.item.name}">
+                <span class="seat-name">${slot.item.name.replace('أ. ', '').split(' ')[0]}</span>
+                ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('teacher', ${slot.item.id})">✕</button>` : ''}
+              </div>
+            `;
+          }
+          if (slot.kind === 'split') {
+            const goHtml = slot.go
+              ? `<div class="seat-half ${slot.go.kind === 'teacher' ? 'filled-tch' : 'filled-stu'}">
+                   <span class="seat-name">${slot.go.item.name.replace('أ. ', '').split(' ')[0]} (ذهاب)</span>
+                   ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('${slot.go.kind}', ${slot.go.item.id})">✕</button>` : ''}
+                 </div>`
+              : `<div class="seat-half open" ondragover="event.preventDefault()" ondrop="handleDropOnSeat(event, ${b.id}, ${idx})">ذهاب متاح</div>`;
+
+            const retHtml = slot.return
+              ? `<div class="seat-half ${slot.return.kind === 'teacher' ? 'filled-tch' : 'filled-stu'}">
+                   <span class="seat-name">${slot.return.item.name.replace('أ. ', '').split(' ')[0]} (عودة)</span>
+                   ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('${slot.return.kind}', ${slot.return.item.id})">✕</button>` : ''}
+                 </div>`
+              : `<div class="seat-half open" ondragover="event.preventDefault()" ondrop="handleDropOnSeat(event, ${b.id}, ${idx})">عودة متاحة</div>`;
+
+            return `<div class="seat-split-box">${goHtml}${retHtml}</div>`;
+          }
           return `
-            <div class="seat-slot student-occ" title="طالب: ${slot.item.name}">
-              <span class="seat-name">${slot.item.name.split(' ')[0]}</span>
-              ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('student', ${slot.item.id})">✕</button>` : ''}
+            <div class="seat-slot empty" ondragover="event.preventDefault()" ondrop="handleDropOnSeat(event, ${b.id}, ${idx})">
+              ${idx + 1}
             </div>
           `;
-        }
-        if (slot.kind === 'teacher') {
-          return `
-            <div class="seat-slot teacher-occ" title="مدرس: ${slot.item.name}">
-              <span class="seat-name">${slot.item.name.replace('أ. ', '').split(' ')[0]}</span>
-              ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('teacher', ${slot.item.id})">✕</button>` : ''}
-            </div>
-          `;
-        }
-        if (slot.kind === 'split') {
-          const goHtml = slot.go
-            ? `<div class="seat-half ${slot.go.kind === 'teacher' ? 'filled-tch' : 'filled-stu'}">
-                 <span class="seat-name">${slot.go.item.name.replace('أ. ', '').split(' ')[0]} (ذهاب)</span>
-                 ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('${slot.go.kind}', ${slot.go.item.id})">✕</button>` : ''}
-               </div>`
-            : `<div class="seat-half open" ondragover="event.preventDefault()" ondrop="handleDropOnSeat(event, ${b.id}, ${idx})">ذهاب متاح</div>`;
+        };
 
-          const retHtml = slot.return
-            ? `<div class="seat-half ${slot.return.kind === 'teacher' ? 'filled-tch' : 'filled-stu'}">
-                 <span class="seat-name">${slot.return.item.name.replace('أ. ', '').split(' ')[0]} (عودة)</span>
-                 ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('${slot.return.kind}', ${slot.return.item.id})">✕</button>` : ''}
-               </div>`
-            : `<div class="seat-half open" ondragover="event.preventDefault()" ondrop="handleDropOnSeat(event, ${b.id}, ${idx})">عودة متاحة</div>`;
+        const supBadges = bSups.map(s => `
+          <span style="background:#fef2f2; color:#991b1b; border:1px solid #fecaca; padding:1px 6px; border-radius:4px;">
+            ${s.name} ${canDrag ? `<button onclick="ejectSeat('supervisor', ${s.id})" style="border:none; background:none; color:#c8102e; font-weight:900; cursor:pointer;">✕</button>` : ''}
+          </span>
+        `).join(' ') || 'بدون مشرفة';
 
-          return `<div class="seat-split-box">${goHtml}${retHtml}</div>`;
-        }
-        return `
-          <div class="seat-slot empty" ondragover="event.preventDefault()" ondrop="handleDropOnSeat(event, ${b.id}, ${idx})">
-            ${idx + 1}
+        const overflowHtml = overflow.length > 0 ? `
+          <div class="extra-overflow-box">
+            ${overflow.map(o => `
+              <div class="seat-slot ${o.kind === 'teacher' ? 'teacher-occ' : 'student-occ'}">
+                <span class="seat-name">+ ${o.item.name}</span>
+                ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('${o.kind}', ${o.item.id})">✕</button>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        ` : '';
+
+        const cabinHtml = parseInt(b.cap) === 7 ? `
+          <div class="bus-cabin">
+            <div class="seat-row-3"><div class="driver-seat">السائق</div>${renderSeat(0)}${renderSeat(1)}</div>
+            <div class="seat-row-3">${renderSeat(2)}${renderSeat(3)}${renderSeat(4)}</div>
+            <div class="seat-row-3">${renderSeat(5)}${renderSeat(6)}<div></div></div>
+            ${overflowHtml}
+          </div>
+        ` : `
+          <div class="bus-cabin">
+            <div class="seat-row-3"><div class="driver-seat">السائق</div>${renderSeat(0)}${renderSeat(1)}</div>
+            <div class="seat-row-3">${renderSeat(2)}${renderSeat(3)}${renderSeat(4)}</div>
+            <div class="seat-row-3">${renderSeat(5)}${renderSeat(6)}${renderSeat(7)}</div>
+            <div class="seat-row-3">${renderSeat(8)}${renderSeat(9)}${renderSeat(10)}</div>
+            <div class="seat-row-3">${renderSeat(11)}${renderSeat(12)}${renderSeat(13)}</div>
+            ${overflowHtml}
           </div>
         `;
-      };
 
-      const supBadges = bSups.map(s => `
-        <span style="background:#fef2f2; color:#991b1b; border:1px solid #fecaca; padding:1px 6px; border-radius:4px;">
-          ${s.name} ${canDrag ? `<button onclick="ejectSeat('supervisor', ${s.id})" style="border:none; background:none; color:#c8102e; font-weight:900; cursor:pointer;">✕</button>` : ''}
-        </span>
-      `).join(' ') || 'بدون مشرفة';
-
-      const overflowHtml = overflow.length > 0 ? `
-        <div class="extra-overflow-box">
-          ${overflow.map(o => `
-            <div class="seat-slot ${o.kind === 'teacher' ? 'teacher-occ' : 'student-occ'}">
-              <span class="seat-name">+ ${o.item.name}</span>
-              ${canDrag ? `<button class="seat-eject" onclick="ejectSeat('${o.kind}', ${o.item.id})">✕</button>` : ''}
+        return `
+          <div class="bus-card" id="bus-card-${b.id}"
+               ondragover="handleDragOver(event, ${b.id})"
+               ondragleave="handleDragLeave(${b.id})"
+               ondrop="handleDropOnSeat(event, ${b.id}, null)">
+            <div class="bus-card-head">
+              <div class="bus-route-line" title="${b.route}">${b.route}</div>
+              <div class="bus-badge-row">
+                <span class="bus-circle-badge">${b.num}</span>
+                <span style="font-size:11px; color:#cbd5e1;">${b.plate}</span>
+                <span class="cap-badge ${isOver ? 'over' : ''}">${effectiveSeats} / ${b.cap}</span>
+              </div>
             </div>
-          `).join('')}
-        </div>
-      ` : '';
 
-      const cabinHtml = parseInt(b.cap) === 7 ? `
-        <div class="bus-cabin">
-          <div class="seat-row-3"><div class="driver-seat">السائق</div>${renderSeat(0)}${renderSeat(1)}</div>
-          <div class="seat-row-3">${renderSeat(2)}${renderSeat(3)}${renderSeat(4)}</div>
-          <div class="seat-row-3">${renderSeat(5)}${renderSeat(6)}<div></div></div>
-          ${overflowHtml}
-        </div>
-      ` : `
-        <div class="bus-cabin">
-          <div class="seat-row-3"><div class="driver-seat">السائق</div>${renderSeat(0)}${renderSeat(1)}</div>
-          <div class="seat-row-3">${renderSeat(2)}${renderSeat(3)}${renderSeat(4)}</div>
-          <div class="seat-row-3">${renderSeat(5)}${renderSeat(6)}${renderSeat(7)}</div>
-          <div class="seat-row-3">${renderSeat(8)}${renderSeat(9)}${renderSeat(10)}</div>
-          <div class="seat-row-3">${renderSeat(11)}${renderSeat(12)}${renderSeat(13)}</div>
-          ${overflowHtml}
-        </div>
-      `;
-
-      return `
-        <div class="bus-card" id="bus-card-${b.id}"
-             ondragover="handleDragOver(event, ${b.id})"
-             ondragleave="handleDragLeave(${b.id})"
-             ondrop="handleDropOnSeat(event, ${b.id}, null)">
-          <div class="bus-card-head">
-            <div class="bus-head-top">
-              <strong>${b.num} — ${b.route}</strong>
-              <span class="cap-badge ${isOver ? 'over' : ''}">${effectiveSeats} / ${b.cap}</span>
+            <div class="bus-sub-bar">
+              <span>السائق: <strong>${b.driver}</strong></span>
+              <span>المشرفة: ${supBadges}</span>
             </div>
-            <div style="font-size:11px; color:#cbd5e1;">${b.plate}</div>
-          </div>
 
-          <div class="bus-sub-bar">
-            <span>السائق: <strong>${b.driver}</strong></span>
-            <span>المشرفة: ${supBadges}</span>
+            ${isOver ? `<div class="over-warning">تنبيه: يوجد زيادة (${extraCount}) مقعد عن السعة (${b.cap})</div>` : ''}
+            ${cabinHtml}
           </div>
-
-          ${isOver ? `<div class="over-warning">تنبيه: يوجد زيادة (${extraCount}) مقعد عن السعة (${b.cap})</div>` : ''}
-          ${cabinHtml}
-        </div>
-      `;
-    }).join('');
+        `;
+      }).join('');
+    }
 
     document.getElementById('busesTableBody').innerHTML = shBuses.map(b => `
       <tr>
