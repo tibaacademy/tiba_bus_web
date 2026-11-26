@@ -125,170 +125,58 @@
     text-align: center;
     color: #ffffff;
     border-bottom: 4px solid var(--accent);
-    position: relative;
   }
 
   .login-body { padding: 24px; }
 
-  /* Patterned Brand Header */
+  /* Header Layout: User & Menu on One Side, Giant TIBA LANGUAGE ACADEMY in Center-Left */
   .app-header {
     background: var(--header-bg);
     color: #ffffff;
-    padding: 14px 22px;
+    padding: 14px 24px;
     border-radius: 14px;
     border-bottom: 4px solid var(--accent);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 16px;
     box-shadow: var(--shadow);
     margin-bottom: 14px;
-    position: relative;
   }
 
-  .brand-wrapper { display: flex; align-items: center; gap: 16px; }
-
-  .school-logo-circle {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: #ffffff;
-    padding: 3px;
-    border: 3px solid var(--accent);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  /* User & Menu Stacked Column */
+  .user-control-stack {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-  .school-logo-circle img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-
-  /* Decorative Geometric Pattern Card around TIBA LANGUAGE ACADEMY & Slogan */
-  .brand-pattern-card {
-    background-color: #ffffff;
-    background-image:
-      radial-gradient(rgba(11, 34, 64, 0.06) 1.5px, transparent 1.5px),
-      radial-gradient(rgba(200, 16, 46, 0.05) 1.5px, #ffffff 1.5px);
-    background-size: 18px 18px;
-    background-position: 0 0, 9px 9px;
-    padding: 9px 22px;
-    border-radius: 12px;
-    border: 2px solid rgba(255,255,255,0.85);
-    border-inline-start: 6px solid #c8102e;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.22);
-    text-align: center;
-  }
-
-  .brand-pattern-card h1 {
-    font-size: 25px;
-    font-weight: 900;
-    color: #c8102e;
-    letter-spacing: 0.8px;
-    line-height: 1.15;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-  }
-
-  .brand-pattern-card .slogan-line {
-    display: inline-block;
-    margin-top: 4px;
-    padding-top: 3px;
-    border-top: 1.5px dashed #0b2240;
-    font-size: 12.5px;
-    font-weight: 800;
-    color: #0b2240;
-    letter-spacing: 1.4px;
-  }
-
-  /* Header Controls: Shift Pills + Unified Dropdown + User Profile */
-  .header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-  .shift-pills {
-    display: flex;
-    background: rgba(255, 255, 255, 0.14);
-    padding: 4px;
-    border-radius: 9px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-  }
-  .shift-pill {
-    padding: 6px 15px;
-    border: none;
-    background: transparent;
-    color: #e2e8f0;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 800;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .shift-pill.active { background: var(--accent); color: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
-
-  /* Unified Dropdown Menu */
-  .quick-dropdown { position: relative; display: inline-block; }
-  .dropdown-trigger {
-    background: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 7px 14px;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .dropdown-trigger:hover { background: rgba(255, 255, 255, 0.25); border-color: var(--accent); }
-
-  .dropdown-panel {
-    position: absolute;
-    top: calc(100% + 6px);
-    inset-inline-end: 0;
-    min-width: 220px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    padding: 6px;
-    z-index: 999;
-    display: none;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
+    align-items: flex-start;
   }
-  .dropdown-panel.open { display: flex; }
 
-  .drop-item {
-    width: 100%;
-    text-align: start;
-    background: transparent;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-main);
-    cursor: pointer;
+  .user-top-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 8px;
   }
-  .drop-item:hover { background: var(--bg-subtle); color: var(--accent); }
 
-  /* User Profile Chip with Clickable Photo Upload */
+  .user-bottom-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Profile Chip */
   .profile-chip {
     display: flex;
     align-items: center;
     gap: 8px;
     background: rgba(255, 255, 255, 0.14);
     border: 1px solid rgba(255, 255, 255, 0.28);
-    padding: 4px 12px 4px 6px;
+    padding: 4px 14px 4px 6px;
     border-radius: 25px;
     color: #ffffff;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 800;
   }
   .profile-avatar-btn {
@@ -311,7 +199,7 @@
     content: "📷";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.55);
+    background: rgba(0,0,0,0.6);
     color: #fff;
     font-size: 13px;
     display: flex;
@@ -319,10 +207,169 @@
     justify-content: center;
   }
 
-  /* Navigation Bar */
+  /* Shutdown Power Icon Button */
+  .shutdown-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(200, 16, 46, 0.85);
+    border: 1.5px solid #fca5a5;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.2s;
+  }
+  .shutdown-btn:hover { background: #dc2626; transform: scale(1.06); }
+
+  /* Shift Pills */
+  .shift-pills {
+    display: flex;
+    background: rgba(255, 255, 255, 0.14);
+    padding: 3px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+  .shift-pill {
+    padding: 5px 14px;
+    border: none;
+    background: transparent;
+    color: #e2e8f0;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 800;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .shift-pill.active { background: var(--accent); color: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+
+  /* Unified Menu Dropdown */
+  .quick-dropdown { position: relative; display: inline-block; }
+  .dropdown-trigger {
+    background: #ffffff;
+    color: #0b2240;
+    border: 2px solid var(--accent);
+    padding: 5px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .dropdown-trigger:hover { background: #f8fafc; }
+
+  .dropdown-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    inset-inline-start: 0;
+    min-width: 245px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+    padding: 6px;
+    z-index: 999;
+    display: none;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .dropdown-panel.open { display: flex; }
+
+  .drop-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 4px 0;
+  }
+
+  .drop-item {
+    width: 100%;
+    text-align: start;
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .drop-item:hover { background: var(--bg-subtle); color: var(--accent); }
+
+  /* Giant Brand Wrapper occupying wide space in Center-Left */
+  .brand-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    min-width: 320px;
+  }
+
+  .school-logo-circle {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    background: #ffffff;
+    padding: 3px;
+    border: 3px solid var(--accent);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .school-logo-circle img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+
+  .brand-pattern-card {
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(rgba(11, 34, 64, 0.06) 1.5px, transparent 1.5px),
+      radial-gradient(rgba(200, 16, 46, 0.05) 1.5px, #ffffff 1.5px);
+    background-size: 18px 18px;
+    background-position: 0 0, 9px 9px;
+    padding: 12px 34px;
+    border-radius: 14px;
+    border: 2px solid rgba(255,255,255,0.9);
+    border-inline-start: 7px solid #c8102e;
+    border-inline-end: 7px solid #0b2240;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.24);
+    text-align: center;
+  }
+
+  .brand-pattern-card h1 {
+    font-size: 31px;
+    font-weight: 900;
+    color: #c8102e;
+    letter-spacing: 1px;
+    line-height: 1.15;
+  }
+
+  .brand-pattern-card .slogan-line {
+    display: inline-block;
+    margin-top: 5px;
+    padding-top: 4px;
+    border-top: 1.5px dashed #0b2240;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #0b2240;
+    letter-spacing: 1.8px;
+  }
+
+  /* Navigation Bar (Core Operational Tabs Only) */
   .nav-bar {
     display: flex;
-    gap: 5px;
+    gap: 6px;
     background: var(--bg-surface);
     padding: 7px;
     border-radius: 10px;
@@ -334,13 +381,13 @@
   }
   .nav-tab {
     flex: 1;
-    min-width: 108px;
-    padding: 9px 9px;
+    min-width: 125px;
+    padding: 10px 12px;
     border: 1px solid transparent;
     background: transparent;
     color: var(--text-muted);
     font-family: inherit;
-    font-size: 12.5px;
+    font-size: 13.5px;
     font-weight: 700;
     border-radius: 7px;
     cursor: pointer;
@@ -349,7 +396,6 @@
   }
   .nav-tab:hover { background: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color); }
   .nav-tab.active { background: var(--primary); color: #ffffff; }
-  .nav-tab.roster-tab.active { background: var(--accent); color: #ffffff; }
 
   /* Interactive Bus Board Layout */
   .board-layout {
@@ -651,7 +697,6 @@
     font-weight: 600;
   }
 
-  /* Granular Permissions Matrix Table */
   .perm-matrix {
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -661,6 +706,20 @@
   .perm-matrix th { background: #334155; font-size: 12px; padding: 8px 10px; }
   .perm-matrix td { font-size: 12.5px; padding: 7px 10px; }
   .perm-check { width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent); vertical-align: middle; margin-inline-end: 5px; }
+
+  .shift-perm-box {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    font-weight: 800;
+  }
 
   .phone-flex { display: flex; gap: 6px; align-items: center; }
   .mini-add-btn {
@@ -781,7 +840,7 @@
   }
 </style>
 </head>
-<body onclick="closeQuickMenu(event)">
+<body onclick="closeQuickMenu()">
 
 <div id="customWatermark"></div>
 <input type="file" id="avatarFileInput" accept="image/*" class="hidden" onchange="uploadUserAvatar(event)">
@@ -790,9 +849,9 @@
 <div id="loginScreen" class="login-wrapper">
   <div class="login-box">
     <div class="login-head">
-      <div class="school-logo-circle" style="width:82px; height:82px; margin:0 auto 14px auto;" id="loginLogoHolder"></div>
-      <div class="brand-pattern-card" style="display:inline-block;">
-        <h1>TIBA LANGUAGE ACADEMY</h1>
+      <div class="school-logo-circle" style="width:84px; height:84px; margin:0 auto 14px auto;" id="loginLogoHolder"></div>
+      <div class="brand-pattern-card" style="display:inline-block; padding:10px 20px;">
+        <h1 style="font-size:22px;">TIBA LANGUAGE ACADEMY</h1>
         <span class="slogan-line">A SCHOOL... TO RELY ON</span>
       </div>
     </div>
@@ -814,7 +873,72 @@
 <!-- ==================== MAIN APPLICATION ==================== -->
 <div id="mainApp" class="container hidden">
   <header class="app-header">
-    <!-- Left/Right Brand Area -->
+    <!-- User Profile + Shutdown Icon + Shifts + Menu Dropdown -->
+    <div class="user-control-stack">
+      <div class="user-top-row">
+        <div class="profile-chip">
+          <div class="profile-avatar-btn" onclick="triggerAvatarUpload()" title="اضغط لرفع صورتك الشخصية" id="userAvatarCircle">
+            <span>MS</span>
+          </div>
+          <span id="activeUserName">Mahmoud Salah</span>
+        </div>
+        <button class="shutdown-btn" onclick="doLogout()" title="تسجيل الخروج">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+            <line x1="12" y1="2" x2="12" y2="12"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="user-bottom-row">
+        <div class="shift-pills" id="shiftPillsContainer">
+          <button class="shift-pill" id="pill-KG" onclick="setShift('KG')">KG</button>
+          <button class="shift-pill active" id="pill-Junior" onclick="setShift('Junior')">Junior</button>
+          <button class="shift-pill" id="pill-Teachers" onclick="setShift('Teachers')">Teachers</button>
+        </div>
+
+        <!-- Unified "Menu" Dropdown right under Mahmoud Salah -->
+        <div class="quick-dropdown" onclick="event.stopPropagation()">
+          <button class="dropdown-trigger" onclick="toggleQuickMenu()">
+            <span>Menu</span>
+            <span>▾</span>
+          </button>
+          <div class="dropdown-panel" id="quickMenuPanel">
+            <button class="drop-item" id="menu-reports" onclick="openSectionFromMenu('reports')">
+              <span>التقارير والطباعة (A4 / Excel / PDF)</span>
+              <strong>📊</strong>
+            </button>
+            <button class="drop-item" id="menu-archive" onclick="openSectionFromMenu('archive')">
+              <span>الأرشيف (Archive)</span>
+              <strong>🗂️</strong>
+            </button>
+            <button class="drop-item" id="menu-users" onclick="openSectionFromMenu('users')">
+              <span>إدارة المستخدمين والصلاحيات</span>
+              <strong>👥</strong>
+            </button>
+            <button class="drop-item" id="menu-theme" onclick="openSectionFromMenu('theme')">
+              <span>إعدادات الثيم والشعار</span>
+              <strong>🎨</strong>
+            </button>
+            <div class="drop-divider"></div>
+            <button class="drop-item" onclick="toggleLang()">
+              <span>اللغة (عربي / English)</span>
+              <strong id="langIndicator">EN</strong>
+            </button>
+            <button class="drop-item" onclick="toggleTheme()">
+              <span>الوضع الليلي / النهاري</span>
+              <strong id="modeIndicator">🌙</strong>
+            </button>
+            <button class="drop-item" id="menu-quick-color" onclick="cycleQuickTheme()">
+              <span>تبديل لون الواجهة</span>
+              <strong>🖌️</strong>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giant TIBA LANGUAGE ACADEMY & Slogan in Center-Left -->
     <div class="brand-wrapper">
       <div class="school-logo-circle" id="headerLogoHolder"></div>
       <div class="brand-pattern-card">
@@ -822,64 +946,16 @@
         <span class="slogan-line">A SCHOOL... TO RELY ON</span>
       </div>
     </div>
-
-    <!-- Controls: KG / Junior / Teachers + Unified Settings Dropdown + User Avatar -->
-    <div class="header-controls">
-      <div class="shift-pills">
-        <button class="shift-pill" id="pill-KG" onclick="setShift('KG')">KG</button>
-        <button class="shift-pill active" id="pill-Junior" onclick="setShift('Junior')">Junior</button>
-        <button class="shift-pill" id="pill-Teachers" onclick="setShift('Teachers')">Teachers</button>
-      </div>
-
-      <!-- Unified Dropdown Menu for Language, Dark Mode, Theme, Print -->
-      <div class="quick-dropdown" onclick="event.stopPropagation()">
-        <button class="dropdown-trigger" onclick="toggleQuickMenu()">
-          <span>خيارات العرض والطباعة</span>
-          <span>▾</span>
-        </button>
-        <div class="dropdown-panel" id="quickMenuPanel">
-          <button class="drop-item" onclick="toggleLang()">
-            <span>اللغة (عربي / English)</span>
-            <strong id="langIndicator">EN</strong>
-          </button>
-          <button class="drop-item" onclick="toggleTheme()">
-            <span>الوضع الليلي / النهاري</span>
-            <strong id="modeIndicator">🌙</strong>
-          </button>
-          <button class="drop-item" onclick="cycleQuickTheme()">
-            <span>تبديل لون الواجهة</span>
-            <strong>🎨</strong>
-          </button>
-          <button class="drop-item" onclick="quickPrintAction()">
-            <span>طباعة الكشف (A4)</span>
-            <strong>🖨️</strong>
-          </button>
-        </div>
-      </div>
-
-      <!-- User Profile with Uploadable Photo -->
-      <div class="profile-chip">
-        <div class="profile-avatar-btn" onclick="triggerAvatarUpload()" title="اضغط لتغيير الصورة الشخصية" id="userAvatarCircle">
-          <span>MS</span>
-        </div>
-        <span id="activeUserName">Mahmoud Salah</span>
-      </div>
-
-      <button class="ctrl-btn" style="background:rgba(200,16,46,0.4); border-color:#f87171;" onclick="doLogout()">خروج</button>
-    </div>
   </header>
 
-  <!-- Navigation Tabs (Dynamically Controlled by Permissions) -->
+  <!-- Core Operational Navigation Bar -->
   <nav class="nav-bar" id="mainNavBar">
     <button class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard', this)">لوحة التوزيع (Bus Board)</button>
     <button class="nav-tab" data-tab="buses" onclick="switchTab('buses', this)">1. الباصات والسائقين</button>
     <button class="nav-tab" data-tab="students" onclick="switchTab('students', this)">2. الطلبة</button>
     <button class="nav-tab" data-tab="supervisors" onclick="switchTab('supervisors', this)">3. المشرفات</button>
     <button class="nav-tab" data-tab="teachers" onclick="switchTab('teachers', this)">4. المدرسين والإداريين</button>
-    <button class="nav-tab" data-tab="archive" onclick="switchTab('archive', this)">الأرشيف (Archive)</button>
     <button class="nav-tab" data-tab="logs" onclick="switchTab('logs', this)">سجل الحركات</button>
-    <button class="nav-tab" data-tab="settings" id="nav-settings" onclick="switchTab('settings', this)">المستخدمين والثيم (Super Admin)</button>
-    <button class="nav-tab roster-tab" data-tab="reports" onclick="switchTab('reports', this)">التقارير والطباعة (A4 / Excel)</button>
   </nav>
 
   <!-- TAB 0: INTERACTIVE BUS BOARD -->
@@ -1218,23 +1294,7 @@
     </div>
   </div>
 
-  <!-- TAB 5: ARCHIVE -->
-  <div id="tab-archive" class="tab-content hidden">
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">الأرشيف (العناصر المحذوفة القابلة للاستعادة)</div>
-      </div>
-      <div class="sub-tabs">
-        <button class="sub-tab-btn active" onclick="switchArchiveSub('students', this)">أرشيف الطلبة</button>
-        <button class="sub-tab-btn" onclick="switchArchiveSub('supervisors', this)">أرشيف المشرفات</button>
-        <button class="sub-tab-btn" onclick="switchArchiveSub('teachers', this)">أرشيف المدرسين</button>
-        <button class="sub-tab-btn" onclick="switchArchiveSub('buses', this)">أرشيف الباصات</button>
-      </div>
-      <div class="table-wrap" id="archiveTableContainer"></div>
-    </div>
-  </div>
-
-  <!-- TAB 6: AUDIT LOG -->
+  <!-- TAB 5: AUDIT LOG -->
   <div id="tab-logs" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
@@ -1257,11 +1317,27 @@
     </div>
   </div>
 
-  <!-- TAB 7: SUPER ADMIN SETTINGS (GRANULAR USER PERMISSIONS + EXCLUSIVE THEME STUDIO) -->
-  <div id="tab-settings" class="tab-content hidden">
+  <!-- MENU SECTION A: ARCHIVE -->
+  <div id="tab-archive" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">إدارة المستخدمين وتحديد الصلاحيات التفصيلية لكل تبويب (Super Admin Only)</div>
+        <div class="panel-title">الأرشيف (العناصر المحذوفة القابلة للاستعادة)</div>
+      </div>
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchArchiveSub('students', this)">أرشيف الطلبة</button>
+        <button class="sub-tab-btn" onclick="switchArchiveSub('supervisors', this)">أرشيف المشرفات</button>
+        <button class="sub-tab-btn" onclick="switchArchiveSub('teachers', this)">أرشيف المدرسين</button>
+        <button class="sub-tab-btn" onclick="switchArchiveSub('buses', this)">أرشيف الباصات</button>
+      </div>
+      <div class="table-wrap" id="archiveTableContainer"></div>
+    </div>
+  </div>
+
+  <!-- MENU SECTION B: USERS MANAGEMENT (SEPARATE FROM THEME) -->
+  <div id="tab-users" class="tab-content hidden">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">إدارة المستخدمين وتحديد الصلاحيات والمراحل (Super Admin Only)</div>
       </div>
       <input type="hidden" id="editUserId">
       <div class="form-grid">
@@ -1278,13 +1354,21 @@
           <input type="text" id="usrPass" class="form-control" placeholder="1234">
         </div>
         <div class="form-group">
-          <label>قوالب صلاحيات جاهزة (أو خصص بالأسفل)</label>
+          <label>قوالب صلاحيات سريعة</label>
           <select id="usrPreset" class="form-control" onchange="applyPermissionPreset(this.value)">
-            <option value="custom">تخصيص يدوي بالعلامات (Checkboxes)</option>
-            <option value="admin_all">أدمن كامل (مشاهدة وتعديل وتسكين)</option>
-            <option value="viewer_all">مشاهد فقط (View & Print Only)</option>
+            <option value="custom">تخصيص يدوي بالعلامات</option>
+            <option value="admin_all">أدمن كامل (KG + Junior)</option>
+            <option value="viewer_all">مشاهد فقط (KG + Junior)</option>
           </select>
         </div>
+      </div>
+
+      <!-- Shift Visibility Control for Each User -->
+      <div class="shift-perm-box">
+        <span>الأقسام المسموح للمستخدم برؤيتها:</span>
+        <label><input type="checkbox" class="perm-check" id="p_shift_kg" checked> KG</label>
+        <label><input type="checkbox" class="perm-check" id="p_shift_junior" checked> Junior</label>
+        <label><input type="checkbox" class="perm-check" id="p_shift_teachers"> Teachers (المدرسين)</label>
       </div>
 
       <!-- Granular Permissions Matrix -->
@@ -1330,7 +1414,7 @@
               <td><label><input type="checkbox" class="perm-check" id="p_tch_arch" checked> أرشفة</label></td>
             </tr>
             <tr>
-              <td>الأرشيف (Archive)</td>
+              <td>الأرشيف (في Menu)</td>
               <td><label><input type="checkbox" class="perm-check" id="p_arch_view" checked> مشاهدة الأرشيف</label></td>
               <td>—</td>
               <td><label><input type="checkbox" class="perm-check" id="p_arch_rest" checked> استعادة العناصر</label></td>
@@ -1342,9 +1426,9 @@
               <td>—</td>
             </tr>
             <tr>
-              <td>التقارير والطباعة (Reports)</td>
+              <td>التقارير والطباعة (في Menu)</td>
               <td><label><input type="checkbox" class="perm-check" id="p_rep_view" checked> مشاهدة التقارير</label></td>
-              <td><label><input type="checkbox" class="perm-check" id="p_rep_export" checked> طباعة وتصدير Excel</label></td>
+              <td><label><input type="checkbox" class="perm-check" id="p_rep_export" checked> طباعة وتصدير Excel / PDF</label></td>
               <td>—</td>
             </tr>
           </tbody>
@@ -1361,19 +1445,21 @@
               <th>الاسم</th>
               <th>اسم المستخدم</th>
               <th>كلمة المرور</th>
-              <th>نوع الحساب</th>
-              <th>إجراءات (تعديل الصلاحيات / Reset Password / حذف)</th>
+              <th>الأقسام المتاحة</th>
+              <th>إجراءات (تعديل / Reset Password / حذف)</th>
             </tr>
           </thead>
           <tbody id="usersTableBody"></tbody>
         </table>
       </div>
     </div>
+  </div>
 
-    <!-- Exclusive Super Admin Theme Studio -->
+  <!-- MENU SECTION C: SEPARATE THEME STUDIO (SUPER ADMIN ONLY) -->
+  <div id="tab-theme" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">تخصيص الثيم ورفع الشعار وصورة المبنى (خاص بالسوبر أدمن فقط)</div>
+        <div class="panel-title">إعدادات الثيم ورفع الشعار وصورة المبنى (Super Admin Only)</div>
       </div>
       <div class="form-grid">
         <div class="form-group">
@@ -1401,7 +1487,7 @@
     </div>
   </div>
 
-  <!-- TAB 8: REPORTS -->
+  <!-- MENU SECTION D: REPORTS & A4 / EXCEL / PDF EXPORT -->
   <div id="tab-reports" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header no-print">
@@ -1462,6 +1548,7 @@
   `);
 
   const ALL_PERMS_TRUE = {
+    shift_kg: true, shift_junior: true, shift_teachers: true,
     board_view: true, board_edit: true,
     buses_view: true, buses_edit: true, buses_arch: true,
     stu_view: true, stu_edit: true, stu_arch: true,
@@ -1479,14 +1566,15 @@
   let currentReport = 'master';
   let draggedItem = null;
 
-  let users = JSON.parse(localStorage.getItem('tiba_users_v2') || 'null') || [
+  let users = JSON.parse(localStorage.getItem('tiba_users_v3') || 'null') || [
     { id: 1, full: 'Mahmoud Salah', username: 'admin', pass: '1234', isSuper: true, perms: { ...ALL_PERMS_TRUE } },
-    { id: 2, full: 'View Only Account', username: 'view', pass: '1234', isSuper: false, perms: {
-      board_view: true, board_edit: false,
-      buses_view: true, buses_edit: false, buses_arch: false,
-      stu_view: true, stu_edit: false, stu_arch: false,
-      sup_view: true, sup_edit: false, sup_arch: false,
-      tch_view: true, tch_edit: false, tch_arch: false,
+    { id: 2, full: 'Junior & KG Staff', username: 'staff', pass: '1234', isSuper: false, perms: {
+      shift_kg: true, shift_junior: true, shift_teachers: false,
+      board_view: true, board_edit: true,
+      buses_view: true, buses_edit: true, buses_arch: false,
+      stu_view: true, stu_edit: true, stu_arch: false,
+      sup_view: true, sup_edit: true, sup_arch: false,
+      tch_view: true, tch_edit: true, tch_arch: false,
       arch_view: false, arch_rest: false,
       logs_view: false,
       rep_view: true, rep_export: true
@@ -1533,13 +1621,20 @@
     { time: '2026-11-26 09:00:00', user: 'Mahmoud Salah', shift: 'Junior', action: 'تسكين مقعد', details: 'تسكين الطالب عمر خالد إبراهيم في Bus 1' }
   ];
 
-  /* Quick Dropdown Controls */
+  /* Menu Controls */
   function toggleQuickMenu() {
     document.getElementById('quickMenuPanel').classList.toggle('open');
   }
-  function closeQuickMenu(e) {
+  function closeQuickMenu() {
     const panel = document.getElementById('quickMenuPanel');
     if (panel) panel.classList.remove('open');
+  }
+  function openSectionFromMenu(sectionId) {
+    closeQuickMenu();
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('#mainNavBar .nav-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + sectionId).classList.remove('hidden');
+    renderAll();
   }
   function cycleQuickTheme() {
     if (!currentUser || !currentUser.isSuper) return;
@@ -1547,15 +1642,6 @@
     const cur = localStorage.getItem('tiba_theme_variant') || 'default';
     const next = themes[(themes.indexOf(cur) + 1) % themes.length];
     setBrandTheme(next);
-  }
-  function quickPrintAction() {
-    const repBtn = document.querySelector('.nav-tab[data-tab="reports"]');
-    if (repBtn && !repBtn.classList.contains('hidden')) {
-      switchTab('reports', repBtn);
-      setTimeout(() => window.print(), 200);
-    } else {
-      window.print();
-    }
   }
 
   /* Brand, Avatar & Theme Studio */
@@ -1578,11 +1664,13 @@
   }
 
   function setBrandTheme(val) {
+    if (!currentUser || !currentUser.isSuper) return;
     localStorage.setItem('tiba_theme_variant', val);
     applyBrandAssets();
   }
 
   function uploadBrandImage(e, target) {
+    if (!currentUser || !currentUser.isSuper) return;
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
@@ -1596,11 +1684,13 @@
   }
 
   function updateWatermarkOpacity(val) {
+    if (!currentUser || !currentUser.isSuper) return;
     localStorage.setItem('tiba_wm_opacity', val);
     document.documentElement.style.setProperty('--wm-opacity', (parseInt(val) / 100).toString());
   }
 
   function resetBrandTheme() {
+    if (!currentUser || !currentUser.isSuper) return;
     localStorage.removeItem('tiba_custom_logo');
     localStorage.removeItem('tiba_custom_building');
     localStorage.removeItem('tiba_wm_opacity');
@@ -1634,7 +1724,7 @@
     }
   }
 
-  /* Authentication & Granular Permissions Enforcement */
+  /* Authentication & Permissions Enforcement */
   function hasPerm(key) {
     if (!currentUser) return false;
     if (currentUser.isSuper) return true;
@@ -1656,17 +1746,27 @@
     document.getElementById('activeUserName').textContent = found.full;
     renderUserAvatar();
 
-    // Enforce Tab Visibility based on Permissions
+    // Enforce Shift Visibility (KG / Junior / Teachers)
+    const canKG = found.isSuper || hasPerm('shift_kg');
+    const canJun = found.isSuper || hasPerm('shift_junior');
+    const canTch = found.isSuper || hasPerm('shift_teachers');
+
+    document.getElementById('pill-KG').classList.toggle('hidden', !canKG);
+    document.getElementById('pill-Junior').classList.toggle('hidden', !canJun);
+    document.getElementById('pill-Teachers').classList.toggle('hidden', !canTch);
+
+    if (canJun) setShift('Junior');
+    else if (canKG) setShift('KG');
+    else if (canTch) setShift('Teachers');
+
+    // Enforce Core Nav Tab Visibility
     const tabMap = {
       dashboard: hasPerm('board_view'),
       buses: hasPerm('buses_view'),
       students: hasPerm('stu_view'),
       supervisors: hasPerm('sup_view'),
       teachers: hasPerm('tch_view'),
-      archive: hasPerm('arch_view'),
-      logs: hasPerm('logs_view'),
-      settings: found.isSuper,
-      reports: hasPerm('rep_view')
+      logs: hasPerm('logs_view')
     };
 
     let firstVisibleTab = null;
@@ -1676,6 +1776,13 @@
       btn.classList.toggle('hidden', !allowed);
       if (allowed && !firstVisibleTab) firstVisibleTab = btn;
     });
+
+    // Enforce Menu Items Visibility
+    document.getElementById('menu-reports').classList.toggle('hidden', !hasPerm('rep_view'));
+    document.getElementById('menu-archive').classList.toggle('hidden', !hasPerm('arch_view'));
+    document.getElementById('menu-users').classList.toggle('hidden', !found.isSuper);
+    document.getElementById('menu-theme').classList.toggle('hidden', !found.isSuper);
+    document.getElementById('menu-quick-color').classList.toggle('hidden', !found.isSuper);
 
     // Enforce Edit Form Visibility
     document.getElementById('unassignedSidebar').classList.toggle('hidden', !hasPerm('board_edit'));
@@ -1715,9 +1822,9 @@
 
   function switchTab(tabId, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('#mainNavBar .nav-tab').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + tabId).classList.remove('hidden');
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
     renderAll();
   }
 
@@ -1769,10 +1876,7 @@
         return true;
       }
       const freeIdx = slots.findIndex(s => s.kind === 'empty');
-      if (freeIdx > -1) {
-        slots[freeIdx] = { kind, item };
-        return true;
-      }
+      if (freeIdx > -1) { slots[freeIdx] = { kind, item }; return true; }
       overflow.push({ kind, item });
       return false;
     };
@@ -1849,14 +1953,14 @@
     renderAll();
   }
 
-  /* Granular User Permissions Management */
+  /* Granular User & Shift Permissions Management */
   const permKeys = Object.keys(ALL_PERMS_TRUE);
 
   function applyPermissionPreset(preset) {
     if (preset === 'admin_all') {
-      permKeys.forEach(k => document.getElementById('p_' + k).checked = true);
+      permKeys.forEach(k => document.getElementById('p_' + k).checked = (k !== 'shift_teachers'));
     } else if (preset === 'viewer_all') {
-      permKeys.forEach(k => document.getElementById('p_' + k).checked = k.endsWith('_view') || k === 'rep_export');
+      permKeys.forEach(k => document.getElementById('p_' + k).checked = (k === 'shift_kg' || k === 'shift_junior' || k.endsWith('_view') || k === 'rep_export'));
     }
   }
 
@@ -1878,7 +1982,7 @@
       users.push({ id: Date.now(), full, username, pass, isSuper: false, perms });
       recordLog('إضافة مستخدم', `إنشاء حساب جديد: ${full}`);
     }
-    localStorage.setItem('tiba_users_v2', JSON.stringify(users));
+    localStorage.setItem('tiba_users_v3', JSON.stringify(users));
     resetUserForm();
     renderUsers();
   }
@@ -1901,7 +2005,7 @@
     const newPass = prompt(`أدخل كلمة المرور الجديدة للمستخدم (${u.full}):`, '1234');
     if (newPass && newPass.trim()) {
       u.pass = newPass.trim();
-      localStorage.setItem('tiba_users_v2', JSON.stringify(users));
+      localStorage.setItem('tiba_users_v3', JSON.stringify(users));
       recordLog('Reset Password', `تغيير كلمة مرور ${u.full}`);
       renderUsers();
     }
@@ -1910,7 +2014,7 @@
   function deleteUser(id) {
     if (id === 1) return;
     users = users.filter(u => u.id !== id);
-    localStorage.setItem('tiba_users_v2', JSON.stringify(users));
+    localStorage.setItem('tiba_users_v3', JSON.stringify(users));
     renderUsers();
   }
 
@@ -1923,19 +2027,26 @@
   }
 
   function renderUsers() {
-    document.getElementById('usersTableBody').innerHTML = users.map(u => `
-      <tr>
-        <td>${u.full}</td>
-        <td>${u.username}</td>
-        <td><code>${u.pass}</code></td>
-        <td>${u.isSuper ? 'Super Admin (الرئيسي)' : 'مستخدم مخصص الصلاحيات'}</td>
-        <td>
-          <button class="action-btn edit-btn" onclick="editUser(${u.id})">تعديل الصلاحيات</button>
-          <button class="action-btn rest-btn" onclick="resetUserPassword(${u.id})">Reset Password</button>
-          ${!u.isSuper ? `<button class="action-btn arch-btn" onclick="deleteUser(${u.id})">حذف</button>` : ''}
-        </td>
-      </tr>
-    `).join('');
+    document.getElementById('usersTableBody').innerHTML = users.map(u => {
+      const shiftsList = [];
+      if (u.isSuper || (u.perms && u.perms.shift_kg)) shiftsList.push('KG');
+      if (u.isSuper || (u.perms && u.perms.shift_junior)) shiftsList.push('Junior');
+      if (u.isSuper || (u.perms && u.perms.shift_teachers)) shiftsList.push('Teachers');
+
+      return `
+        <tr>
+          <td>${u.full}</td>
+          <td>${u.username}</td>
+          <td><code>${u.pass}</code></td>
+          <td>${u.isSuper ? 'Super Admin (الكل)' : (shiftsList.join(' + ') || 'لا يوجد')}</td>
+          <td>
+            <button class="action-btn edit-btn" onclick="editUser(${u.id})">تعديل الصلاحيات</button>
+            <button class="action-btn rest-btn" onclick="resetUserPassword(${u.id})">Reset Password</button>
+            ${!u.isSuper ? `<button class="action-btn arch-btn" onclick="deleteUser(${u.id})">حذف</button>` : ''}
+          </td>
+        </tr>
+      `;
+    }).join('');
   }
 
   /* CRUD Buses, Students, Supervisors, Teachers */
@@ -2257,7 +2368,6 @@
         </div>
       ` : '';
 
-      // 7-Seat Microbus Layout vs 14-Seat Layout
       const cabinHtml = parseInt(b.cap) === 7 ? `
         <div class="bus-cabin">
           <div class="seat-row-3"><div class="driver-seat">السائق</div>${renderSeat(0)}${renderSeat(1)}</div>
@@ -2300,7 +2410,6 @@
       `;
     }).join('');
 
-    // Render Tables with Granular Action Buttons
     document.getElementById('busesTableBody').innerHTML = shBuses.map(b => `
       <tr>
         <td>${b.num}</td><td>${b.route}</td><td>${b.plate}</td><td>${b.cap} راكب</td><td>${b.driver}</td><td>${b.phone}</td>
@@ -2371,11 +2480,11 @@
     const container = document.getElementById('archiveTableContainer');
     if (archiveSubTab === 'students') {
       const list = students.filter(s => s.archived);
-      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>Grade</th><th>المرحلة</th><th>العنوان</th>${canRest ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
+      container.innerHTML = `<table><thead><tr><th>الاسم</th><th>Grade</th><th>القسم</th><th>العنوان</th>${canRest ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
         (list.map(s => `<tr><td>${s.name}</td><td>${s.grade}</td><td>${s.shift}</td><td>${s.addr}</td>${canRest ? `<td><button class="action-btn rest-btn" onclick="restoreItem('student', ${s.id})">استعادة</button></td>` : ''}</tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
     } else if (archiveSubTab === 'supervisors') {
       const list = supervisors.filter(s => s.archived);
-      container.innerHTML = `<table><thead><tr><th>اسم المشرفة</th><th>الهاتف</th><th>المرحلة</th>${canRest ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
+      container.innerHTML = `<table><thead><tr><th>اسم المشرفة</th><th>الهاتف</th><th>القسم</th>${canRest ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
         (list.map(s => `<tr><td>${s.name}</td><td>${s.phone}</td><td>${s.shift}</td>${canRest ? `<td><button class="action-btn rest-btn" onclick="restoreItem('supervisor', ${s.id})">استعادة</button></td>` : ''}</tr>`).join('') || `<tr><td colspan="4" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
     } else if (archiveSubTab === 'teachers') {
       const list = teachers.filter(t => t.archived);
@@ -2383,7 +2492,7 @@
         (list.map(t => `<tr><td>${t.name}</td><td>${t.dept}</td><td>${tripLabels[t.tripType || 'both']}</td><td>${t.phone}</td>${canRest ? `<td><button class="action-btn rest-btn" onclick="restoreItem('teacher', ${t.id})">استعادة</button></td>` : ''}</tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
     } else if (archiveSubTab === 'buses') {
       const list = buses.filter(b => b.archived);
-      container.innerHTML = `<table><thead><tr><th>الباص</th><th>الخط</th><th>السائق</th><th>المرحلة</th>${canRest ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
+      container.innerHTML = `<table><thead><tr><th>الباص</th><th>الخط</th><th>السائق</th><th>القسم</th>${canRest ? '<th>استعادة</th>' : ''}</tr></thead><tbody>` +
         (list.map(b => `<tr><td>${b.num}</td><td>${b.route}</td><td>${b.driver}</td><td>${b.shift}</td>${canRest ? `<td><button class="action-btn rest-btn" onclick="restoreItem('bus', ${b.id})">استعادة</button></td>` : ''}</tr>`).join('') || `<tr><td colspan="5" style="text-align:center;">الأرشيف فارغ</td></tr>`) + `</tbody></table>`;
     }
   }
@@ -2404,9 +2513,7 @@
 
         const stuRows = bStus.map((s, idx) => `
           <tr>
-            <td>${idx + 1}</td>
-            <td>${s.name}</td>
-            <td>${s.grade}</td>
+            <td>${idx + 1}</td><td>${s.name}</td><td>${s.grade}</td>
             <td>${tripLabels[s.tripType || 'both']} (${termLabels[s.termDuration || 'two_terms']})</td>
             <td>${s.addr}</td>
             <td>${s.fPhone1}${s.fPhone2 ? ' / ' + s.fPhone2 : ''}</td>
@@ -2417,14 +2524,8 @@
 
         const tchRows = bTchs.map((t, idx) => `
           <tr style="background:var(--tch-bg);">
-            <td>${bStus.length + idx + 1}</td>
-            <td>${t.name} (مدرس/إداري)</td>
-            <td>${t.dept}</td>
-            <td>${tripLabels[t.tripType || 'both']}</td>
-            <td>—</td>
-            <td>${t.phone}</td>
-            <td>—</td>
-            <td>—</td>
+            <td>${bStus.length + idx + 1}</td><td>${t.name} (مدرس/إداري)</td><td>${t.dept}</td>
+            <td>${tripLabels[t.tripType || 'both']}</td><td>—</td><td>${t.phone}</td><td>—</td><td>—</td>
           </tr>
         `).join('');
 
@@ -2433,10 +2534,8 @@
             <table style="margin-bottom:0;">
               <thead>
                 <tr>
-                  <th>الباص: ${b.num}</th>
-                  <th>خط السير: ${b.route}</th>
-                  <th>السائق: ${b.driver} (${b.phone})</th>
-                  <th>المشرفة: ${bSup}</th>
+                  <th>الباص: ${b.num}</th><th>خط السير: ${b.route}</th>
+                  <th>السائق: ${b.driver} (${b.phone})</th><th>المشرفة: ${bSup}</th>
                   <th>المقاعد: ${effectiveSeats} / ${b.cap}</th>
                 </tr>
               </thead>
@@ -2444,19 +2543,11 @@
             <table>
               <thead>
                 <tr style="background:#1e293b;">
-                  <th style="width:35px;">#</th>
-                  <th>الاسم بالكامل</th>
-                  <th>Grade / التخصص</th>
-                  <th>الاشتراك والمدة</th>
-                  <th>العنوان بالتفصيل</th>
-                  <th>تليفون الأب / الموظف</th>
-                  <th>تليفون الأم</th>
-                  <th>رقم إضافي</th>
+                  <th style="width:35px;">#</th><th>الاسم بالكامل</th><th>Grade / التخصص</th><th>الاشتراك والمدة</th>
+                  <th>العنوان بالتفصيل</th><th>تليفون الأب / الموظف</th><th>تليفون الأم</th><th>رقم إضافي</th>
                 </tr>
               </thead>
-              <tbody>
-                ${(stuRows + tchRows) || `<tr><td colspan="8" style="text-align:center;">لا يوجد ركاب مسكنين على هذا الخط</td></tr>`}
-              </tbody>
+              <tbody>${(stuRows + tchRows) || `<tr><td colspan="8" style="text-align:center;">لا يوجد ركاب مسكنين على هذا الخط</td></tr>`}</tbody>
             </table>
           </div>
         `;
