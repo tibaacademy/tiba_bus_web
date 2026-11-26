@@ -112,7 +112,7 @@
   }
   .login-box {
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-top: 5px solid var(--accent);
@@ -306,14 +306,14 @@
     z-index: 1;
   }
 
-  /* Pure Logo with NO white circle/frame/effect */
+  /* Logo only: outer navy circle edge, NO white background/square/frame/effect */
   .clean-logo-img {
     width: 92px;
     height: 92px;
-    object-fit: contain;
-    background: none;
+    border-radius: 50%;
+    object-fit: cover;
+    background: transparent;
     border: none;
-    border-radius: 0;
     box-shadow: none;
     filter: none;
     mix-blend-mode: normal;
@@ -326,11 +326,12 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* TIBA Language Academy on top, Transportation System right-aligned under Academy with normal spacing */
+  /* Line 1: TIBA Language Academy
+     Line 2 (same line): A SCHOOL... TO RELY ON (under TIBA on right) + Transportation System (under Language Academy) */
   .brand-title-stack {
     display: inline-flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: stretch;
     direction: ltr;
   }
 
@@ -348,8 +349,26 @@
     white-space: nowrap;
   }
 
-  .transport-right-aligned {
+  .second-line-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
     margin-top: 3px;
+  }
+
+  .slogan-under-tiba {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: normal;
+    text-align: left;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
+    white-space: nowrap;
+  }
+
+  .transport-under-academy {
     font-size: 13px;
     font-weight: 700;
     color: #fde68a;
@@ -901,7 +920,10 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin-bottom:12px;" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title" style="font-size:28px;">TIBA Language Academy</h1>
-        <span class="transport-right-aligned" style="font-size:11px;">Transportation System</span>
+        <div class="second-line-row" style="gap:8px; margin-top:3px;">
+          <span class="slogan-under-tiba" style="font-size:8px;">A SCHOOL... TO RELY ON</span>
+          <span class="transport-under-academy" style="font-size:10.5px;">Transportation System</span>
+        </div>
       </div>
     </div>
     <div class="login-body">
@@ -993,7 +1015,10 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <span class="transport-right-aligned">Transportation System</span>
+        <div class="second-line-row">
+          <span class="slogan-under-tiba">A SCHOOL... TO RELY ON</span>
+          <span class="transport-under-academy">Transportation System</span>
+        </div>
       </div>
     </div>
   </header>
@@ -1672,9 +1697,7 @@
     }
   }
 
-  // Auto-rotate header images every 30 seconds
   setInterval(() => {
-    if (localStorage.getItem('tiba_manual_header_lock') === '1') return;
     const slides = getAllHeaderSlides();
     if (slides.length > 1) {
       headerSlideIndex = (headerSlideIndex + 1) % slides.length;
