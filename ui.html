@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tiba Language Academy — Transportation System</title>
+<title>TIBA Language Academy — Transportation System</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap');
 
@@ -112,7 +112,7 @@
   }
   .login-box {
     width: 100%;
-    max-width: 520px;
+    max-width: 500px;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-top: 5px solid var(--accent);
@@ -153,6 +153,7 @@
     position: relative;
     overflow: visible !important;
     z-index: 5000;
+    transition: background-image 0.6s ease;
   }
 
   .user-control-stack {
@@ -294,24 +295,26 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 24px;
-    min-width: 360px;
+    gap: 20px;
+    min-width: 340px;
     background: rgba(7, 16, 30, 0.14);
     backdrop-filter: blur(3px);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 10px 26px;
+    padding: 10px 24px;
     border-radius: 14px;
     position: relative;
     z-index: 1;
   }
 
+  /* Pure Logo with NO white circle/frame/effect */
   .clean-logo-img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: transparent;
+    width: 92px;
+    height: 92px;
+    object-fit: contain;
+    background: none;
     border: none;
+    border-radius: 0;
+    box-shadow: none;
     filter: none;
     mix-blend-mode: normal;
     flex-shrink: 0;
@@ -323,17 +326,16 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* Line 1: Tiba Language Academy
-     Line 2: Transportation System (aligned to 'Tiba Language' on left) + A School... To Rely On (aligned to 'Academy' on far right) */
+  /* TIBA Language Academy on top, Transportation System right-aligned under Academy with normal spacing */
   .brand-title-stack {
     display: inline-flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-end;
     direction: ltr;
   }
 
   .main-academy-title {
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 900;
     background: linear-gradient(110deg, #e11d48 0%, #ff4d6d 35%, #ffc2d1 50%, #ff4d6d 65%, #be123c 100%);
     background-size: 220% auto;
@@ -346,35 +348,13 @@
     white-space: nowrap;
   }
 
-  .second-line-row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-    margin-top: 4px;
-  }
-
-  .transport-left-span {
-    width: 61.5%;
-    font-size: 16px;
-    font-weight: 900;
+  .transport-right-aligned {
+    margin-top: 3px;
+    font-size: 13px;
+    font-weight: 700;
     color: #fde68a;
-    text-align: justify;
-    text-align-last: justify;
-    letter-spacing: 0.4px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
-    white-space: nowrap;
-  }
-
-  .slogan-right-span {
-    width: 38.5%;
-    font-size: 10.5px;
-    font-weight: 800;
-    color: #f8fafc;
-    text-align: justify;
-    text-align-last: justify;
-    letter-spacing: 0.3px;
+    letter-spacing: normal;
+    text-align: right;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
     white-space: nowrap;
   }
@@ -920,11 +900,8 @@
     <div class="login-head">
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin-bottom:12px;" onerror="this.style.display='none'">
       <div class="brand-title-stack">
-        <h1 class="main-academy-title" style="font-size:28px;">Tiba Language Academy</h1>
-        <div class="second-line-row" style="gap:8px; margin-top:4px;">
-          <span class="transport-left-span" style="font-size:11px;">Transportation System</span>
-          <span class="slogan-right-span" style="font-size:7.5px;">A School... To Rely On</span>
-        </div>
+        <h1 class="main-academy-title" style="font-size:28px;">TIBA Language Academy</h1>
+        <span class="transport-right-aligned" style="font-size:11px;">Transportation System</span>
       </div>
     </div>
     <div class="login-body">
@@ -1015,11 +992,8 @@
     <div class="brand-wrapper">
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
       <div class="brand-title-stack">
-        <h1 class="main-academy-title">Tiba Language Academy</h1>
-        <div class="second-line-row">
-          <span class="transport-left-span">Transportation System</span>
-          <span class="slogan-right-span">A School... To Rely On</span>
-        </div>
+        <h1 class="main-academy-title">TIBA Language Academy</h1>
+        <span class="transport-right-aligned">Transportation System</span>
       </div>
     </div>
   </header>
@@ -1527,11 +1501,11 @@
     </div>
   </div>
 
-  <!-- MENU SECTION: THEME STUDIO & ALEXANDRIA HEADER GALLERY (SUPER ADMIN ONLY) -->
+  <!-- MENU SECTION: THEME STUDIO & HEADER GALLERY (SUPER ADMIN ONLY) -->
   <div id="tab-theme" class="tab-content hidden">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">معرض خلفيات الهيدر وإعدادات الثيم (Super Admin Only)</div>
+        <div class="panel-title">معرض خلفيات الهيدر وإعدادات الثيم (Super Admin Only — تتبدل تلقائياً كل 30 ثانية)</div>
       </div>
 
       <div class="form-grid">
@@ -1557,7 +1531,7 @@
         </div>
       </div>
 
-      <div style="margin-top:14px; font-size:13.5px; font-weight:800;">اختر خلفية الهيدر من الصور البانورامية المرفوعة (اضغط على الصورة لتطبيقها فوراً):</div>
+      <div style="margin-top:14px; font-size:13.5px; font-weight:800;">خلفيات الهيدر المتاحة (تتبدل تلقائياً كل 30 ثانية ويمكنك اختيار أي صورة منها فوراً):</div>
       <div class="header-gallery-grid" id="headerGalleryGrid"></div>
 
       <div style="margin-top:14px;">
@@ -1591,18 +1565,18 @@
 </div>
 
 <script>
-  const FALLBACK_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="#ff4d6d" stroke-width="5"/><text x="60" y="68" text-anchor="middle" font-family="Arial" font-weight="900" font-size="22" fill="#ffffff">T.L.A</text></svg>`);
+  const FALLBACK_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><text x="60" y="68" text-anchor="middle" font-family="Arial" font-weight="900" font-size="22" fill="#ffffff">T.L.A</text></svg>`);
 
   const PRESET_HEADERS = [
-    { id: 'h9', label: 'كوبري ستانلي والبحر (9)', src: '{{HEADER_9}}' },
-    { id: 'h8', label: 'قصر المنتزه والبحر (8)', src: '{{HEADER_8}}' },
-    { id: 'h5', label: 'مكتبة الإسكندرية (5)', src: '{{HEADER_5}}' },
-    { id: 'h4', label: 'كورنيش الإسكندرية والأمواج (4)', src: '{{HEADER_4}}' },
-    { id: 'h2', label: 'قلعة قايتباي والميناء (2)', src: '{{HEADER_2}}' },
-    { id: 'h7', label: 'شاطئ الإسكندرية (7)', src: '{{HEADER_7}}' },
-    { id: 'h6', label: 'أمواج البحر والكورنيش (6)', src: '{{HEADER_6}}' },
-    { id: 'h3', label: 'إطلالة بانورامية على الخليج (3)', src: '{{HEADER_3}}' },
-    { id: 'h1', label: 'مياه البحر والصخور (1)', src: '{{HEADER_1}}' }
+    { id: 'h9', label: 'صورة 9', src: '{{HEADER_9}}' },
+    { id: 'h8', label: 'صورة 8', src: '{{HEADER_8}}' },
+    { id: 'h7', label: 'صورة 7', src: '{{HEADER_7}}' },
+    { id: 'h6', label: 'صورة 6', src: '{{HEADER_6}}' },
+    { id: 'h5', label: 'صورة 5', src: '{{HEADER_5}}' },
+    { id: 'h4', label: 'صورة 4', src: '{{HEADER_4}}' },
+    { id: 'h3', label: 'صورة 3', src: '{{HEADER_3}}' },
+    { id: 'h2', label: 'صورة 2', src: '{{HEADER_2}}' },
+    { id: 'h1', label: 'صورة 1', src: '{{HEADER_1}}' }
   ];
 
   const ALL_PERMS_TRUE = {
@@ -1665,6 +1639,7 @@
   let currentReport = 'master';
   let draggedItem = null;
   let users = loadMergedUsers();
+  let headerSlideIndex = 0;
 
   let buses = [];
   let students = [];
@@ -1684,6 +1659,31 @@
   function isSuperAdmin() {
     return !!(currentUser && currentUser.isSuper);
   }
+
+  function getAllHeaderSlides() {
+    const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
+    const validPresets = PRESET_HEADERS.filter(h => h.src && h.src.startsWith('data:'));
+    return [...validPresets, ...customUploads];
+  }
+
+  function applyHeaderImageSrc(src) {
+    if (src && src.startsWith('data:')) {
+      document.documentElement.style.setProperty('--header-bg-image', `url('${src}')`);
+    }
+  }
+
+  // Auto-rotate header images every 30 seconds
+  setInterval(() => {
+    if (localStorage.getItem('tiba_manual_header_lock') === '1') return;
+    const slides = getAllHeaderSlides();
+    if (slides.length > 1) {
+      headerSlideIndex = (headerSlideIndex + 1) % slides.length;
+      const chosen = slides[headerSlideIndex];
+      localStorage.setItem('tiba_selected_header_src', chosen.src);
+      applyHeaderImageSrc(chosen.src);
+      renderHeaderGallery();
+    }
+  }, 30000);
 
   function toggleQuickMenu(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
@@ -1723,14 +1723,14 @@
   function applyBrandAssets() {
     const savedLogo = localStorage.getItem('tiba_custom_logo') || '{{LOGO_SRC}}' || FALLBACK_LOGO;
     const savedBuilding = localStorage.getItem('tiba_custom_building') || '{{BUILDING_SRC}}';
-    const savedHeaderBg = localStorage.getItem('tiba_selected_header_src') || '{{HEADER_9}}';
+    const slides = getAllHeaderSlides();
+    const savedHeaderBg = localStorage.getItem('tiba_selected_header_src') || (slides[0] ? slides[0].src : '{{HEADER_9}}');
     const savedOpacity = localStorage.getItem('tiba_wm_opacity') || '7';
     const savedTheme = localStorage.getItem('tiba_theme_variant') || 'default';
 
     document.querySelectorAll('.clean-logo-img').forEach(img => { img.src = savedLogo; });
-    if (savedHeaderBg && savedHeaderBg.startsWith('data:')) {
-      document.documentElement.style.setProperty('--header-bg-image', `url('${savedHeaderBg}')`);
-    }
+    applyHeaderImageSrc(savedHeaderBg);
+
     if (savedBuilding && savedBuilding.startsWith('data:')) {
       document.getElementById('customWatermark').style.backgroundImage = `url('${savedBuilding}')`;
     }
@@ -1748,11 +1748,10 @@
   function renderHeaderGallery() {
     const grid = document.getElementById('headerGalleryGrid');
     if (!grid) return;
-    const activeSrc = localStorage.getItem('tiba_selected_header_src') || '{{HEADER_9}}';
-    const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
-    const allItems = [...PRESET_HEADERS.filter(h => h.src && h.src.startsWith('data:')), ...customUploads];
+    const slides = getAllHeaderSlides();
+    const activeSrc = localStorage.getItem('tiba_selected_header_src') || (slides[0] ? slides[0].src : '');
 
-    grid.innerHTML = allItems.map(item => `
+    grid.innerHTML = slides.map(item => `
       <div class="header-thumb-card ${activeSrc === item.src ? 'selected' : ''}" onclick="selectHeaderBg('${item.id}')">
         <img src="${item.src}" alt="${item.label}">
         <div class="header-thumb-label">
@@ -1765,12 +1764,12 @@
 
   function selectHeaderBg(id) {
     if (!isSuperAdmin()) return;
-    const customUploads = JSON.parse(localStorage.getItem('tiba_custom_headers_list') || '[]');
-    const allItems = [...PRESET_HEADERS, ...customUploads];
-    const found = allItems.find(x => x.id === id);
+    const slides = getAllHeaderSlides();
+    const found = slides.find(x => x.id === id);
     if (found && found.src) {
       localStorage.setItem('tiba_selected_header_src', found.src);
-      applyBrandAssets();
+      applyHeaderImageSrc(found.src);
+      renderHeaderGallery();
     }
   }
 
