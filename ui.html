@@ -294,7 +294,7 @@
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 20px;
     min-width: 340px;
     background: rgba(7, 16, 30, 0.14);
@@ -330,7 +330,7 @@
   .brand-title-stack {
     display: inline-flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-end;
     direction: ltr;
   }
 
@@ -348,26 +348,8 @@
     white-space: nowrap;
   }
 
-  .second-line-row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
+  .transport-right-aligned {
     margin-top: 3px;
-  }
-
-  .slogan-under-tiba {
-    font-size: 10.5px;
-    font-weight: 800;
-    color: #f8fafc;
-    letter-spacing: normal;
-    text-align: left;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
-    white-space: nowrap;
-  }
-
-  .transport-under-academy {
     font-size: 13px;
     font-weight: 700;
     color: #fde68a;
@@ -919,10 +901,7 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin-bottom:12px;" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title" style="font-size:28px;">TIBA Language Academy</h1>
-        <div class="second-line-row" style="gap:8px; margin-top:3px;">
-          <span class="slogan-under-tiba" style="font-size:8px;">A SCHOOL... TO RELY ON</span>
-          <span class="transport-under-academy" style="font-size:10.5px;">Transportation System</span>
-        </div>
+        <span class="transport-right-aligned" style="font-size:11px;">Transportation System</span>
       </div>
     </div>
     <div class="login-body">
@@ -947,10 +926,7 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <div class="second-line-row">
-          <span class="slogan-under-tiba">A SCHOOL... TO RELY ON</span>
-          <span class="transport-under-academy">Transportation System</span>
-        </div>
+        <span class="transport-right-aligned">Transportation System</span>
       </div>
     </div>
 
