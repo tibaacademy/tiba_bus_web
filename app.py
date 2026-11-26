@@ -132,16 +132,18 @@ if not st.session_state.logged_in:
             submit = st.form_submit_button("تسجيل الدخول", use_container_width=True)
             
             if submit:
-                if username and password:
-                    res = supabase.table("app_users").select("*").eq("username", username.strip()).eq("password", password.strip()).execute()
-                    if res.data:
-                        st.session_state.logged_in = True
-                        st.session_state.user_info = res.data[0]
-                        st.rerun()
-                    else:
-                        st.error("اسم المستخدم أو كلمة المرور غير صحيحة.")
-                else:
-                    st.warning("يرجى إدخال اسم المستخدم وكلمة المرور.")
+    if username and password:
+        try:
+            res = supabase.table("app_users").select("*").execute()
+            st.write("البيانات المستلمة من قاعدة البيانات:", res.data)
+            for u in res.data:
+                if str(u.get("username")).strip() == username.strip() and str(u.get("password")).strip() == password.strip():
+                    st.session_state.logged_in = True
+                    st.session_state.user_info = u
+                    st.rerun()
+            st.error("اسم المستخدم أو كلمة المرور غير صحيحة.")
+        except Exception as e:
+            st.error(f"تفاصيل الخطأ: {e}")
     st.stop()
 
 # ==========================================
