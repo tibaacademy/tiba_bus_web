@@ -14,7 +14,7 @@ st.set_page_config(
 # 2. الاتصال بقاعدة البيانات مباشرة بدون كاش
 def init_connection() -> Client:
     url = "https://mpxpysulrjcpqgrbrpah.supabase.co"
-    Key = "sb_publishable_F4BMccrJCjHVo9vyD_pRkw_yvKdIajE"
+    key = "sb_publishable_F4BMccrJCjHVo9vyD_pRkw_yvKdIajE"
     return create_client(url, key)
 
 supabase = init_connection()
