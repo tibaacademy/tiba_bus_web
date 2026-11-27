@@ -334,17 +334,38 @@
     white-space: nowrap;
   }
 
-  .project-name-tag {
+  .brand-sub-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
     margin-top: 5px;
-    font-size: 21px;
+  }
+
+  .project-name-tag {
+    font-size: 16px;
     font-weight: 900;
     background: linear-gradient(110deg, #f59e0b 0%, #fde68a 35%, #ffffff 50%, #fde68a 65%, #d97706 100%);
     background-size: 220% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gentleCrimsonShine 5s ease-in-out infinite;
-    text-align: justify;
-    text-align-last: justify;
+    text-align: left;
+    line-height: 1.15;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.72));
+    white-space: nowrap;
+  }
+
+  .tagline-right-align {
+    font-size: 14px;
+    font-weight: 800;
+    background: linear-gradient(110deg, #f59e0b 0%, #fde68a 35%, #ffffff 50%, #fde68a 65%, #d97706 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gentleCrimsonShine 5s ease-in-out infinite;
+    text-align: right;
     line-height: 1.15;
     filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.72));
     white-space: nowrap;
@@ -894,7 +915,10 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin:0 auto 10px auto; display:block;" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title" style="font-size:26px;">TIBA Language Academy</h1>
-        <span class="project-name-tag" style="font-size:15px;">Transportation System</span>
+        <div class="brand-sub-row">
+          <span class="project-name-tag" style="font-size:13px;">Transportation System</span>
+          <span class="tagline-right-align" style="font-size:12px;">As Cool To Rely On</span>
+        </div>
       </div>
     </div>
     <div class="login-body">
@@ -988,7 +1012,10 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <span class="project-name-tag">Transportation System</span>
+        <div class="brand-sub-row">
+          <span class="project-name-tag">Transportation System</span>
+          <span class="tagline-right-align">As Cool To Rely On</span>
+        </div>
       </div>
     </div>
   </header>
