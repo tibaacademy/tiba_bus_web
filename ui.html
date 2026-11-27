@@ -316,7 +316,7 @@
   .brand-title-stack {
     display: inline-flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: stretch;
     direction: ltr;
   }
 
@@ -334,36 +334,20 @@
     white-space: nowrap;
   }
 
-  /* Exact width of 'Academy' (approx 38.5% of 'TIBA Language Academy'), no border line */
-  .academy-sub-row {
-    width: 38.5%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    margin-top: 1px;
-  }
-
-  .slogan-aligned {
-    font-size: 11px;
-    font-weight: 800;
-    color: #f8fafc;
-    letter-spacing: 0.5px;
+  .project-name-tag {
+    margin-top: 5px;
+    font-size: 21px;
+    font-weight: 900;
+    background: linear-gradient(110deg, #f59e0b 0%, #fde68a 35%, #ffffff 50%, #fde68a 65%, #d97706 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gentleCrimsonShine 5s ease-in-out infinite;
     text-align: justify;
     text-align-last: justify;
-    border: none;
-    padding-top: 0;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
+    line-height: 1.15;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.72));
     white-space: nowrap;
-  }
-
-  .project-name-tag {
-    margin-top: 4px;
-    font-size: 14px;
-    font-weight: 800;
-    color: #fde68a;
-    letter-spacing: 1.2px;
-    align-self: flex-start;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
   }
 
   /* Navigation Bar */
@@ -908,10 +892,9 @@
   <div class="login-box">
     <div class="login-head">
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" style="width:86px; height:86px; margin:0 auto 10px auto; display:block;" onerror="this.style.display='none'">
-      <div class="brand-title-stack" style="align-items:center;">
-        <h1 class="main-academy-title" style="font-size:28px;">TIBA Language Academy</h1>
-        <span class="slogan-under-tiba" style="font-size:9.5px; text-align:center; margin-top:4px;">A SCHOOL... TO RELY ON</span>
-        <span class="transport-under-academy" style="font-size:11.5px; text-align:center; margin-top:2px;">Transportation System</span>
+      <div class="brand-title-stack">
+        <h1 class="main-academy-title" style="font-size:26px;">TIBA Language Academy</h1>
+        <span class="project-name-tag" style="font-size:15px;">Transportation System</span>
       </div>
     </div>
     <div class="login-body">
@@ -1005,9 +988,6 @@
       <img src="{{LOGO_SRC}}" alt="TLA Logo" class="clean-logo-img" onerror="this.style.display='none'">
       <div class="brand-title-stack">
         <h1 class="main-academy-title">TIBA Language Academy</h1>
-        <div class="academy-sub-row">
-          <span class="slogan-aligned">A SCHOOL... TO RELY ON</span>
-        </div>
         <span class="project-name-tag">Transportation System</span>
       </div>
     </div>
